@@ -1,3 +1,3 @@
-# Javascript-Project-GoIT
+# Javascript Project GoIT
 
-Bootcamp 16 🔥
+# Bootcamp 16 🔥

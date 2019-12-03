@@ -1,4 +1,3 @@
-# javascript-project-goit
+# Javascript-Project-GoIT
 
-GO-IT javascript project 
-Bootcamp 16 
+Bootcamp 16 🔥

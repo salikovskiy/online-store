@@ -3,7 +3,7 @@ import services from './../../services/services'
 
 
 const refs = {
-    contanierCategories: document.querySelector(".contanierCategories")
+    contanierCategories: document.querySelector(".contanier-categories")
     
 } 
 
@@ -15,30 +15,23 @@ const arrAllCategories = () =>{
      services.getAllCategories().
 then(data => {
     // console.log(data);
-    const listCategories = data.map(dataItem => dataItem.category)
-    // console.log(listCategories);
-    return listCategories
-})
+    return data.map(dataItem => dataItem.category)
+}).then(listCategories => {
+    drawListCategories(listCategories)
+    console.log(listCategories)
+    
+} )
 }
-console.log("массив категорий", arrAllCategories);
-console.log("длина массива равна", arrAllCategories.length );
+arrAllCategories()
+// console.log("массив категорий", arrAllCategories());
 
-const drawListCategories = () => {
-    for (let i = 0; i <= arrAllCategories.length; i++){
-        console.log(arrAllCategories);
-        let string = `<li class="itemCategories">${arrAllCategories[i]}</li>`
+const drawListCategories = (listCategories) => {
+    for (let i = 0; i < listCategories.length; i++){
+        console.log("длина массива равна", listCategories.length );
+        // console.log(listCategories);
+        let string = `<li class="itemCategories">${listCategories[i]}</li>`
         console.log(string);
         refs.contanierCategories.insertAdjacentHTML('beforeend', string);
     }
 }
 
-drawListCategories()
-
-
-// console.log("список всех категорий", services.getAllCategories());
-// services.getAllCategories();
-
-// console.log("список всех категорий", arrAllCategories);
-// console.log(" объявления по запросу", curentItems);
-arrAllCategories()
-curentItems(8, 1)

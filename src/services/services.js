@@ -89,7 +89,7 @@ export default {
       console.log(error);
       throw new Error(error);
     }
-  }
+  },
 
 
   async registrateUser(userInfo) {

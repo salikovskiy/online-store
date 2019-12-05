@@ -5,11 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS project</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
-    <form class="form">
-      <input type="text" class="searchInput" placeholder="тыц сюда" />
-    </form>
-    <div class="gallery"></div>
+    <header class="header">
+      <div class="hamburger">
+        <button class="modal-menu">&#9776;</button>
+      </div>
+      <div class="search-wrapper">
+        <button class="search">
+          <i class="material-icons">
+            search
+          </i>
+        </button>
+        <form class="from">
+          <input type="text" class="search-input" />
+        </form>
+      </div>
+      <div class="logo-wrapper">
+        <a href="#">ШОП</a>
+      </div>
+      <button class="create-ad">створити оголошення!</button>
+    </header>
+    <section class="clear">
+      <button class="clear-btn"><span>&#8634;</span> Очістити фільтри</button>
+    </section>
+    <main class="main"></main>
+    <footer class="footer">
+      <div class="container">
+        <p>&#169; 2019</p>
+        <p>All Right Reserved</p>
+        <p>
+          Developed with <span>&#10084;</span> by
+          <a
+            href="https://github.com/salikovskiy/javascript-project-goit/graphs/contributors"
+            >GoIT Students</a
+          >
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

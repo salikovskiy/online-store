@@ -2,21 +2,23 @@ import services from '../services/services.js';
 import { template } from 'handlebars';
 
 const refs = {
-  input: document.querySelector('.searchInput'),
-  gallery: document.querySelector('.gallery'),
-  form: document.querySelector('.form'),
+  input: document.querySelector('.search-input'),
+  main: document.querySelector('.main'),
+  form: document.querySelector('.from'),
 };
 
+refs.form.addEventListener('submit', handlesubmit);
+
 function handlesubmit(e) {
-  getAllCategories()
+  e.preventDefault();
+  services
+    .getAllProduct()
     .then(data => {
       let string = template(data);
       return string;
     })
-    .then(string => refs.gallery.insertAdjacentHTML('beforeend', string));
+    .then(string => refs.main.insertAdjacentHTML('beforeend', string));
 }
-
-refs.form.addEventListener('submit', handlesubmit);
 
 // console.log(refs.input);
 // function handleInput(e) {

@@ -1,0 +1,88 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.lightbox {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms linear;
+}
+
+.lightbox.is-open {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.lightbox__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow: scroll;
+}
+
+.lightbox__content {
+    position: absolute;
+    top: 13%;
+    left: 8%;
+    /* max-width: 600px; */
+    padding: 24px;
+    transform: scale(0.9);
+    transition: transform 200ms ease-in-out;
+    background-color: #fff;
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.lightbox.is-open .lightbox__content {
+    transform: scale(1);
+}
+
+.lightbox__button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+    outline: none;
+}
+
+.lightbox__button:hover,
+.lightbox__button:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.lightbox__button i {
+    font-size: 36px;
+}
+
+.ads {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

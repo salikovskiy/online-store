@@ -5,7 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS project</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   </head>
 
-  <body></body>
+  <body>
+    <div class="container">
+    <div class="lightbox js-lightbox is-open">
+      <div class="lightbox__overlay"></div>
+  
+      <div class="lightbox__content">
+          <p>Мои объявления</p>
+        <ul class="ads"></ul>
+        <p>Сохраненные объявления</p>
+        <ul class="favorites"></ul>
+      </div>
+  
+      <button type="button" class="lightbox__button" data-action="close-lightbox">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+  </div>
+  </body>
 </html>

@@ -1,0 +1,139 @@
+.modalBox {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  background-color: rgb(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+}
+
+.modalBox.is-open {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.formWrapper {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 920px;
+  height: 700px;
+  padding: 30px 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 880px;
+  margin: 0 auto;
+}
+
+.closeForm {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  outline: none;
+}
+
+.formTitle {
+  margin-bottom: 40px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.iw {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Photo label */
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.secondInput__Wrapper {
+  justify-content: space-between;
+}
+
+.secondInput--title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.secondLabel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 604px;
+  height: 60px;
+  cursor: pointer;
+}
+.plusPhoto {
+  display: block;
+  margin: 0;
+  width: 75px;
+  height: 60px;
+  background-color: rgb(244, 246, 251);
+  text-align: center;
+  line-height: 60px;
+  color: rgb(180, 180, 180);
+  font-size: 24px;
+  font-weight: lighter;
+}
+
+.fileInput {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+/* ------------------------ */
+
+input {
+  width: 600px;
+  height: 60px;
+}
+
+.categorySelect {
+  width: 604px;
+  height: 60px;
+}
+
+.addButton {
+  margin-top: 35px;
+  margin-left: 276px;
+  text-align: center;
+  width: 294px;
+  height: 60px;
+  border: none;
+  background-color: rgb(255, 107, 8);
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}

@@ -1,0 +1,65 @@
+{{#each this}}
+
+<form class="form" method="POST">
+    <button type="button" class="closeForm" data-action="closeForm">
+        <i class="material-icons">close</i>
+    </button>
+    <p class="formTitle">
+        Додати оголошення
+    </p>
+    <div class="firstInput__Wrapper iw">
+        <label for="firstInput" class="firstInput__label">Назва товару</label>
+        <input class="firstInput" type="text" name="itemName" />
+    </div>
+
+    <div class="secondInput__Wrapper iw">
+        <p class="secondInput--title">Фото</p>
+        <div class="formGroup">
+            <label class="secondLabel">
+                <span class="plusPhoto">+</span>
+                <span class="plusPhoto">+</span>
+                <span class="plusPhoto">+</span>
+                <span class="plusPhoto">+</span>
+                <span class="plusPhoto">+</span>
+                <span class="plusPhoto">+</span>
+                <input type="file" name="addPhoto" class="fileInput" />
+            </label>
+        </div>
+    </div>
+
+    <div class="thirdInput__Wrapper iw">
+        <label for="thirdInput" class="thirdInput__label">Опис товару</label>
+        <input class="thirdInput" type="text" name="itemDescription" />
+    </div>
+
+    <div class="selectWrapper iw">
+        <label for="select">Категорія товару</label>
+        <select class="categorySelect" name="category">
+            <option></option>
+            <option id={{id}}>first category</option>
+            <option id={{id}}>second category</option>
+            <option id={{id}}>third category</option>
+            <option id={{id}}>fourth category</option>
+            <option id={{id}}>fifth category</option>
+            <option id={{id}}>sixth category</option>
+            <option id={{id}}>seventh category</option>
+            <option id={{id}}>eighth category</option>
+        </select>
+    </div>
+
+    <div class="fourthInput__Wrapper iw">
+        <label class="fourthInput__label" for="fourthInput">Ціна</label>
+        <input class="fourthInput" type="number" name="price" />
+    </div>
+
+    <div class="firthInput__Wrapper iw">
+        <label for="fifthInput" class="fifthInput__label">Телефон</label>
+        <input class="fifthInput" type="tel" name="phoneNumber" />
+    </div>
+
+    <button type="submit" class="addButton">
+        Додати
+    </button>
+</form>
+
+{{/each}}

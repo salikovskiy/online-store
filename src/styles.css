@@ -1,0 +1,9 @@
+ul, li{
+    list-style: none;
+}
+
+.itemCard{
+    width: 200px;
+    height: 350px;
+    border: 1px solid grey;
+}

@@ -77,7 +77,6 @@ export default {
     }
   },
 
- 
   async deletedProduct(adId) {
     try {
       const data = await axios.delete(`/ds/${adId}`, {
@@ -89,7 +88,7 @@ export default {
       console.log(error);
       throw new Error(error);
     }
-  }
+  },
 
 
   async registrateUser(userInfo) {

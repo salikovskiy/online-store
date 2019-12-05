@@ -6,6 +6,6 @@ const defaultUser = {
   name: 'Anna',
 };
 
-services.registrateUser(defaultUser);
-services.loginUser(defaultUser);
+// services.registrateUser(defaultUser);
+// services.loginUser(defaultUser);
 // services.logoutUser(defaultUser);

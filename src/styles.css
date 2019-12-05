@@ -1,3 +1,5 @@
+@import "./components/autentification/autentification.css";
+
 * {
   padding: 0;
   margin: 0;
@@ -43,7 +45,16 @@ body {
   flex-direction: row-reverse;
 }
 
-.create-ad {
+.btn-wrapper {
+  width: 440px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.create-ad,
+.login-register {
   display: none;
   border: none;
   background-color: #ff6b08;
@@ -52,10 +63,22 @@ body {
   text-align: center;
   color: white;
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+.login-register {
+  /* display: block; */
+  background-color: rgb(206, 204, 204);
+  color: #000;
 }
 
 .create-ad:hover {
   background-color: #e75e02;
+}
+
+.login-register:hover {
+  background-color: rgb(196, 193, 193);
+  ;
 }
 
 .modal-menu {
@@ -187,6 +210,7 @@ main {
   .container {
     width: 1240px;
   }
+
   .search-input {
     width: 350px;
   }

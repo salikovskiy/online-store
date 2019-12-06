@@ -144,3 +144,7 @@ input {
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
+
+.addButton:hover {
+  background-color: rgb(231, 94, 2);
+}

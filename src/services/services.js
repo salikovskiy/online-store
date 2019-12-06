@@ -6,7 +6,6 @@ export default {
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      // console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -17,7 +16,6 @@ export default {
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -28,7 +26,6 @@ export default {
   async getCategoriesById(id) {
     try {
       const data = await axios.get(`/ads/${id}`);
-      console.log(data.data.goal);
       return data.data.goal;
     } catch (error) {
       console.log(error);
@@ -41,7 +38,6 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
-      console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -54,7 +50,6 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-      console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -67,7 +62,6 @@ export default {
       const data = await axios.post('/ads', object, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -80,7 +74,6 @@ export default {
       const data = await axios.delete(`/ds/${adId}`, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -90,7 +83,6 @@ export default {
 
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
-    console.log(data);
     if (data.data.status === 'success') {
       this.loginUser(userInfo);
     } else {
@@ -101,7 +93,6 @@ export default {
   },
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
-    console.log(data);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
   },

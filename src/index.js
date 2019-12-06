@@ -1,4 +1,5 @@
 import './styles.css';
+import './components/preloader/preloader';
 import './services/services';
 import './services/test';
 import services from './services/services';

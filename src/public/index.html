@@ -13,24 +13,21 @@
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=cyrillic"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="section">
-      <a href="#" class="menu_btn">
-        <span class="menu_btn-lines"></span>
-      </a>
-      <nav class="navigation conteiner">
-        <menu class="navigation__menu">
-          <ul class="navigation__menu_list"></ul>
-        </menu>
-      </nav>
-    </div>
-    <script type="module" src="/src/index.js"></script>
-
     <header class="header">
       <div class="hamburger">
         <button class="modal-menu">&#9776;</button>
-        <button class="nav-menu">&#10005;</button>
+      </div>
+      <div class="menu-wrapper-none" id="modalka">
+        <button class="close">&#10005;</button>
+        <nav class="navigation conteiner">
+          <ul class="navigation__menu_list"></ul>
+        </nav>
       </div>
       <div class="search-wrapper">
         <button class="search">
@@ -64,5 +61,7 @@
         </p>
       </div>
     </footer>
+
+    <script type="module" src="./src/index.js"></script>
   </body>
 </html>

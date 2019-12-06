@@ -1,21 +1,43 @@
 import './styles.css';
 import './components/preloader/preloader';
-import './services/services';
-import './services/test';
+import category from '../src/components/templates/template.hbs';
+import services from './services/services';
 
 const refs = {
-  burgerMenu: document.querySelector('.menu_btn'),
-  burgerActive: document.querySelector('.menu_btn-active'),
-  closedBtn: document.querySelector('.menu_btn-closed'),
-  menu: document.querySelector('.navigation__menu_list'),
-  button: document.querySelector('.section'),
+  btnMenu: document.querySelector('.modal-menu'),
+  modalka: document.querySelector('#modalka'),
+  close: document.querySelector('.close'),
+  ul: document.querySelector('.navigation__menu_list'),
 };
 
-refs.burgerMenu.addEventListener('click', event => {
-  event.preventDefault();
-  // refs.button.classList.add(.menu_btn-active);
-  refs.burgerMenu.setAttribute('class', 'menu_btn-active');
+refs.btnMenu.addEventListener('click', () => {
+  refs.modalka.setAttribute('class', 'menu-wrapper');
 });
 
-console.log(refs.burgerMenu);
-console.log(refs.burgerActive);
+refs.close.addEventListener('click', () => {
+  refs.modalka.setAttribute('class', 'menu-wrapper-none');
+});
+
+const state = {
+  categories: [],
+};
+
+const getCategorys = async () => {
+  await services.getAllProduct().then(data => {
+    const string = category(data.categories);
+    refs.ul.insertAdjacentHTML('beforeend', string);
+  });
+};
+getCategorys();
+
+const onHandleClick = async evt => {
+  // console.log('work');
+  console.log(evt.target.id);
+  const getCategory = await services.getCategoriesWithNumberCategories(
+    evt.target.id,
+    services.page,
+  );
+  console.log(getCategory);
+};
+
+refs.ul.addEventListener('click', onHandleClick);

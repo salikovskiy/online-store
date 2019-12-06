@@ -1,37 +1,44 @@
-import services from './../../services/services'
+import services from './../../services/services';
 // import listCategories from '../templates/listCategories.hbs'
 
-
 const refs = {
-    contanierCategories: document.querySelector(".contanier-categories")
-    
-} 
+  contanierCategories: document.querySelector('.categories'),
+  ulInner: null,
+};
 
-const curentItems = (numberCategories, numberPage) => {
-    services.getItemCategory(numberCategories, numberPage).
-    then(({data}) => console.log(data.ads))
-}
-const arrAllCategories = () =>{
-     services.getAllCategories().
-then(data => {
-    // console.log(data);
-    return data.map(dataItem => dataItem.category)
-}).then(listCategories => {
-    drawListCategories(listCategories)
-    console.log(listCategories)
-    
-} )
-}
-arrAllCategories()
-// console.log("массив категорий", arrAllCategories());
 
-const drawListCategories = (listCategories) => {
-    for (let i = 0; i < listCategories.length; i++){
-        console.log("длина массива равна", listCategories.length );
-        // console.log(listCategories);
-        let string = `<li class="itemCategories">${listCategories[i]}</li>`
-        console.log(string);
-        refs.contanierCategories.insertAdjacentHTML('beforeend', string);
-    }
+const getCategories = () => {
+  return services.getAllProduct();
+};
+
+function paint({ categories }) {
+  console.log('info', categories);
+  let string = '';
+  categories.forEach(element => {
+    string += `<li class="categories-item">
+                <h2 class = "categories-item-title" >${element.category}</h2>
+                <button class = "categories-item-btn">Дивiться всi</button>
+                <ul class = "categories-item-listcards">
+                    </ul>
+                </li>`;
+  });
+  refs.contanierCategories.insertAdjacentHTML('beforeend', string);
+  refs.ulInner = document.querySelectorAll('.categories-item-listcards');
+
+  refs.ulInner.forEach((element, index) => {
+    let card = '';
+    services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
+      data.forEach(item => {
+        card += `<li>${item.title}</li>`;
+      });
+      console.log(element);
+      console.log(card);
+      element.insertAdjacentHTML('beforeend', card);
+    });
+  });
 }
 
+function renderData() {
+  getCategories().then(data => paint(data));
+}
+renderData();

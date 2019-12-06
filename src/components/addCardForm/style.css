@@ -1,15 +1,16 @@
 .modalBox {
   position: fixed;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: initial;
   background-color: rgb(0, 0, 0, 0.7);
   width: 100vw;
   height: 100vh;
 }
 
-.modalBox.is-open {
-  opacity: 1;
-  pointer-events: initial;
+.modalBox.is-closed {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .formWrapper {
@@ -17,7 +18,6 @@
   background-color: rgb(255, 255, 255);
   width: 920px;
   height: 700px;
-  padding: 30px 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -26,16 +26,23 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 880px;
+  padding: 30px 40px;
+  width: 840px;
   margin: 0 auto;
+}
+
+.form.is-closed {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .closeForm {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   padding: 0;
   margin: 0;
   border: none;

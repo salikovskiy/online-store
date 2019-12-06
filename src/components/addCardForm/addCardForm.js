@@ -3,7 +3,7 @@ import styles from './style.css';
 // import addCardForm from '../templates/addCardForm.hbs';
 import API from '../../services/services.js';
 
-API.getAllProduct().then(data => console.log(data.categories));
+// API.getAllProduct().then(data => console.log(data.categories));
 
 // ------------Отрисовка шаблона------------
 
@@ -11,7 +11,7 @@ const modalForm = document.querySelector('.modalForm');
 const openModalForm = document.querySelector('.create-ad');
 
 const formMarkup = `
-<div class="modalBox" method="POST">
+<div class="modalBox">
 <div class="formWrapper">
 <button type="button" class="closeForm" data-action="closeForm">
     <i class="material-icons">close</i>
@@ -74,10 +74,11 @@ const formMarkup = `
 openModalForm.addEventListener('click', e => {
   e.preventDefault();
   modalForm.insertAdjacentHTML('beforeend', formMarkup);
-  const modalBox = document.querySelector('.modalBox');
-  const form = document.querySelector('.form');
 
   //   ----------Закртытие формы по клику (поставил слушателя внутрь слушателя, потому что второй слушатель не находит форму, так как она динамически отрисовывается)
+
+  const modalBox = document.querySelector('.modalBox');
+  const form = document.querySelector('.form');
 
   modalBox.addEventListener('click', e => {
     if (
@@ -85,8 +86,7 @@ openModalForm.addEventListener('click', e => {
       e.target.className === 'material-icons' ||
       e.target.className === 'modalBox'
     ) {
-      modalBox.classList.add('is-closed');
-      form.classList.add('is-closed');
+      modalForm.innerHTML = '<div class="modalSpace"';
     }
   });
 

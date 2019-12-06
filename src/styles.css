@@ -67,7 +67,7 @@ body {
 }
 
 .login-register {
-  /* display: block; */
+  display: block;
   background-color: rgb(206, 204, 204);
   color: #000;
 }

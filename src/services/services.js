@@ -104,9 +104,9 @@ export default {
   },
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
-    console.log(data);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
+    localStorage.setItem("userId", data.data.userData.userId)
   },
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
@@ -116,6 +116,7 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
+    localStorage.removeItem("userId");
   },
 
 };

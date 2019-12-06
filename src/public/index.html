@@ -39,16 +39,22 @@
 
     <div class="lightbox__overlay"></div>
     <div class="registrate-form lightbox__content">
+
+
       <form class="form">
         <p>Ви можете авторизуватися за допомогою Google Account:</p>
         <button class="form__btn"></button>
         <p>Або увійти за допомогою і-мейлу й пароля, попередньо зареєструвашись:</p>
-        <div class="input-field-wrapper"><input type="email" name="email" class="input-field" placeholder="E-mail">
+        <div class="input-field-wrapper">
+          <input type="email" name="email" class="input-field" placeholder="E-mail">
           <input type="password" class="input-field" name="password" placeholder="Password">
           <input type="text" class="input-field hidden" name="userName" placeholder="Name"></div>
         <div class="form-btns-wrapper"><button class="form__btn btn--login" data-action="login">увійти</button>
-          <button class="form__btn btn--register" data-action="register">зареєструватися</button></div>
+          <button type="button" name="register" class="form__btn btn--register"
+            data-action="register">зареєструватися</button></div>
       </form>
+
+
       <button type="button" class="lightbox__button" data-action="close-lightbox">
         <i class="material-icons">close</i>
       </button>

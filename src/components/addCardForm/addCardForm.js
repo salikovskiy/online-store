@@ -96,12 +96,13 @@ openModalForm.addEventListener('click', e => {
   function formHandleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const data = {};
+    const object = {};
     formData.forEach((value, name) => {
-      data[name] = value;
+      object[name] = value;
+
+      // ---------------Отправляю данные на сервер-----------
+
+      API.adsProduct(object);
     });
-    console.log('Объект данных из формы:', data);
   }
 });
-
-// ---------------Отправляю данные на сервер-----------

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import styles from './style.css';
+import styles from './addCardstyle.css';
 // import addCardForm from '../templates/addCardForm.hbs';
 import API from '../../services/services.js';
 
@@ -106,12 +106,12 @@ openModalForm.addEventListener('click', e => {
   function formHandleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const data = {};
+    const object = {};
     formData.forEach((value, name) => {
-      data[name] = value;
+      object[name] = value;
     });
-    console.log('Объект данных из формы:', data);
+    console.log('Объект данных из формы:', object);
 
-    //----------Отправляю данные на сервер-----------
+    //----------Отправляю объявление на сервер по данным из формы-----------
   }
 });

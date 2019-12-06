@@ -16,7 +16,7 @@ const category = {
 function getData() {
   return API.getAllProduct().then(data => {
     data.categories.forEach(item => {
-      category.name = [...category.name, item.category];
+      category.name = [...category.name, item];
     });
     return category.name;
   });
@@ -29,7 +29,6 @@ const formMarkup = `
 <i class="material-icons">close</i>
 </button>
 <form class="form">
-
 <p class="formTitle">Додати оголошення</p>
 <div class="firstInput__Wrapper iw">
 <label for="firstInput" class="firstInput__label">Назва товару</label>
@@ -81,7 +80,10 @@ openModalForm.addEventListener('click', e => {
   const select = document.querySelector('.categorySelect');
   getData().then(data => {
     let string = '';
-    data.forEach(item => (string += `<option>${item}</option>`));
+    data.forEach(
+      item =>
+        (string += `<option data-category="${item._id}">${item.category}</option>`),
+    );
     select.insertAdjacentHTML('beforeend', string);
   });
 
@@ -113,5 +115,11 @@ openModalForm.addEventListener('click', e => {
     console.log('Объект данных из формы:', object);
 
     //----------Отправляю объявление на сервер по данным из формы-----------
+
+    function addCard() {
+      API.adsProduct(object).then(data => {
+        return data;
+      });
+    }
   }
 });

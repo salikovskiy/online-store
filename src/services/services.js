@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-
-
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
@@ -15,7 +13,7 @@ export default {
       throw new Error(error);
     }
   },
- 
+
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
@@ -37,7 +35,7 @@ export default {
       throw new Error(error);
     }
   },
- 
+
   async limitExtradition(limit, pageNumber) {
     try {
       const data = await axios.get(
@@ -50,7 +48,7 @@ export default {
       throw new Error(error);
     }
   },
- 
+
   async getCategoriesWithNumberCategories(numberCategories, homePage) {
     try {
       const data = await axios.get(
@@ -77,7 +75,6 @@ export default {
     }
   },
 
- 
   async deletedProduct(adId) {
     try {
       const data = await axios.delete(`/ds/${adId}`, {
@@ -89,8 +86,7 @@ export default {
       console.log(error);
       throw new Error(error);
     }
-  }
-
+  },
 
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
@@ -118,5 +114,4 @@ export default {
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
   },
-
 };

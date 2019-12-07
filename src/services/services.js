@@ -93,20 +93,21 @@ export default {
 
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
-    console.log(data);
     if (data.data.status === 'success') {
-      this.loginUser(userInfo);
+      await this.loginUser(userInfo);
     } else {
       const regex = /[a-z0-9\.\-\+]+@[a-z0-9\.\-\+]+/gim;
       const res = data.data.error;
       console.error(`This email: ${res.match(regex)} already exists`);
     }
+    return data;
   },
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
-    localStorage.setItem("userId", data.data.userData.userId)
+    localStorage.setItem("userId", data.data.userData.userId);
+    return data;
   },
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');

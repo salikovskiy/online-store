@@ -2,94 +2,99 @@ import services from '../../services/services';
 
 const refs = {
   login: document.querySelector('.login-register'),
-  registrateForm: document.querySelector('.lightbox'),
+  registrationForm: document.querySelector('.lightbox'),
   closeBtn: document.querySelector('[data-action = close-lightbox]'),
   form: document.querySelector('.form'),
   registerBtn: document.querySelector('[data-action = register]'),
   loginBtn: document.querySelector('[data-action = login]'),
-  nameField: document.querySelector('[name=userName]'),
+  nameField: document.querySelector('[name=name]'),
   actionContainer: document.querySelector('.action_container'),
 };
 
 const state = {
   isLogin: false,
-  isRegistrateFormOpen: false,
-  isRegistrated: true,
+  isRegistrationFormOpen: false,
+  isRegistered: false,
 };
 
 function openModalWindowWithRegistrationForm() {
-  refs.registrateForm.classList.add('is-open');
+  refs.registrationForm.classList.add('is-open');
 }
 function closeModalWindowWithRegistrationForm() {
-  refs.registrateForm.classList.remove('is-open');
+  refs.registrationForm.classList.remove('is-open');
 }
 
-function getFormData(evt) {
+async function getFormData(evt) {
   evt.preventDefault();
-
-  evt.target.querySelectorAll('button').forEach(elem => {
-    console.log(elem.textContent);
-  });
+  evt.target.querySelectorAll('button').forEach(elem => {});
   const data = {};
-
   evt.target.querySelectorAll('input').forEach(elem => {
-    console.log(elem.value);
     if (elem.value !== '') {
       data[elem.name] = elem.value;
     }
   });
 
   const keys = Object.keys(data);
-
-  if (keys.length === 3 && !state.isRegistrated) {
+  let result;
+  if (keys.length === 3) {
     console.log(keys.length);
-    services.registrateUser(data);
+    // loader-> with await im waiting for result->close loader
+    result = await services.registrateUser(data);
 
-    state.isRegistrated = 'true';
-  } else if (keys.length === 2 && state.isRegistrated) {
-    services.loginUser(data);
-    refs.registrateForm.classList.remove('is-open');
-    refs.login.textContent = 'Вийти';
+    console.log(result);
+  } else if (keys.length === 2) {
+    // loader-> with await im waiting for result->close loader
+    result = await services.loginUser(data);
+  }
+  if (result.data.status === 'success') {
+    setListeners();
+    closeModalWindowWithRegistrationForm();
+  }
+}
+
+function exit() {
+  services.logoutUser().then(function() {
+    setListeners();
+  });
+}
+
+function openRegistrateForm(evt) {
+  if (!state.isRegistrationFormOpen) {
+    state.isRegistrationFormOpen = true;
+    refs.nameField.classList.remove('hidden');
+    refs.loginBtn.style.display = 'none';
   } else {
-    services.logoutUser(data);
-    refs.registrateForm.classList.remove('is-open');
+    refs.registerBtn.setAttribute('type', 'submit');
+  }
+}
+
+function setListeners() {
+  if (localStorage.getItem('token') === null) {
+    state.isLogin = false;
+    refs.login.textContent = 'Реєстрація/Увійти';
+    refs.login.removeEventListener('click', exit);
+    refs.login.addEventListener('click', openModalWindowWithRegistrationForm);
+    refs.closeBtn.addEventListener(
+      'click',
+      closeModalWindowWithRegistrationForm,
+    );
+    refs.form.addEventListener('submit', getFormData);
+    refs.registerBtn.addEventListener('click', openRegistrateForm);
+  } else {
+    state.isLogin = true;
     refs.login.textContent = 'Вийти';
     refs.login.removeEventListener(
       'click',
       openModalWindowWithRegistrationForm,
     );
-  }
-  console.log(keys.length);
-  return data;
-}
-function exit() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userInfo');
-}
-
-function openRegistrateForm(evt) {
-  if (!state.isRegistrateFormOpen) {
-    state.isRegistrateFormOpen = 'true';
-    refs.nameField.classList.remove('hidden');
-    refs.loginBtn.style.display = 'none';
-  } else {
-    state.isRegistrateFormOpen = 'false';
-    refs.registerBtn.setAttribute('type', 'submit');
+    refs.form.removeEventListener('submit', getFormData);
+    refs.closeBtn.removeEventListener(
+      'click',
+      closeModalWindowWithRegistrationForm,
+    );
+    refs.registerBtn.removeEventListener('click', openRegistrateForm);
+    refs.registrationForm.classList.remove('is-open');
+    refs.login.addEventListener('click', exit);
   }
 }
-
-if (localStorage.getItem('token') === null) {
-  console.log(refs.login.textContent);
-  state.isLogin = true;
-  //   refs.login.removeEventListener('click', exit);
-  refs.login.addEventListener('click', openModalWindowWithRegistrationForm);
-  refs.closeBtn.addEventListener('click', closeModalWindowWithRegistrationForm);
-  refs.form.addEventListener('submit', getFormData);
-  refs.registerBtn.addEventListener('click', openRegistrateForm);
-  //refs.registerBtn.addEventListener('click', setSubmit);
-}
-if (localStorage.getItem('token')) {
-  refs.registrateForm.classList.remove('is-open');
-  refs.login.textContent = 'Вийти';
-  //   refs.login.addEventListener('click', exit);
-}
+setListeners();

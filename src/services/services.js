@@ -3,11 +3,14 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
-   refs: {},
+  refs: {
+    formFilter: document.querySelector('.filter'),
+    formSelect: document.querySelector('.cetegories-container'),
+  },
+
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -15,12 +18,9 @@ export default {
     }
   },
 
-
- 
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
-
       return data;
     } catch (error) {
       console.log(error);
@@ -28,10 +28,9 @@ export default {
     }
   },
 
-  async getCategoriesById(id) {
+  async getCardById(id) {
     try {
       const data = await axios.get(`/ads/${id}`);
-
       return data.data.goal;
     } catch (error) {
       console.log(error);
@@ -44,7 +43,6 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
-
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -57,7 +55,6 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -70,7 +67,6 @@ export default {
       const data = await axios.post('/ads', object, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-
       return data;
     } catch (error) {
       console.log(error);
@@ -80,11 +76,9 @@ export default {
 
   async deletedProduct(adId) {
     try {
-      const data = await axios.delete(`/ds/${adId}`, {
+      const data = await axios.delete(`/ads/${adId}`, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-
-
       return data;
     } catch (error) {
       console.log(error);
@@ -92,11 +86,8 @@ export default {
     }
   },
 
-
-
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
-
     if (data.data.status === 'success') {
       this.loginUser(userInfo);
     } else {
@@ -107,9 +98,9 @@ export default {
   },
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
-
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
+    return data;
   },
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
@@ -120,6 +111,4 @@ export default {
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
   },
-
-
 };

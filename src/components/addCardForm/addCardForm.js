@@ -39,13 +39,13 @@ const formMarkup = `
 <p class="secondInput--title">Фото</p>
 <div class="formGroup">
 <label class="secondLabel">
-<span class="plusPhoto">+</span>
-<span class="plusPhoto"></span>
-<span class="plusPhoto"></span>
-<span class="plusPhoto"></span>
-<span class="plusPhoto"></span>
-<span class="plusPhoto"></span>
-<input type="file" name="images" class="fileInput" multiple />
+<image class="cardImg" src="./icon/add_photo_icon_75x60.png" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<input type="file" name="images" class="fileInput" />
 </label>
 </div>
 </div>
@@ -88,6 +88,19 @@ openModalForm.addEventListener('click', e => {
     select.insertAdjacentHTML('beforeend', string);
   });
 
+  const newCardImg = document.querySelector('.cardImg');
+  const addProductImg = document.querySelector('.fileInput');
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    newCardImg.src = e.target.result;
+  };
+
+  addProductImg.addEventListener('change', e => {
+    const file = e.target.files[0];
+    reader.readAsDataURL(file);
+  });
+
   //-------------Закртытие формы по клику-----------
 
   const modalBox = document.querySelector('.modalBox');
@@ -121,10 +134,29 @@ openModalForm.addEventListener('click', e => {
     submitForm.addEventListener('click', e => {
       e.preventDefault();
       if (e.target.dataset.action === 'submitForm') {
-        API.adsProduct(object).then(data => {
-          // дописать отправку формы на сервер и вывод добавленого товара вверху списка товаров по категории
+        const newCard = formParser();
+        exportCard(newCard);
+        API.adsProduct(formData).then(data => {
+          // дописать вывод добавленого товара вверху списка товаров по категории
         });
       }
     });
   }
 });
+
+function formParser() {
+  return {
+    images: form.querySelector('.fileInput').files[0],
+    title: form.querySelector('.firstInput').value,
+    category: form.querySelector('.categorySelect').value,
+    price: form.querySelector('.fourthInput').value,
+    phone: form.querySelector('.fifthInput').value,
+    description: form.querySelector('.thirdInput').value,
+  };
+}
+
+function exportCard(obj) {
+  Object.keys(obj).forEach(key => {
+    formData.append(key, obj[key]);
+  });
+}

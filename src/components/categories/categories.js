@@ -1,24 +1,34 @@
 import services from './../../services/services';
+import itemCard from '../itemCard/itemCard';
+
 // import listCategories from '../templates/listCategories.hbs'
 
 const refs = {
   contanierCategories: document.querySelector('.categories'),
   ulInner: null,
+  btnShowAll: null,
+  btnSlider: null,
+  createAd: document.querySelector(".create-ad")
 };
-
 
 const getCategories = () => {
   return services.getAllProduct();
 };
 
 function paint({ categories }) {
-  console.log('info', categories);
+  console.log('список категорий', categories);
   let string = '';
   categories.forEach(element => {
-    string += `<li class="categories-item">
-                <h2 class = "categories-item-title" >${element.category}</h2>
-                <button class = "categories-item-btn">Дивiться всi</button>
-                <ul class = "categories-item-listcards">
+    string += `<li class="categories-item data-category="${element._id}">
+                <div class="categories-item-overlay-title">
+                <h2 class="categories-item-title" >${element.category}</h2>
+                <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивiться всi</button>
+                </div>
+                <div class="categories-item-btn-slider visually-hidden">
+                <button class="categories-item-btn-slider-prev data-category="${element._id}"">previous</button>
+                <button class="categories-item-btn-slider-next data-category="${element._id}"">previous</button>
+                </div>
+                <ul class="categories-item-listcards" data-category="${element._id}">
                     </ul>
                 </li>`;
   });
@@ -28,17 +38,55 @@ function paint({ categories }) {
   refs.ulInner.forEach((element, index) => {
     let card = '';
     services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
-      data.forEach(item => {
-        card += `<li>${item.title}</li>`;
+      // console.log("список карточек по категории", data);
+      visibleBtnCategoriesItem(data, index)
+      
+      data.forEach((item, index) => {
+        if (index < 4) {
+          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        }
       });
-      console.log(element);
-      console.log(card);
       element.insertAdjacentHTML('beforeend', card);
+
     });
   });
+}
+
+const visibleBtnCategoriesItem = (listItemCard, indexCategory) => {
+  refs.btnShowAll = document.querySelectorAll(".categories-item-btn-showall")
+  refs.btnSlider = document.querySelectorAll(".categories-item-btn-slider")
+  if (listItemCard.length > 4){
+    refs.btnShowAll[indexCategory].classList.remove("visually-hidden")
+    refs.btnSlider[indexCategory].classList.remove("visually-hidden")
+  }
 }
 
 function renderData() {
   getCategories().then(data => paint(data));
 }
 renderData();
+
+const drawAllItemCardByCategory = e => {
+  if(e.target.className === "categories-item-btn-showall"){
+    console.log(e.target.className);
+    console.log(e.target.dataset.category);
+    console.log(refs.ulInner);
+    console.log(refs.ulInner[e.target.dataset.category-1]);
+    services.getCategoriesWithNumberCategories(e.target.dataset.category, 1).then(data => {
+      console.log(data);
+      let card = ""
+      data.forEach((item) => {
+        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        console.log(card);
+      });
+      refs.ulInner[e.target.dataset.category-1].innerHTML = card;
+    })
+
+  }
+}
+window.addEventListener('click', drawAllItemCardByCategory);
+
+services.getQuantityAllItemsByCategory(2, 1).then(quantity => console.log(quantity))
+
+
+

@@ -131,5 +131,25 @@ export default {
     localStorage.removeItem('userInfo');
   },
 
+  async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.docs;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async getQuantityAllItemsByCategory(numberCategories, homePage) {
+    // return axios.get('/ads/all').then(data => data.data.ads.totalDocs);
+    const data = await axios.get(
+      `/ads/all?category=${numberCategories}&page=${homePage}`,
+    );
+    return data.data.ads.totalDocs;
+  },
+
 
 };

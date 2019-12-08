@@ -144,11 +144,15 @@ export default {
   },
 
   async getQuantityAllItemsByCategory(numberCategories, homePage) {
-    // return axios.get('/ads/all').then(data => data.data.ads.totalDocs);
+    try{
     const data = await axios.get(
       `/ads/all?category=${numberCategories}&page=${homePage}`,
     );
     return data.data.ads.totalDocs;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   },
 
 

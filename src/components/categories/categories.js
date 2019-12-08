@@ -8,7 +8,7 @@ const refs = {
   ulInner: null,
   btnShowAll: null,
   btnSlider: null,
-  createAd: document.querySelector(".create-ad")
+  createAd: document.querySelector('.create-ad'),
 };
 
 const getCategories = () => {
@@ -25,8 +25,8 @@ function paint({ categories }) {
                 <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивiться всi</button>
                 </div>
                 <div class="categories-item-btn-slider visually-hidden">
-                <button class="categories-item-btn-slider-prev data-category="${element._id}"">previous</button>
-                <button class="categories-item-btn-slider-next data-category="${element._id}"">previous</button>
+                <button class="categories-item-btn-slider-prev data-category="${element._id}""></button>
+                <button class="categories-item-btn-slider-next data-category="${element._id}""></button>
                 </div>
                 <ul class="categories-item-listcards" data-category="${element._id}">
                     </ul>
@@ -39,27 +39,26 @@ function paint({ categories }) {
     let card = '';
     services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
       // console.log("список карточек по категории", data);
-      visibleBtnCategoriesItem(data, index)
-      
+      visibleBtnCategoriesItem(data, index);
+
       data.forEach((item, index) => {
         if (index < 4) {
           card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
         }
       });
       element.insertAdjacentHTML('beforeend', card);
-
     });
   });
 }
 
 const visibleBtnCategoriesItem = (listItemCard, indexCategory) => {
-  refs.btnShowAll = document.querySelectorAll(".categories-item-btn-showall")
-  refs.btnSlider = document.querySelectorAll(".categories-item-btn-slider")
-  if (listItemCard.length > 4){
-    refs.btnShowAll[indexCategory].classList.remove("visually-hidden")
-    refs.btnSlider[indexCategory].classList.remove("visually-hidden")
+  refs.btnShowAll = document.querySelectorAll('.categories-item-btn-showall');
+  refs.btnSlider = document.querySelectorAll('.categories-item-btn-slider');
+  if (listItemCard.length > 4) {
+    refs.btnShowAll[indexCategory].classList.remove('visually-hidden');
+    refs.btnSlider[indexCategory].classList.remove('visually-hidden');
   }
-}
+};
 
 function renderData() {
   getCategories().then(data => paint(data));
@@ -67,26 +66,32 @@ function renderData() {
 renderData();
 
 const drawAllItemCardByCategory = e => {
-  if(e.target.className === "categories-item-btn-showall"){
-    console.log(e.target.className);
-    console.log(e.target.dataset.category);
-    console.log(refs.ulInner);
-    console.log(refs.ulInner[e.target.dataset.category-1]);
-    services.getCategoriesWithNumberCategories(e.target.dataset.category, 1).then(data => {
-      console.log(data);
-      let card = ""
-      data.forEach((item) => {
-        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-        console.log(card);
+  if (e.target.className === 'categories-item-btn-showall') {
+
+    // services.getQuantityAllItemsByCategory(e.target.dataset.category, 1).then(quantity => {
+    //   services
+    //     .getAllItemsWithNumberCategories(e.target.dataset.category, quantity, 1)
+    //     .then(data => {
+    //       let card = '';
+    //       data.forEach(item => {
+    //         card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+    //       });
+    //       refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
+    //     });
+
+    //   console.log(quantity);
+    // });
+
+    services
+      .getCategoriesWithNumberCategories(e.target.dataset.category, 1)
+      .then(data => {
+        console.log(data);
+        let card = '';
+        data.forEach(item => {
+          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        });
+        refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
       });
-      refs.ulInner[e.target.dataset.category-1].innerHTML = card;
-    })
-
   }
-}
+};
 window.addEventListener('click', drawAllItemCardByCategory);
-
-services.getQuantityAllItemsByCategory(2, 1).then(quantity => console.log(quantity))
-
-
-

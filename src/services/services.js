@@ -4,8 +4,7 @@ axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
   refs: {
-    formFilter: document.querySelector('.filter'),
-    formSelect: document.querySelector('.cetegories-container'),
+    filter: document.querySelector('.filter'),
   },
 
   async getAllProduct() {
@@ -110,5 +109,46 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
+  },
+
+  async adsFavoritCardById(id) {
+    try {
+      const data = await axios.put(
+        `/user/favorite/${id}`,
+        {},
+        {
+          headers: { Authorization: `${localStorage.getItem('token')}` },
+        },
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async getAllProductFavorite() {
+    try {
+      const data = await axios.get(`/user/favorites`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data.data.user.favorites;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async deletedFavoritCardById(id) {
+    try {
+      const data = await axios.delete(
+        `/user/favorite/${id}`,
+        {
+          headers: { Authorization: `${localStorage.getItem('token')}` },
+        },
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   },
 };

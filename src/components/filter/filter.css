@@ -1,53 +1,29 @@
-/* -------------------FORM FILTER--------------------------- */
 .filter {
   display: flex;
-}
-.price-containe {
-  text-align: center;
-  margin-right: 25px;
-}
-.cetegories-container {
-  text-align: center;
-  margin-right: 25px;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  border-left: 1px solid rgb(206, 210, 209);
+  margin-left: 20px;
+  min-height: 70px;
 }
 
-.filter_input-price-end,
-.filter_input-price-start,
-.categories {
-  border-radius: 0;
-  background: transparent;
-  max-height: 34px;
-  padding: 5px;
-  border: 0;
-  font-size: 16px;
-  line-height: 1;
-  -webkit-appearance: none;
-  max-width: 268px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
+.btnCategory {
+  background-color: initial;
+  border: 1px solid rgb(206, 210, 209);
+  border-radius: 30px;
   cursor: pointer;
+  height: 30px;
+  padding-left: 18px;
+  padding-right: 18px;
+  margin-right: 10px;
 }
 
-.categories {
-  background-image: url(../../assets/icons8-множественный-выбор-100.png);
+.btnCategory:active,
+.btnCategory:hover,
+.isActiveCategory {
+  color: #ff6b08;
+  border: 2px solid #ff6b08;
+  height: 30px;
 }
-
-.categories:hover {
-  background-color: rgba(211, 211, 211, 0.37);
-}
-.filter_input-price-start:hover {
-  background-color: rgba(211, 211, 211, 0.37);
-}
-.filter_input-price-end:hover {
-  background-color: rgba(211, 211, 211, 0.37);
-}
-.search--filter :hover {
-  background-color: rgba(211, 211, 211, 0.37);
-}
-
-.search--filter {
-  cursor: pointer;
-}
-
-/* ------------------------------------------------------------- */

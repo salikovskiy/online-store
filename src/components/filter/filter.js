@@ -3,43 +3,58 @@ import templateOption from '../templates/templateOptionFilter.hbs';
 import './filter.css';
 
 services.getAllProduct().then(data => {
-  //   console.log(data);
   const option = templateOption(data.categories);
-  services.refs.formSelect.insertAdjacentHTML('beforeend', option);
+  services.refs.filter.insertAdjacentHTML('beforeend', option);
 });
 
-services.refs.formFilter.addEventListener('submit', handleSubmit);
+services.refs.filter.addEventListener('click', handleSubmit);
 
 function handleSubmit(e) {
-  e.preventDefault();
-  const numberCategory = e.target.elements.categories.value;
-
-  if (e.target.elements.inputBefore.value === '') {
-    services
-      .getCategoriesWithNumberCategories(numberCategory, 1)
-      .then(result => {
-        // console.log(result);
-        render(result);
-      });
-  } else {
-    services.getAllProduct().then(data => {
-      services.limitExtradition(data.totalDocs, 1).then(dataAll => {
-        let newArr = dataAll.docs.reduce((acc, el) => {
-          el.price > Number(e.target.elements.inputFrom.value) &&
-            el.price < Number(e.target.elements.inputBefore.value) &&
-            acc.push(el);
-          return acc;
-        }, []);
-
-        newArr = newArr.reduce((acc, el) => {
-          el.category === Number(numberCategory) && acc.push(el);
-          return acc;
-        }, []);
-        render(newArr);
-      });
-    });
+  if (e.target === e.currentTarget) {
+    return;
   }
+  e.target.classList.add('isActiveCategory');
+  let active = e.currentTarget.querySelector('.isActiveCategory');
+  if (active) {
+    active.classList.remove('isActiveCategory');
+  }
+  services
+    .getCategoriesWithNumberCategories(Number(e.target.id), 1)
+    .then(result => {
+      render(result);
+    });
 }
+
+// function handleSubmit(e) {
+//   e.preventDefault();
+//   const numberCategory = e.target.elements.categories.value;
+
+//   if (e.target.elements.inputBefore.value === '') {
+//     services
+//       .getCategoriesWithNumberCategories(numberCategory, 1)
+//       .then(result => {
+//         // console.log(result);
+//         render(result);
+//       });
+//   } else {
+//     services.getAllProduct().then(data => {
+//       services.limitExtradition(data.totalDocs, 1).then(dataAll => {
+//         let newArr = dataAll.docs.reduce((acc, el) => {
+//           el.price > Number(e.target.elements.inputFrom.value) &&
+//             el.price < Number(e.target.elements.inputBefore.value) &&
+//             acc.push(el);
+//           return acc;
+//         }, []);
+
+//         newArr = newArr.reduce((acc, el) => {
+//           el.category === Number(numberCategory) && acc.push(el);
+//           return acc;
+//         }, []);
+//         render(newArr);
+//       });
+//     });
+//   }
+// }
 
 function render(arr) {
   services.getAllProduct().then(data => {

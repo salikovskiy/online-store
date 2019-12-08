@@ -1,5 +1,3 @@
-<select class="categories" name="categories" id="selectID">
-    {{#each this}}
-    <option value="{{_id}}">{{category}}</option>
-    {{/each}}
-</select>
+{{#each this}}
+<button id="{{_id}}" class="btnCategory">{{category}}</button>
+{{/each}}

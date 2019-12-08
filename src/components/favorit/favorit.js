@@ -31,18 +31,28 @@ services.getAllProduct().then(data => {
   //   services.loginUser(arrAut);
   //   const favButton = document.querySelectorAll('.button');
   ul.addEventListener('click', createdFavoritCard);
-
   function createdFavoritCard(e) {
     const eventId = e.target.closest('li').dataset.id;
     services.getCardById(eventId).then(cardId => {
-      console.log(cardId);
       if (localStorage.getItem('token')) {
-        services.loginUser(arrAut).then(card => {
-          console.log(card.data);
-
-          console.log(card.data.favorites);
+        services.getAllProductFavorite().then(cards => {
+          let flag = false;
+          cards.map(elem => {
+            if (eventId === elem._id) {
+              flag = true;
+            }
+            return flag;
+          });
+          if (flag) {
+            services.deletedFavoritCardById(eventId);
+          } else {
+            services.adsFavoritCardById(eventId);
+          }
+          console.log(cards);
         });
+      } else {
       }
     });
   }
 });
+

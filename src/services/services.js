@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-
+import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
@@ -15,7 +14,7 @@ export default {
       throw new Error(error);
     }
   },
- 
+
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
@@ -37,7 +36,7 @@ export default {
       throw new Error(error);
     }
   },
- 
+
   async limitExtradition(limit, pageNumber) {
     try {
       const data = await axios.get(
@@ -50,7 +49,7 @@ export default {
       throw new Error(error);
     }
   },
- 
+
   async getCategoriesWithNumberCategories(numberCategories, homePage) {
     try {
       const data = await axios.get(
@@ -90,7 +89,6 @@ export default {
     }
   },
 
-
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
     if (data.data.status === 'success') {
@@ -106,7 +104,7 @@ export default {
     const data = await axios.post('/auth/login', userInfo);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
-    localStorage.setItem("userId", data.data.userData.userId);
+    localStorage.setItem('userId', data.data.userData.userId);
     return data;
   },
   async logoutUser(userInfo) {
@@ -117,7 +115,6 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
-    localStorage.removeItem("userId");
+    localStorage.removeItem('userId');
   },
-
 };

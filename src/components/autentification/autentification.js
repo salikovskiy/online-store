@@ -1,5 +1,6 @@
 import services from '../../services/services';
-
+import PNotify from 'pnotify/dist/es/PNotify.js';
+import 'pnotify/dist/PNotifyBrightTheme.css';
 const refs = {
   login: document.querySelector('.login-register'),
   registrationForm: document.querySelector('.lightbox'),
@@ -26,7 +27,6 @@ function closeModalWindowWithRegistrationForm() {
 
 async function getFormData(evt) {
   evt.preventDefault();
-  evt.target.querySelectorAll('button').forEach(elem => {});
   const data = {};
   evt.target.querySelectorAll('input').forEach(elem => {
     if (elem.value !== '') {
@@ -40,7 +40,13 @@ async function getFormData(evt) {
     console.log(keys.length);
     // loader-> with await im waiting for result->close loader
     result = await services.registrateUser(data);
-
+    if (result.data.error) {
+      const regex = /[a-z0-9\.\-\+]+@[a-z0-9\.\-\+]+/gim;
+      const res = result.data.error;
+      PNotify.error(`This email: ${res.match(regex)} already exists`);
+    } else {
+      PNotify.success('You have registrated successfully');
+    }
     console.log(result);
   } else if (keys.length === 2) {
     // loader-> with await im waiting for result->close loader
@@ -62,6 +68,7 @@ function openRegistrateForm(evt) {
   if (!state.isRegistrationFormOpen) {
     state.isRegistrationFormOpen = true;
     refs.nameField.classList.remove('hidden');
+    refs.nameField.setAttribute('required', 'required');
     refs.loginBtn.style.display = 'none';
   } else {
     refs.registerBtn.setAttribute('type', 'submit');

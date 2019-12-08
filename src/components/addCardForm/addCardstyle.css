@@ -110,6 +110,14 @@ label {
   color: rgb(180, 180, 180);
   font-size: 24px;
   font-weight: lighter;
+  transition: ease-in-out 0.3s;
+}
+
+.plusPhoto:hover {
+  background-color: rgb(255, 107, 8);
+  transform: scale(1.2);
+
+  color: rgb(255, 255, 255);
 }
 
 .fileInput {

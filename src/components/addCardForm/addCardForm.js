@@ -116,10 +116,16 @@ openModalForm.addEventListener('click', e => {
 
     //----------Отправляю объявление на сервер по данным из формы-----------
 
-    function addCard() {
-      API.adsProduct(object).then(data => {
-        return data;
-      });
-    }
+    // const addCard = object => {
+    //   const options = {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       Authorization: `${localStorage.getItem('token')}`,
+    //     },
+    //     body: JSON.stringify(object),
+    //   };
+    //   return API.adsProduct(options).then(console.log);
+    // };
   }
 });

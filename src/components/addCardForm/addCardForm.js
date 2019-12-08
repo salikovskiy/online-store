@@ -9,6 +9,7 @@ import API from '../../services/services.js';
 
 const modalForm = document.querySelector('.modalForm');
 const openModalForm = document.querySelector('.create-ad');
+
 const category = {
   name: [],
 };
@@ -44,7 +45,7 @@ const formMarkup = `
 <span class="plusPhoto"></span>
 <span class="plusPhoto"></span>
 <span class="plusPhoto"></span>
-<input type="file" name="images" class="fileInput" />
+<input type="file" name="images" class="fileInput" multiple />
 </label>
 </div>
 </div>
@@ -66,7 +67,7 @@ const formMarkup = `
 <label for="fifthInput" class="fifthInput__label">Телефон</label>
 <input class="fifthInput" type="tel" name="phone" />
 </div>
-<button type="submit" class="addButton">Додати
+<button type="submit" class="addButton" data-action="submitForm">Додати
 </button>
 </form>
 </div>
@@ -94,7 +95,7 @@ openModalForm.addEventListener('click', e => {
 
   modalBox.addEventListener('click', e => {
     if (
-      e.target.className === 'closeForm' ||
+      e.target.dataset.action === 'closeForm' ||
       e.target.className === 'material-icons' ||
       e.target.className === 'modalBox'
     ) {
@@ -105,6 +106,7 @@ openModalForm.addEventListener('click', e => {
   //-------------Собираю данные из формы-------------
 
   form.addEventListener('submit', formHandleSubmit);
+
   function formHandleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -115,17 +117,14 @@ openModalForm.addEventListener('click', e => {
     console.log('Объект данных из формы:', object);
 
     //----------Отправляю объявление на сервер по данным из формы-----------
-
-    // const addCard = object => {
-    //   const options = {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Authorization: `${localStorage.getItem('token')}`,
-    //     },
-    //     body: JSON.stringify(object),
-    //   };
-    //   return API.adsProduct(options).then(console.log);
-    // };
+    const submitForm = document.querySelector('.addButton');
+    submitForm.addEventListener('click', e => {
+      e.preventDefault();
+      if (e.target.dataset.action === 'submitForm') {
+        API.adsProduct(object).then(data => {
+          // дописать отправку формы на сервер и вывод добавленого товара вверху списка товаров по категории
+        });
+      }
+    });
   }
 });

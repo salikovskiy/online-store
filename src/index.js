@@ -1,7 +1,13 @@
 import './styles.css';
+import './components/categories/categories';
+
+import './components/itemCard/itemCard';
+
 import './components/preloader/preloader';
+import './components/account.js';
 import './services/services';
 import './services/test';
+<<<<<<< HEAD
 import services from './services/services';
 import './components/favorit/favorit.js'
 
@@ -33,3 +39,7 @@ import './components/favorit/favorit.js'
 // // services.adsProduct(card);
 
 // // services.deletedProduct("5de8deed408e4026aa0e59f8")
+=======
+import './components/favorit/favorit';
+import './components/filter/filter';
+>>>>>>> c28be3cd3f5f921dab09ed952b7ac759b046bee7

@@ -4,7 +4,6 @@
   flex-wrap: wrap;
   flex-direction: column;
   width: 810px;
-
 }
 
 .input-field-wrapper {
@@ -59,8 +58,9 @@
 }
 
 /* LIGHTBOX */
-.lightbox {
+.lightboxRegistration {
   position: fixed;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 90vw;
@@ -70,22 +70,21 @@
   transition: opacity 200ms linear;
 }
 
-.lightbox.is-open {
+.lightboxRegistration.isOpened {
   opacity: 1;
   pointer-events: initial;
 }
 
-.lightbox__overlay {
+.lightboxOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
-
 }
 
-.lightbox__content {
+.lightboxContent {
   position: absolute;
   top: 0;
   left: 0;
@@ -108,11 +107,11 @@
   padding: 20px 0;
 }
 
-.lightbox.is-open .lightbox__content {
+.lightboxRegistration.isOpened .lightboxContent {
   transform: scale(1);
 }
 
-.lightbox__button {
+.lightboxButton {
   position: absolute;
   top: 5px;
   right: 10%;
@@ -132,12 +131,12 @@
   outline: none;
 }
 
-.lightbox__button:hover,
-.lightbox__button:focus {
+.lightboxButton:hover,
+.lightboxButton:focus {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.lightbox__button i {
+.lightboxButton i {
   font-size: 36px;
 }
 

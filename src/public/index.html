@@ -8,7 +8,7 @@
   <title>JS project</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
@@ -29,38 +29,79 @@
     <div class="logo-wrapper">
       <a href="#">ШОП</a>
     </div>
-    <div class="btn-wrapper"><button class="login-register">реєстрація/увійти</button>
-      <button class="create-ad">створити оголошення!</button></div>
-  </header>
-  <section class="clear">
-    <button class="clear-btn"><span>&#8634;</span> Очістити фільтри</button>
-  </section>
-  <section class="registration lightbox">
+    <div class="lightbox js-lightbox">
+      <div class="lightbox__overlay"></div>
 
-    <div class="lightbox__overlay"></div>
-    <div class="registrate-form lightbox__content">
+      <div class="lightbox__content">
+        <div class="lightbox__wrapper ads-wrapper">
+          <div class="title-wrapper-ads">
+            <p class="lightbox__title lightbox__title-ads">Мої оголошення</p>
+          </div>
+          <ul class="ads"></ul>
+        </div>
 
-
-      <form class="form">
-        <p>Ви можете авторизуватися за допомогою Google Account:</p>
-        <button class="form__btn"></button>
-        <p>Або увійти за допомогою і-мейлу й пароля, попередньо зареєструвашись:</p>
-        <div class="input-field-wrapper">
-          <input type="email" name="email" class="input-field" placeholder="E-mail" required>
-          <input type="password" class="input-field" name="password" placeholder="Password" required minlength="6">
-          <input type="text" class="input-field hidden" name="name" placeholder="Name" minlength="3"></div>
-        <div class="form-btns-wrapper"><button class="form__btn btn--login" data-action="login">увійти</button>
-          <button type="button" name="register" class="form__btn btn--register"
-            data-action="register">зареєструватися</button></div>
-      </form>
-
+        <div class="lightbox__wrapper fav-wrapper">
+          <div class="title-wrapper-fav">
+            <p class="lightbox__title lightbox__title-fav">
+              Обрані оголошення
+            </p>
+          </div>
+          <ul class="favorites"></ul>
+        </div>
+      </div>
 
       <button type="button" class="lightbox__button" data-action="close-lightbox">
         <i class="material-icons">close</i>
       </button>
     </div>
+    <div class="account_btn-wrapper">
+      <p class="account_btn-name">Your name</p>
+      <button class="account_btn">I</button>
+    </div>
+    <div class="popup">
+      <div class="popup-enter">
+        <p class="popup-enter-text">Мій кабінет</p>
+      </div>
+      <div class="popup-exit">
+        <p class="popup-exit-text">Вийти</p>
+      </div>
+    </div><button class="login-register">реєстрація/увійти</button>
+    <button class="create-ad">створити оголошення!</button>
+    <section class="registration lightboxRegistration">
+
+      <div class="lightboxOverlay"></div>
+      <div class="registrate-form lightboxContent">
+
+
+        <form class="form">
+          <p>Ви можете авторизуватися за допомогою Google Account:</p>
+          <button class="form__btn"></button>
+          <p>Або увійти за допомогою і-мейлу й пароля, попередньо зареєструвашись:</p>
+          <div class="input-field-wrapper">
+            <input type="email" name="email" class="input-field" placeholder="E-mail" required>
+            <input type="password" class="input-field" name="password" placeholder="Password" required minlength="6">
+            <input type="text" class="input-field hidden" name="name" placeholder="Name" minlength="3"></div>
+          <div class="form-btns-wrapper"><button class="form__btn btn--login" data-action="login">увійти</button>
+            <button type="button" name="register" class="form__btn btn--register"
+              data-action="register">зареєструватися</button></div>
+        </form>
+
+
+        <button type="button" class="lightboxButton" data-action="close-lightboxR">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </section>
+  </header>
+  <section class="clear">
+    <div class="filter"></div>
+    <button class="clear-btn"><span>&#8634;</span> Очістити фільтри</button>
   </section>
-  <main class="main"></main>
+  <main class="main">
+    <section class="main-section container">
+      <ul class="categories"></ul>
+    </section>
+  </main>
   <footer class="footer">
     <div class="container">
       <p>&#169; 2019</p>

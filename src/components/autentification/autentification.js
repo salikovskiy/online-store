@@ -3,13 +3,14 @@ import PNotify from 'pnotify/dist/es/PNotify.js';
 import 'pnotify/dist/PNotifyBrightTheme.css';
 const refs = {
   login: document.querySelector('.login-register'),
-  registrationForm: document.querySelector('.lightbox'),
-  closeBtn: document.querySelector('[data-action = close-lightbox]'),
+  registrationForm: document.querySelector('.lightboxRegistration'),
+  closeBtn: document.querySelector('[data-action = close-lightboxR]'),
   form: document.querySelector('.form'),
   registerBtn: document.querySelector('[data-action = register]'),
   loginBtn: document.querySelector('[data-action = login]'),
   nameField: document.querySelector('[name=name]'),
   actionContainer: document.querySelector('.action_container'),
+  exitBtn: document.querySelector('.popup-exit'),
 };
 
 const state = {
@@ -19,10 +20,10 @@ const state = {
 };
 
 function openModalWindowWithRegistrationForm() {
-  refs.registrationForm.classList.add('is-open');
+  refs.registrationForm.classList.add('isOpened');
 }
 function closeModalWindowWithRegistrationForm() {
-  refs.registrationForm.classList.remove('is-open');
+  refs.registrationForm.classList.remove('isOpened');
 }
 
 async function getFormData(evt) {
@@ -84,7 +85,7 @@ function setListeners() {
   if (localStorage.getItem('token') === null) {
     state.isLogin = false;
     refs.login.textContent = 'Реєстрація/Увійти';
-    // refs.login.removeEventListener('click', exit);
+    // refs.exitBtn.removeEventListener('click', exit);
     refs.login.addEventListener('click', openModalWindowWithRegistrationForm);
     refs.closeBtn.addEventListener(
       'click',
@@ -105,8 +106,8 @@ function setListeners() {
       closeModalWindowWithRegistrationForm,
     );
     refs.registerBtn.removeEventListener('click', openRegistrateForm);
-    refs.registrationForm.classList.remove('is-open');
-    // refs.login.addEventListener('click', exit);
+    refs.registrationForm.classList.remove('isOpened');
+    // refs.exitBtn.addEventListener('click', exit);
   }
 }
 setListeners();

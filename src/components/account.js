@@ -26,10 +26,10 @@ const refs = {
   accountBtn: document.querySelector('.account_btn'),
 };
 
-const token =
-  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
+// const token =
+//   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
 
-//const token = localStorage.getItem('token')
+const token = localStorage.getItem('token');
 //!!!!!!!!добавить local storage вместо токена
 
 ///--------------открываем popup
@@ -47,14 +47,11 @@ refs.body.addEventListener('click', event => {
     refs.popup.style.display = 'none';
   }
 });
-
 if (localStorage.getItem('token')) {
   const userName = JSON.parse(localStorage.getItem('userInfo')).name;
   refs.userName.textContent = userName;
   refs.accountBtn.textContent = userName[0];
 }
-
-
 
 //---------------открываем модалку
 refs.popupEnter.addEventListener('click', event => {

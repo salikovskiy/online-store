@@ -11,5 +11,5 @@ const defaultUserLog = {
 };
 
 // services.registrateUser(defaultUser);
-services.loginUser(defaultUserLog);
+// services.loginUser(defaultUser);
 // services.logoutUser(defaultUser);

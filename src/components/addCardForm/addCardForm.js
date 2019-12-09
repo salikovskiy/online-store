@@ -40,12 +40,14 @@ const formMarkup = `
 <p class="secondInput--title">Фото</p>
 <div class="formGroup">
 <label class="secondLabel">
+<div class="imageArr">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
+</div>
 <input type="file" name="images" class="fileInput" multiple />
 </label>
 </div>
@@ -110,17 +112,7 @@ openModalForm.addEventListener('click', e => {
     }
   }
 
-  // -------------------------------------
-
   addProductImg.addEventListener('input', handleFileSelect);
-  console.log(image);
-  // addProductImg.addEventListener('change', e => {
-  //   const file = e.target.files[0];
-  //   reader.readAsDataURL(file);
-  //   if (!file.type.match('image.*')) {
-  //     alert('Невідомий формат, оберіть фото будь-ласка');
-  //   }
-  // });
 
   //-------------Закртытие формы по клику и отправке-----------
 
@@ -138,8 +130,20 @@ openModalForm.addEventListener('click', e => {
 
   form.addEventListener('submit', e => {
     e.preventDefault();
-    let newCardImg = document.querySelector('.cardImg');
-    newCardImg.src = `${image[0]}`;
+    const imagesContainer = document.querySelector('.imageArr');
+    let string = '';
+    console.log(`image`, image);
+    if (image.length !== null) {
+      image.forEach(elem => {
+        string += `<image class="cardImg" src="${elem}" alt="picture" width="75" height="60"></image>`;
+      });
+      console.log('Картинки', imagesContainer);
+      imagesContainer.innerHTML = string;
+    }
+
+    // const addImages = imagesContainer.querySelectorAll('.cardImg');
+    // let newCardImg = document.querySelector('.cardImg');
+    // newCardImg.src = `${image[0]}`;
     category.currentCategory = document.querySelector('select').value;
     category.allCategories.forEach((item, index) => {
       if (item.category === category.currentCategory) {
@@ -157,7 +161,7 @@ openModalForm.addEventListener('click', e => {
 function formParser() {
   let newCardImg = document.querySelector('.cardImg');
   return {
-    images: [newCardImg.src],
+    images: newCardImg.src,
     title: document.querySelector('.firstInput').value,
     category: category.currentCategory,
     price: Number(document.querySelector('.fourthInput').value),

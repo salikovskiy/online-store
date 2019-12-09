@@ -81,6 +81,13 @@ label {
   justify-content: space-around;
 }
 
+.imageArr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 600px;
+}
+
 .secondInput__Wrapper {
   justify-content: space-between;
 }
@@ -129,7 +136,6 @@ label {
   position: absolute;
   z-index: -1;
 }
-/* ------------------------ */
 
 input {
   width: 600px;

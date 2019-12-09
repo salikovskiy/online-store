@@ -7,21 +7,35 @@ const body = document.querySelector('body');
 const btn = document.querySelector('#btn');
 const btnExit = document.querySelector('.exit');
 const modalWindow = document.querySelector('#product-modal');
-body.addEventListener('click', e => {
-  const id = e.target.dataset.id;
-  axios.get(`/ads/${id}`).then(({ data }) => {
-    modalWindow.setAttribute('class', 'modal-window-color');
-    // modalWindow.innerHTML = modal(data.goal);
-    if (window.innerWidth < 720) {
-      console.log('min 720');
-      modalWindow.innerHTML = modalMobile(data.goal);
-    } else if (window.innerWidth >= 720 && window.innerWidth <= 1100) {
-      modalWindow.innerHTML = modal(data.goal);
-      console.log('max 720');
-    } else {
-      console.log('more ');
-    }
-  });
+const categories = document.querySelector('.categories');
+
+console.log(categories);
+
+categories.addEventListener('click', e => {
+  // console.log(
+  //   'e.target.parentNode.parentNode :',
+  //   e.target.parentNode.parentNode,
+  // );
+
+  if (e.target.nodeName === 'DIV') {
+    console.log(e.target);
+
+    const id = e.target.parentNode.parentNode.dataset.id;
+    axios.get(`/ads/${id}`).then(({ data }) => {
+      modalWindow.setAttribute('class', 'modal-window-color');
+      // modalWindow.innerHTML = modal(data.goal);
+      if (window.innerWidth < 720) {
+        console.log('min 720');
+        modalWindow.innerHTML = modalMobile(data.goal);
+      } else if (window.innerWidth >= 720 && window.innerWidth <= 1100) {
+        modalWindow.innerHTML = modal(data.goal);
+        console.log('max 720');
+      } else {
+        console.log('more');
+        modalWindow.innerHTML = modal(data.goal);
+      }
+    });
+  }
 });
 
 modalWindow.addEventListener('click', e => {

@@ -9,6 +9,7 @@ const refs = {
   close: document.querySelector('.close'),
   ul: document.querySelector('.navigation__menu_list'),
   logIn: document.querySelector('.loginOnMobile'),
+  logOut: document.querySelector('.logout'),
 };
 
 // слушатели на кнопках
@@ -54,4 +55,15 @@ refs.ul.addEventListener('click', onHandleClick);
 const userLogin = JSON.parse(localStorage.getItem('userInfo')).name;
 refs.logIn.textContent = userLogin;
 
-refs.logIn.addEventListener('click', onHandleClick);
+refs.logIn.addEventListener('click', event => {
+  if (!localStorage.getItem('token')) {
+    return;
+  }
+  if ((event.target = refs.logIn)) {
+    refs.modal.classList.add('is-open');
+  }
+});
+
+if (localStorage.getItem('token')) {
+  refs.logOut.setAttribute('style', 'display: block');
+}

@@ -53,10 +53,7 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-<<<<<<< HEAD
       // console.log(data.data.ads.docs);
-=======
->>>>>>> 88775391aef166f5c23db6e00e6cc9318991f153
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);

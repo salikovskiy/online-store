@@ -1,9 +1,6 @@
 import axios from 'axios';
 import styles from './addCardstyle.css';
-// import addCardForm from '../templates/addCardForm.hbs';
 import API from '../../services/services.js';
-
-// API.getAllProduct().then(data => console.log(data.categories));
 
 // ------------Отрисовка шаблона------------
 
@@ -12,9 +9,13 @@ const openModalForm = document.querySelector('.create-ad');
 
 const category = {
   name: [],
+  currentCategory: null,
 };
 
-function getData() {
+async function getData() {
+  category.allCategories = await API.getAllProduct().then(
+    data => data.categories,
+  );
   return API.getAllProduct().then(data => {
     data.categories.forEach(item => {
       category.name = [...category.name, item];
@@ -39,13 +40,13 @@ const formMarkup = `
 <p class="secondInput--title">Фото</p>
 <div class="formGroup">
 <label class="secondLabel">
-<image class="cardImg" src="./icon/add_photo_icon_75x60.png" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
-<input type="file" name="images" class="fileInput" />
+<image class="cardImg" src="" alt="" width="75" height="60">
+<input type="file" name="images" class="fileInput" multiple />
 </label>
 </div>
 </div>
@@ -65,7 +66,7 @@ const formMarkup = `
 </div>
 <div class="firthInput__Wrapper iw">
 <label for="fifthInput" class="fifthInput__label">Телефон</label>
-<input class="fifthInput" type="tel" name="phone" />
+<input class="fifthInput" type="text" name="phone" />
 </div>
 <button type="submit" class="addButton" data-action="submitForm">Додати
 </button>
@@ -91,20 +92,37 @@ openModalForm.addEventListener('click', e => {
   const newCardImg = document.querySelector('.cardImg');
   const addProductImg = document.querySelector('.fileInput');
 
-  const reader = new FileReader();
-  reader.onload = e => {
-    newCardImg.src = e.target.result;
-  };
+  // function saveImg(url) {
+  //   newCardImg.src = url;
+  //   newCardImg.onload = function() {
+  //     const key = encodeURIComponent(url);
+  //     const canvas = document.createElement('canvas');
+  //     const ctx = canvas.getContext('2d');
+  //     ctx.drawImage(newCardImg, 0, 0);
+  //   };
+  // }
 
-  addProductImg.addEventListener('change', e => {
-    const file = e.target.files[0];
-    reader.readAsDataURL(file);
-  });
+  // addProductImg.addEventListener('input', saveImg());
 
-  //-------------Закртытие формы по клику-----------
+  // addProductImg.addEventListener('input', e => {
+  //   const reader = new FileReader();
+  //   reader.onload = e => {
+  //     newCardImg.src = e.target.result;
+  //   };
+  //   addProductImg.addEventListener('change', e => {
+  //     const file = e.target.files[0];
+  //     reader.readAsDataURL(file);
+  //     if (!file.type.match('image.*')) {
+  //       alert('Невідомий формат, оберіть фото будь-ласка');
+  //     }
+  //   });
+  // });
+
+  //-------------Закртытие формы по клику и отправке-----------
 
   const modalBox = document.querySelector('.modalBox');
   const form = document.querySelector('.form');
+  console.log(form);
 
   modalBox.addEventListener('click', e => {
     if (
@@ -118,45 +136,28 @@ openModalForm.addEventListener('click', e => {
 
   //-------------Собираю данные из формы-------------
 
-  form.addEventListener('submit', formHandleSubmit);
-
-  function formHandleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const object = {};
-    formData.forEach((value, name) => {
-      object[name] = value;
-    });
-    console.log('Объект данных из формы:', object);
-
-    //----------Отправляю объявление на сервер по данным из формы-----------
-    const submitForm = document.querySelector('.addButton');
-    submitForm.addEventListener('click', e => {
-      e.preventDefault();
-      if (e.target.dataset.action === 'submitForm') {
-        const newCard = formParser();
-        exportCard(newCard);
-        API.adsProduct(formData).then(data => {
-          // дописать вывод добавленого товара вверху списка товаров по категории
-        });
+  form.addEventListener('submit', e => {
+    category.currentCategory = document.querySelector('select').value;
+    category.allCategories.forEach((item, index) => {
+      if (item.category === category.currentCategory) {
+        category.currentCategory = index + 1;
       }
     });
-  }
+    e.preventDefault();
+    const newCard = formParser();
+    // API.adsProduct(newCard);
+    modalForm.innerHTML = '<div class="modalSpace"';
+    console.log('Объект данных из формы:', newCard);
+  });
 });
 
 function formParser() {
   return {
-    images: form.querySelector('.fileInput').files[0],
-    title: form.querySelector('.firstInput').value,
-    category: form.querySelector('.categorySelect').value,
-    price: form.querySelector('.fourthInput').value,
-    phone: form.querySelector('.fifthInput').value,
-    description: form.querySelector('.thirdInput').value,
+    images: [document.querySelector('.fileInput').value],
+    title: document.querySelector('.firstInput').value,
+    category: category.currentCategory,
+    price: Number(document.querySelector('.fourthInput').value),
+    phone: document.querySelector('.fifthInput').value,
+    description: document.querySelector('.thirdInput').value,
   };
-}
-
-function exportCard(obj) {
-  Object.keys(obj).forEach(key => {
-    formData.append(key, obj[key]);
-  });
 }

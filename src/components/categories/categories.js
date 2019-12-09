@@ -83,3 +83,4 @@ const drawAllItemCardByCategory = e => {
 };
 window.addEventListener('click', drawAllItemCardByCategory);
 console.log('fdf')
+console.log('fdf')

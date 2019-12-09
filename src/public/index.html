@@ -5,7 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS project</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
-  <body></body>
+  <body>
+    <header class="header">
+      <div class="hamburger">
+        <button class="modal-menu">&#9776;</button>
+      </div>
+      <div class="search-wrapper">
+        <button class="search">
+          <i class="material-icons">
+            search
+          </i>
+        </button>
+        <form class="from">
+          <input type="text" class="search-input" />
+        </form>
+      </div>
+      <div class="logo-wrapper">
+        <a href="#">ШОП</a>
+      </div>
+      <div class="lightbox js-lightbox">
+        <div class="lightbox__overlay"></div>
+
+        <div class="lightbox__content">
+          <div class="lightbox__wrapper ads-wrapper">
+            <div class="title-wrapper-ads">
+              <p class="lightbox__title lightbox__title-ads">Мої оголошення</p>
+            </div>
+            <ul class="ads"></ul>
+          </div>
+
+          <div class="lightbox__wrapper fav-wrapper">
+            <div class="title-wrapper-fav">
+              <p class="lightbox__title lightbox__title-fav">
+                Обрані оголошення
+              </p>
+            </div>
+            <ul class="favorites"></ul>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="lightbox__button"
+          data-action="close-lightbox"
+        >
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+      <div class="account_btn-wrapper">
+        <p class="account_btn-name">Your name</p>
+        <button class="account_btn">I</button>
+      </div>
+      <div class="popup">
+        <div class="popup-enter">
+          <p class="popup-enter-text">Мій кабінет</p>
+        </div>
+        <div class="popup-exit">
+          <p class="popup-exit-text">Вийти</p>
+        </div>
+      </div>
+      <button class="create-ad">створити оголошення!</button>
+    </header>
+    <section class="clear">
+      <div class="filter"></div>
+      <button class="clear-btn"><span>&#8634;</span> Очістити фільтри</button>
+    </section>
+    <main class="main">
+      <section class="main-section container">
+        <ul class="categories"></ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <p>&#169; 2019</p>
+        <p>All Right Reserved</p>
+        <p>
+          Developed with <span>&#10084;</span> by
+          <a
+            href="https://github.com/salikovskiy/javascript-project-goit/graphs/contributors"
+            >GoIT Students</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>

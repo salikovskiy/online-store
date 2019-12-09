@@ -3,11 +3,14 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
-  refs: {},
+  refs: {
+    filter: document.querySelector('.filter'),
+    clear: document.querySelector('.clear-btn'),
+  },
+
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      // console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -18,7 +21,6 @@ export default {
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -26,10 +28,9 @@ export default {
     }
   },
 
-  async getCategoriesById(id) {
+  async getCardById(id) {
     try {
       const data = await axios.get(`/ads/${id}`);
-      console.log(data.data.goal);
       return data.data.goal;
     } catch (error) {
       console.log(error);
@@ -42,7 +43,6 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
-      console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -55,7 +55,6 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-      console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -68,7 +67,6 @@ export default {
       const data = await axios.post('/ads', object, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -78,10 +76,10 @@ export default {
 
   async deletedProduct(adId) {
     try {
-      const data = await axios.delete(`/ds/${adId}`, {
+      const data = await axios.delete(`/ads/${adId}`, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-      console.log(data);
+
       return data;
     } catch (error) {
       console.log(error);
@@ -91,7 +89,6 @@ export default {
 
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
-    console.log(data);
     if (data.data.status === 'success') {
       this.loginUser(userInfo);
     } else {
@@ -100,11 +97,12 @@ export default {
       console.error(`This email: ${res.match(regex)} already exists`);
     }
   },
+
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
-    console.log(data);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
+    return data;
   },
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
@@ -114,5 +112,92 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
+  },
+
+  async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.docs;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getUser(token) {
+    const heders = {
+      headers: {
+        Authorization: token,
+      },
+    };
+    try {
+      let result = await axios.get(`/ads`, heders);
+      //  console.log('getUser', result);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
+  async getQuantityAllItemsByCategory(numberCategories, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.totalDocs;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getUserFavorites(token) {
+    const heders = {
+      headers: {
+        Authorization: token,
+      },
+    };
+    try {
+      let result = await axios.get(`/user/favorites`, heders);
+      // console.log('get_Favorites', result);
+      return result;
+    } catch (error) {}
+  },
+  async adsFavoritCardById(id) {
+    try {
+      const data = await axios.put(
+        `/user/favorite/${id}`,
+        {},
+        {
+          headers: { Authorization: `${localStorage.getItem('token')}` },
+        },
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async getAllProductFavorite() {
+    try {
+      const data = await axios.get(`/user/favorites`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data.data.user.favorites;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async deletedFavoritCardById(id) {
+    try {
+      const data = await axios.delete(`/user/favorite/${id}`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   },
 };

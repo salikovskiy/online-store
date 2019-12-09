@@ -1,7 +1,7 @@
 import services from '../../services/services.js';
 import template from '../templates/template.hbs';
 import debounce from 'lodash.debounce';
-import itemCard from '../itemCard/itemCard.js';
+import itemCard from '../itemCard/itemCard';
 
 const refs = {
   input: document.querySelector('.search-input'),

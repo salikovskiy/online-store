@@ -20,7 +20,7 @@ categories.addEventListener('click', e => {
   if (e.target.nodeName === 'DIV') {
     console.log(e.target);
 
-    const id = e.target.parentNode.parentNode.dataset.id;
+    const id = e.target.dataset.id;
     axios.get(`/ads/${id}`).then(({ data }) => {
       modalWindow.setAttribute('class', 'modal-window-color');
       // modalWindow.innerHTML = modal(data.goal);

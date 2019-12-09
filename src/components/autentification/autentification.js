@@ -54,6 +54,7 @@ async function getFormData(evt) {
     // loader-> with await im waiting for result->close loader
     try {
       result = await services.loginUser(data);
+      // localStorage.setItem('userName', result.data.userData.name);
     } catch (error) {
       PNotify.error('You entered invalid email or password');
     }
@@ -61,6 +62,7 @@ async function getFormData(evt) {
   if (result.data.status === 'success') {
     setListeners();
     closeModalWindowWithRegistrationForm();
+    document.location.reload(true);
   }
 }
 
@@ -85,7 +87,7 @@ function setListeners() {
   if (localStorage.getItem('token') === null) {
     state.isLogin = false;
     refs.login.textContent = 'Реєстрація/Увійти';
-    // refs.exitBtn.removeEventListener('click', exit);
+    refs.exitBtn.removeEventListener('click', exit);
     refs.login.addEventListener('click', openModalWindowWithRegistrationForm);
     refs.closeBtn.addEventListener(
       'click',
@@ -107,7 +109,7 @@ function setListeners() {
     );
     refs.registerBtn.removeEventListener('click', openRegistrateForm);
     refs.registrationForm.classList.remove('isOpened');
-    // refs.exitBtn.addEventListener('click', exit);
+    refs.exitBtn.addEventListener('click', exit);
   }
 }
 setListeners();

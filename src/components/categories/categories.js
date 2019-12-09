@@ -68,31 +68,17 @@ renderData();
 
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
-
-    services.getQuantityAllItemsByCategory(e.target.dataset.category, 1).then(quantity => {
-      services
-        .getAllItemsWithNumberCategories(e.target.dataset.category, quantity, 1)
-        .then(data => {
-          let card = '';
-          data.forEach(item => {
-            card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-          });
-          refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
-        });
-
-      console.log(quantity);
+    services
+    .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
+    .then(data => {
+      console.log(data);
+      let card = '';
+      data.forEach(item => {
+        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+      });
+      refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
     });
 
-    // services
-    //   .getCategoriesWithNumberCategories(e.target.dataset.category, 1)
-    //   .then(data => {
-    //     console.log(data);
-    //     let card = '';
-    //     data.forEach(item => {
-    //       card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-    //     });
-    //     refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
-    //   });
   }
 };
 window.addEventListener('click', drawAllItemCardByCategory);

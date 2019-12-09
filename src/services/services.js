@@ -3,6 +3,11 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
+  refs: {
+    filter: document.querySelector('.filter'),
+    clear: document.querySelector('.clear-btn'),
+  },
+
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
@@ -97,6 +102,7 @@ export default {
     const data = await axios.post('/auth/login', userInfo);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
+    return data;
   },
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
@@ -155,7 +161,42 @@ export default {
       let result = await axios.get(`/user/favorites`, heders);
       // console.log('get_Favorites', result);
       return result;
+    } catch (error) {}
+  },
+  async adsFavoritCardById(id) {
+    try {
+      const data = await axios.put(
+        `/user/favorite/${id}`,
+        {},
+        {
+          headers: { Authorization: `${localStorage.getItem('token')}` },
+        },
+      );
+      return data;
     } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async getAllProductFavorite() {
+    try {
+      const data = await axios.get(`/user/favorites`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data.data.user.favorites;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async deletedFavoritCardById(id) {
+    try {
+      const data = await axios.delete(`/user/favorite/${id}`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   },

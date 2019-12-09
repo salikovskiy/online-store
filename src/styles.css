@@ -1,112 +1,193 @@
-/* Стили для подложки */
-body {
-  /* background-color: #000; */
-  margin: 0;
+* {
   padding: 0;
-}
-.overlay {
-  /* Скрываем подложку  */
-  opacity: 0;
-  visibility: hidden;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 20;
-  transition: 0.3s all;
+  margin: 0;
 }
 
-/* Стили для модальных окон */
-
-.modal {
-  /* Скрываем окна  */
-  /* opacity: 0; */
-  /* visibility: hidden; */
-
-  /*  Установаем ширину окна  */
-  width: 100%;
-  max-width: 925px;
-  height: 550px;
-
-  /*  Центрируем и задаем z-index */
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 30; /* Должен быть выше чем у подложки*/
-
-  /*  Побочные стили   */
-  box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  padding: 30px;
-  border-radius: 3px;
-  background-color: #fff;
-  transition: 0.3s all;
+body {
+  background-color: #f4f6fb;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Стили для активных классов подложки и окна */
-
-.modal.active,
-.overlay.active {
-  opacity: 1;
-  /* visibility: visible; */
+:focus {
+  outline-color: #ff6b08;
 }
 
-/* Стили для кнопки закрытия */
-
-.modal__cross {
-  width: 17px;
-  height: 17px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  fill: #000;
-  cursor: pointer;
+.container {
+  width: 290px;
+  margin: 0 auto;
 }
 
-/* Стили для кнопок. Мы ведь порядочные разработчики, негоже простые ссылки оставлять */
-
-.slider {
-  width: 1280px;
-  height: 455px;
-  background-color: #000;
-}
-
-img {
-  width: 450px;
-  height: 400px;
-}
-
-.card-list {
+.header {
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  padding-top: 45px;
-  padding-right: 45px;
-  list-style: none;
-  display: flex;
+  height: 70px;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
 }
 
-.modal {
-  display: flex;
-  padding: 55px;
+.logo-wrapper {
+  display: none;
 }
 
-.btn-buy {
-  width: 295px;
-  height: 60px;
-  background-color: #ff6b08;
+.logo-wrapper a {
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.search-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.create-ad {
+  display: none;
   border: none;
-  color: #ffffff;
-  font-size: 16px;
+  background-color: #ff6b08;
+  width: 220px;
+  height: 70px;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
 }
 
-/* .favorites {
-  display: block;
+.create-ad:hover {
+  background-color: #e75e02;
+}
+
+.modal-menu {
+  width: 65px;
+  height: 70px;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid lightgrey;
+  font-size: 24px;
+}
+
+.modal-menu:hover {
+  background-color: rgba(211, 211, 211, 0.37);
+}
+
+.search {
+  background-color: transparent;
+  border: none;
+  margin-right: 20px;
+}
+
+.search-input {
+  width: 160px;
+  border: 1px solid lightgrey;
+  height: 20px;
+  margin-right: 20px;
+  background-color: #f4f6fb;
+}
+
+.search-input:focus {
+  outline-color: #ff6b08;
+}
+
+.clear {
+  display: none;
+  width: 100%;
+  height: 70px;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
+  justify-content: flex-end;
+}
+
+.clear-btn {
+  border: none;
+  font-size: 16px;
+  background-color: transparent;
+  height: 70px;
+  padding: 0 20px;
+  color: black;
+  text-align: center;
+  width: 220px;
+}
+
+.clear-btn:hover {
+  background-color: rgba(211, 211, 211, 0.37);
+}
+
+.clear-btn span {
+  font-size: 24px;
+  font-weight: 700;
+  transform: rotate(-180deg);
+}
+
+.footer {
+  background-color: #fff;
+  padding: 40px 0;
+}
+
+.footer span {
+  color: #ff6b08;
+}
+
+.footer a {
+  color: #ff6b08;
+}
+
+.footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.footer p:not(:last-child) {
+  margin-right: 20px;
+}
+
+.footer p:first-child {
+  margin-bottom: 5px;
+}
+
+/* main {
+  height: 1000px;
 } */
 
-.title__name {
-  margin: 0;
+@media (min-width: 768px) {
+  .logo-wrapper {
+    display: block;
+  }
+
+  .create-ad {
+    display: block;
+  }
+
+  .search-wrapper {
+    flex-direction: row;
+  }
+
+  .clear {
+    display: flex;
+  }
+
+  .container {
+    width: 720px;
+  }
+
+  .footer .container {
+    justify-content: center;
+    align-items: baseline;
+    color: #000107;
+  }
+
+  .footer p:first-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    width: 1240px;
+  }
+  .search-input {
+    width: 350px;
+  }
 }

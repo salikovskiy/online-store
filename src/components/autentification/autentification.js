@@ -69,6 +69,7 @@ async function getFormData(evt) {
 function exit() {
   services.logoutUser().then(function() {
     setListeners();
+    document.location.reload(true);
   });
 }
 

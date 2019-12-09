@@ -43,7 +43,7 @@ export default {
     }
   },
 
-  async getCategoriesById(id) {
+  async getCardById(id) {
     try {
       const data = await axios.get(`/ads/${id}`);
       return data.data.goal;

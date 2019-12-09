@@ -99,11 +99,17 @@ export default {
   },
 
   async loginUser(userInfo) {
-    const data = await axios.post('/auth/login', userInfo);
-    localStorage.setItem('token', data.data.token);
-    localStorage.setItem('userInfo', data.config.data);
-    return data;
+    try {
+      const data = await axios.post('/auth/login', userInfo);
+      localStorage.setItem('token', data.data.token);
+      localStorage.setItem('userInfo', data.config.data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   },
+
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
     const data = await axios.post('/auth/logout', userInfo, {

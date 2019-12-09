@@ -195,6 +195,10 @@ body {
     flex-direction: row;
   }
 
+  .search-input {
+    margin-right: 0;
+  }
+
   .clear {
     display: flex;
   }

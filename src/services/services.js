@@ -3,26 +3,9 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
-  async getItemCategory(numberCategories, numberPage) {
-    return await axios.get(
-      `/ads/all?category=${numberCategories}&page=${numberPage}`,
-    );
-  },
-  async getAllCategories() {
-    try {
-      return await axios
-        .get('/ads/all')
-        .then(({ data }) => data.ads.categories);
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  },
-
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -30,12 +13,9 @@ export default {
     }
   },
 
-
- 
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
-
       return data;
     } catch (error) {
       console.log(error);
@@ -91,10 +71,9 @@ export default {
 
   async deletedProduct(adId) {
     try {
-      const data = await axios.delete(`/ds/${adId}`, {
+      const data = await axios.delete(`/ads/${adId}`, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-
 
       return data;
     } catch (error) {
@@ -103,11 +82,8 @@ export default {
     }
   },
 
-
-
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
-
     if (data.data.status === 'success') {
       this.loginUser(userInfo);
     } else {
@@ -116,6 +92,7 @@ export default {
       console.error(`This email: ${res.match(regex)} already exists`);
     }
   },
+
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
     localStorage.setItem('token', data.data.token);
@@ -139,21 +116,47 @@ export default {
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
+    }
+  },
+
+  async getUser(token) {
+    const heders = {
+      headers: {
+        Authorization: token,
+      },
+    };
+    try {
+      let result = await axios.get(`/ads`, heders);
+      //  console.log('getUser', result);
+      return result;
+    } catch (error) {
       throw new Error(error);
     }
   },
 
   async getQuantityAllItemsByCategory(numberCategories, homePage) {
-    try{
-    const data = await axios.get(
-      `/ads/all?category=${numberCategories}&page=${homePage}`,
-    );
-    return data.data.ads.totalDocs;
+    try {
+      const data = await axios.get(
+        `/ads/all?category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.totalDocs;
     } catch (error) {
       console.log(error);
-      throw new Error(error);
     }
   },
 
-
+  async getUserFavorites(token) {
+    const heders = {
+      headers: {
+        Authorization: token,
+      },
+    };
+    try {
+      let result = await axios.get(`/user/favorites`, heders);
+      // console.log('get_Favorites', result);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
 };

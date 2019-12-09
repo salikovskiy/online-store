@@ -1,4 +1,5 @@
 import './styles.css';
+import './components/categories/categories'
 
 import './components/itemCard/itemCard';
 

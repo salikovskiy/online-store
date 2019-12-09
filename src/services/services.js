@@ -3,7 +3,22 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
-   refs: {},
+  async getItemCategory(numberCategories, numberPage) {
+    return await axios.get(
+      `/ads/all?category=${numberCategories}&page=${numberPage}`,
+    );
+  },
+  async getAllCategories() {
+    try {
+      return await axios
+        .get('/ads/all')
+        .then(({ data }) => data.ads.categories);
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
@@ -31,7 +46,6 @@ export default {
   async getCardById(id) {
     try {
       const data = await axios.get(`/ads/${id}`);
-
       return data.data.goal;
     } catch (error) {
       console.log(error);
@@ -44,7 +58,6 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
-
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -57,7 +70,6 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -70,7 +82,6 @@ export default {
       const data = await axios.post('/ads', object, {
         headers: { Authorization: `${localStorage.getItem('token')}` },
       });
-
       return data;
     } catch (error) {
       console.log(error);
@@ -107,7 +118,6 @@ export default {
   },
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
-
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
   },
@@ -119,6 +129,30 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
+  },
+
+  async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.docs;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async getQuantityAllItemsByCategory(numberCategories, homePage) {
+    try{
+    const data = await axios.get(
+      `/ads/all?category=${numberCategories}&page=${homePage}`,
+    );
+    return data.data.ads.totalDocs;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   },
 
 

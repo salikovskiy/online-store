@@ -7,16 +7,8 @@ const body = document.querySelector('body');
 const btn = document.querySelector('#btn');
 const btnExit = document.querySelector('.exit');
 const modalWindow = document.querySelector('#product-modal');
-btn.addEventListener('click', e => {
-  console.log('click test');
-  console.log(window.innerWidth);
-  // const id = e.target.dataset.id;
-  // if (window.innerWidth < 720) {
-  //   console.log('object 291');
-  // } else if (window.innerWidth >= 720) {
-  //   console.log('object 720');
-  // }
-  const id = '5d8cdf235c35f91a27d75b8f';
+body.addEventListener('click', e => {
+  const id = e.target.dataset.id;
   axios.get(`/ads/${id}`).then(({ data }) => {
     modalWindow.setAttribute('class', 'modal-window-color');
     // modalWindow.innerHTML = modal(data.goal);
@@ -43,3 +35,10 @@ modalWindow.addEventListener('click', e => {
     modalWindow.setAttribute('class', 'modal-window');
   }
 });
+
+// if (window.innerWidth < 720) {
+//   console.log('object 291');
+// } else if (window.innerWidth >= 720) {
+//   console.log('object 720');
+// }
+// const id = '5d8cdf235c35f91a27d75b8f';

@@ -1,10 +1,7 @@
-.card {
-  width: 297px;
-}
-
 .itemCard {
   background-color: #fff;
   width: 295px;
+  border: none;
 
   list-style: none;
 }
@@ -23,19 +20,22 @@
 }
 
 .itemInfo {
-  margin-left: 20px;
-  margin-bottom: 20px;
+  padding: 20px;
+  width: 295px;
+  height: 76px;
 }
 
 .itemImage {
   background-position: center;
   display: block;
   width: 295px;
-  margin-bottom: 17px;
+  height: 275px;
 }
 
 .imageContainer {
   position: relative;
+  width: 295px;
+  height: 100%;
 }
 
 .overlay {
@@ -44,7 +44,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 79%;
+  height: 275px;
   width: 100%;
   opacity: 0;
   transition: 0.5s ease;
@@ -60,20 +60,33 @@
 }
 
 .favorite {
-  fill: white;
+  background-image: url(../../assets/heart.svg);
   background-position: center;
   background-repeat: no-repeat;
-  width: 115px;
-  height: 116px;
+  width: 15px;
+  height: 15px;
   filter: invert(1);
+  transform: translate(260px, 20px);
 }
 
 .open {
+  background-image: url(../../assets/fullscreen-24px.svg);
   background-position: center;
   background-repeat: no-repeat;
   width: 14px;
   height: 14px;
   filter: invert(1);
+  transform: translate(260px, 225px);
+}
+
+.addedToFavorite {
+  background-image: url(../../assets/addedToFavorite.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  transform: translate(260px, 20px);
 }
 
 .overlayButton {

@@ -18,12 +18,13 @@
   padding-left: 18px;
   padding-right: 18px;
   margin-right: 10px;
+  outline: none;
 }
 
 .btnCategory:active,
 .btnCategory:hover,
 .isActiveCategory {
   color: #ff6b08;
-  border: 2px solid #ff6b08;
+  border: 1px solid #ff6b08;
   height: 30px;
 }

@@ -5,6 +5,7 @@ axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 export default {
   refs: {
     filter: document.querySelector('.filter'),
+    clear: document.querySelector('.clear-btn')
   },
 
   async getAllProduct() {

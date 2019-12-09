@@ -1,5 +1,5 @@
 import axios from 'axios';
-import PNotify_1 from 'pnotify/dist/es/PNotify';
+// import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 

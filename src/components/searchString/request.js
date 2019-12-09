@@ -15,8 +15,7 @@ function handleInput(e) {
   let string = '';
   let searchItem = refs.input.value.toLowerCase();
   console.log(searchItem);
-  services.searchAllItems(searchItem);
-  then(data => {
+  services.searchAllItems(searchItem).then(data => {
     console.log(data);
     let card = '';
     data.forEach(item => {

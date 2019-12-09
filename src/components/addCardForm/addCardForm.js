@@ -89,40 +89,40 @@ openModalForm.addEventListener('click', e => {
     select.insertAdjacentHTML('beforeend', string);
   });
 
-  const newCardImg = document.querySelector('.cardImg');
   const addProductImg = document.querySelector('.fileInput');
+  const modalBox = document.querySelector('.modalBox');
+  const form = document.querySelector('.form');
+  const image = [];
 
-  // function saveImg(url) {
-  //   newCardImg.src = url;
-  //   newCardImg.onload = function() {
-  //     const key = encodeURIComponent(url);
-  //     const canvas = document.createElement('canvas');
-  //     const ctx = canvas.getContext('2d');
-  //     ctx.drawImage(newCardImg, 0, 0);
-  //   };
-  // }
+  // -------------------------------------
 
-  // addProductImg.addEventListener('input', saveImg());
+  function handleFileSelect(evt) {
+    let file = evt.target.files;
+    let f;
+    for (let i = 0; (f = file[i]); i++) {
+      let reader = new FileReader();
+      reader.onload = (function(theFile) {
+        return function(e) {
+          image.push(e.target.result);
+        };
+      })(f);
+      reader.readAsDataURL(f);
+    }
+  }
 
-  // addProductImg.addEventListener('input', e => {
-  //   const reader = new FileReader();
-  //   reader.onload = e => {
-  //     newCardImg.src = e.target.result;
-  //   };
-  //   addProductImg.addEventListener('change', e => {
-  //     const file = e.target.files[0];
-  //     reader.readAsDataURL(file);
-  //     if (!file.type.match('image.*')) {
-  //       alert('Невідомий формат, оберіть фото будь-ласка');
-  //     }
-  //   });
+  // -------------------------------------
+
+  addProductImg.addEventListener('input', handleFileSelect);
+  console.log(image);
+  // addProductImg.addEventListener('change', e => {
+  //   const file = e.target.files[0];
+  //   reader.readAsDataURL(file);
+  //   if (!file.type.match('image.*')) {
+  //     alert('Невідомий формат, оберіть фото будь-ласка');
+  //   }
   // });
 
   //-------------Закртытие формы по клику и отправке-----------
-
-  const modalBox = document.querySelector('.modalBox');
-  const form = document.querySelector('.form');
-  console.log(form);
 
   modalBox.addEventListener('click', e => {
     if (
@@ -130,20 +130,23 @@ openModalForm.addEventListener('click', e => {
       e.target.className === 'material-icons' ||
       e.target.className === 'modalBox'
     ) {
-      modalForm.innerHTML = '<div class="modalSpace"';
+      modalForm.innerHTML = '';
     }
   });
 
   //-------------Собираю данные из формы-------------
 
   form.addEventListener('submit', e => {
+    e.preventDefault();
+    let newCardImg = document.querySelector('.cardImg');
+    newCardImg.src = `${image[0]}`;
     category.currentCategory = document.querySelector('select').value;
     category.allCategories.forEach((item, index) => {
       if (item.category === category.currentCategory) {
         category.currentCategory = index + 1;
       }
     });
-    e.preventDefault();
+
     const newCard = formParser();
     // API.adsProduct(newCard);
     modalForm.innerHTML = '<div class="modalSpace"';
@@ -152,8 +155,9 @@ openModalForm.addEventListener('click', e => {
 });
 
 function formParser() {
+  let newCardImg = document.querySelector('.cardImg');
   return {
-    images: [document.querySelector('.fileInput').value],
+    images: [newCardImg.src],
     title: document.querySelector('.firstInput').value,
     category: category.currentCategory,
     price: Number(document.querySelector('.fourthInput').value),
@@ -161,3 +165,5 @@ function formParser() {
     description: document.querySelector('.thirdInput').value,
   };
 }
+
+//-----------------------------

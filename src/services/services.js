@@ -6,22 +6,20 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 export default {
-  async getAllitems() {
-    // const data = await axios.get('/ads/all');
-    try {
-      const data = await axios
-        .get('/ads/all')
-        .then(({ data }) => data.ads.docs);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
+  searchAllItems(searchItem, homePage) {
+    return axios
+      .get(`/ads/all?search=${searchItem}&limit=12&page=${homePage}`)
+      .then(data => data.data.ads.docs);
+  },
+  searchInCategory(numberCategories, homePage, searchItem) {
+    return axios.get(
+      `/ads/all?category=${numberCategories}&limit=12&page=${homePage}&search=${searchItem}`,
+    );
   },
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      // console.log(data.data.ads);
+      // console.log('right', data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -32,7 +30,7 @@ export default {
   async getAlerts() {
     try {
       const data = await axios.get('https://sciactive.com/pnotify/');
-      console.log(data);
+      //console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -56,8 +54,8 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
-      console.log(data.data.ads);
-      return data.data.ads;
+      // console.log(data.data.ads.docs);
+      return data.data.ads.docs;
     } catch (error) {
       console.log(error);
       throw new Error(error);

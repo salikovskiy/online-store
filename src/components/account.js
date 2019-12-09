@@ -21,55 +21,49 @@ const refs = {
   popupExit: document.querySelector('.popup-exit'),
   popupEnterText: document.querySelector('.popup-enter-text'),
   popupExitText: document.querySelector('.popup-exit-text'),
-  body: document.querySelector('body')
+  body: document.querySelector('body'),
+  userName: document.querySelector('.account_btn-name'),
+  accountBtn: document.querySelector('.account_btn'),
 };
 
 const token =
   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
 
-// const token =
-//   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkOGE3YjQ2MjA5NzcxMzI1Zjg1YmRlOSIsImlhdCI6MTU3NTYyNTE3N30.6CPURPOcVT7ZdtVuO0iVwMWMPrT4iJJu-Z9MjYC0iUc';
 
 //const token = localStorage.getItem('token')
-//console.log(localStorage.getItem('token'))
-//!!!!!!!!добавить л.с. вместо токена
-
+//!!!!!!!!добавить local storage вместо токена
 
 ///--------------открываем popup
 refs.body.addEventListener('click', event => {
-  console.log(event.target);
-  
   if (!localStorage.getItem('token')) {
-    return;
-  }
-
-  if (event.target.nodeName !== 'BUTTON') {
     return;
   }
 
   if (event.target == refs.headerBtn) {
     refs.popup.style.display = 'block';
   }
-  //---------------закрываем popup
-  // if (event.target !== refs.headerBtn) {
-  //   refs.popup.style.display = 'none';
-  // } !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+  //---------------закрываем popup
+  if (event.target !== refs.headerBtn) {
+    refs.popup.style.display = 'none';
+  }
 });
+
+const userName = JSON.parse(localStorage.getItem('userInfo')).name;
+refs.userName.textContent = userName;
+refs.accountBtn.textContent = userName[0];
 
 //---------------открываем модалку
 refs.popupEnter.addEventListener('click', event => {
-  
   if (!localStorage.getItem('token')) {
     return;
   }
 
-  if (event.target == refs.popupEnter ||
-    event.target == refs.popupEnterText) {
+  if (event.target == refs.popupEnter || event.target == refs.popupEnterText) {
     refs.modal.classList.add('is-open');
     refs.popup.style.display = 'none';
   }
-  
+
   //---------------закрываем модалку
   refs.modal.addEventListener('click', event => {
     if (
@@ -81,7 +75,6 @@ refs.popupEnter.addEventListener('click', event => {
     }
 
     //--------------добавляем объявления юзера
-
     if (
       event.target == refs.ads ||
       event.target == refs.wrapperAds ||
@@ -92,6 +85,7 @@ refs.popupEnter.addEventListener('click', event => {
         refs.ads.innerHTML = userAds(data.data.ads);
       });
     }
+    
     //----------------добавляем избранное
     if (
       event.target == refs.favorite ||
@@ -106,24 +100,25 @@ refs.popupEnter.addEventListener('click', event => {
   });
 
   //--------------удаляем объявления и снова отрисовываем!
-  // let deleteButton = document.querySelector('.lightbox__content');
-  // deleteButton.addEventListener('click', evt => {
-  //   if (evt.target.nodeName !== 'BUTTON') {
-  //     return;
-  //   }
-  //   const id = evt.target.closest('li').dataset.id;
-  //   services.deletedProduct(id);
+  let deleteButton = document.querySelector('.lightbox__content');
+  deleteButton.addEventListener('click', evt => {
+    if (evt.target.nodeName !== 'BUTTON') {
+      return;
+    }
+    const id = evt.target.closest('li').dataset.id;
+    services.deletedProduct(id);
 
-  //   services.getUserFavorites(token).then(data => {
-  //     refs.favorites.innerHTML = userAds(data.data.user.favorites);
-  //   });
-  // });
+    services.getUserFavorites(token).then(data => {
+      refs.favorites.innerHTML = userAds(data.data.user.favorites);
+    });
+  });
 });
 
+//----------------выходим из аккаунта
 // refs.popupExit.addEventListener('click', event =>{
 //   console.log(event.target)
 //   if (event.target == refs.popupExit ||
 //     event.target == refs.popupExitText) {
-//     //выходим!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//     //Аня добавь выход!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //   }
 // })

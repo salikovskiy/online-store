@@ -200,12 +200,15 @@ ul {
   width: 20px;
   height: 20px;
   background-image: url('.././img/delete-24px.svg');
-  position: absolute;
-  width: 20px;
-  height: 20px;
+  top: 4px;
+  left: 52px;
 }
 
-.account_btn {
+.account_btn-wrapper {
+  display: none;
+}
+
+.popup {
   display: none;
 }
 
@@ -213,19 +216,19 @@ ul {
 
   .account_btn-wrapper {
     display: flex;
- }
 
- .account_btn-name {
+  }
+
+  .account_btn-name {
     line-height: 40px;
     font-size: 14px;
     font-family: "Roboto";
     font-weight: 400;
     color: rgb(0, 0, 0);
     margin-right: 12px;
- }
+  }
 
   .account_btn {
-    display: block;
     border: none;
     background-color: #fff;
     width: 40px;
@@ -246,8 +249,7 @@ ul {
     background-color: #fff;
     position: absolute;
     top: 86px;
-    right: 224px;
-    display: none;
+    right: 232px;
   }
 
   .popup::before {
@@ -365,18 +367,23 @@ ul {
 
 @media (min-width: 1280px) {
   .account_btn-name {
+    font-size: 18px;
     line-height: 50px;
-    font-size: 16px;
   }
 
   .account_btn {
-    font-size: 16px;
+    font-size: 18px;
     width: 50px;
     height: 50px;
   }
 
-  .popup{
-    right: 304px;
+  .popup {
+    right: 314px;
+  }
+
+  .popup-enter,
+  .popup-exit {
+    font-size: 17px;
   }
 
   .lightbox__content {

@@ -45,13 +45,17 @@ async function getFormData(evt) {
       const res = result.data.error;
       PNotify.error(`This email: ${res.match(regex)} already exists`);
     } else {
-      PNotify.success('You have registrated successfully');
-      // showStackBarTop('success');
+      // PNotify.success('You have registrated successfully');
+      showStackModalLeft('success');
     }
     console.log(result);
   } else if (keys.length === 2) {
     // loader-> with await im waiting for result->close loader
-    result = await services.loginUser(data);
+    try {
+      result = await services.loginUser(data);
+    } catch (error) {
+      PNotify.error('You entered invalid email or password');
+    }
   }
   if (result.data.status === 'success') {
     setListeners();
@@ -106,3 +110,40 @@ function setListeners() {
   }
 }
 setListeners();
+
+function showStackModalLeft(type) {
+  if (typeof window.stackModalLeft === 'undefined') {
+    window.stackModalLeft = {
+      dir1: 'down',
+      dir2: 'right',
+      firstpos1: 25,
+      firstpos2: 25,
+      push: 'top',
+      modal: false,
+      overlayClose: true,
+    };
+  }
+  var opts = {
+    title: 'Over Here',
+    text: "Check me out. I'm in a different stack.",
+    stack: window.stackModalLeft,
+  };
+  switch (type) {
+    case 'error':
+      opts.title = 'Oh No';
+      opts.text = 'Watch out for that water tower!';
+      opts.type = 'error';
+      break;
+    case 'info':
+      opts.title = 'Breaking News';
+      opts.text = 'Have you met Ted?';
+      opts.type = 'info';
+      break;
+    case 'success':
+      opts.title = 'Congratulations!';
+      opts.text = 'You have registrated successfully!';
+      opts.type = 'success';
+      break;
+  }
+  PNotify.alert(opts);
+}

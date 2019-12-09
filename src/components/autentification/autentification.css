@@ -140,3 +140,7 @@
 .lightbox__button i {
   font-size: 36px;
 }
+
+[ui-pnotify].ui-pnotify.stack-bar-top {
+  width: 100%;
+}

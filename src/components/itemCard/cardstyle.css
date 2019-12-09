@@ -30,6 +30,8 @@
   display: block;
   width: 295px;
   height: 275px;
+  object-fit: cover;
+  /* margin-bottom: 17px; */
 }
 
 .imageContainer {

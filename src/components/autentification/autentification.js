@@ -11,6 +11,10 @@ const refs = {
   nameField: document.querySelector('[name=name]'),
   actionContainer: document.querySelector('.action_container'),
   exitBtn: document.querySelector('.popup-exit'),
+  loginOnMobile: document.querySelector('.loginOnMobile'),
+  btnMenu: document.querySelector('.modal-menu'),
+  modalka: document.querySelector('#modalka'),
+  logOut: document.querySelector('.logout'),
 };
 
 const state = {
@@ -19,8 +23,10 @@ const state = {
   isRegistered: false,
 };
 
-function openModalWindowWithRegistrationForm() {
+function openModalWindowWithRegistrationForm(evt) {
+  evt.preventDefault();
   refs.registrationForm.classList.add('isOpened');
+  refs.modalka.setAttribute('class', 'menu-wrapper-none');
 }
 function closeModalWindowWithRegistrationForm() {
   refs.registrationForm.classList.remove('isOpened');
@@ -96,8 +102,20 @@ function setListeners() {
     );
     refs.form.addEventListener('submit', getFormData);
     refs.registerBtn.addEventListener('click', openRegistrateForm);
+    if (window.innerWidth < 720) {
+      console.log('yes');
+      refs.login.style.display = 'none';
+
+      refs.loginOnMobile.addEventListener(
+        'click',
+        openModalWindowWithRegistrationForm,
+      );
+    }
   } else {
     state.isLogin = true;
+    const userLogin = localStorage.getItem('userName');
+    refs.loginOnMobile.textContent = userLogin;
+    refs.logOut.setAttribute('style', 'display: block');
     refs.login.style.display = 'none';
     refs.login.removeEventListener(
       'click',
@@ -111,6 +129,9 @@ function setListeners() {
     refs.registerBtn.removeEventListener('click', openRegistrateForm);
     refs.registrationForm.classList.remove('isOpened');
     refs.exitBtn.addEventListener('click', exit);
+  }
+  if (window.innerWidth < 720) {
+    refs.logOut.addEventListener('click', exit);
   }
 }
 setListeners();

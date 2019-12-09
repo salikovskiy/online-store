@@ -1,3 +1,7 @@
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 *,
 *::before,
 *::after {
@@ -57,10 +61,6 @@ body {
   display: none;
 }
 
-html {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
 .logo-wrapper a {
   text-decoration: none;
   color: black;
@@ -223,7 +223,6 @@ html {
   }
 }
 
-/* styles for categories */
 .visually-hidden:not(:focus):not(:active),
 input[type='checkbox'].visually-hidden,
 input[type='radio'].visually-hidden {
@@ -238,70 +237,4 @@ input[type='radio'].visually-hidden {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
-}
-
-.categories-item {
-  position: relative;
-  background-color: #f4f6fb;
-  border-top: 1px solid rgba(206, 210, 209, 0.5);
-  padding-top: 50px;
-  padding-bottom: 30px;
-}
-
-.categories-item-overlay-title {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  justify-content: flex-start;
-  left: 80px;
-  top: 15px;
-}
-.categories-item-title {
-  margin-right: 30px;
-  font-weight: bold;
-  font-size: 13px;
-}
-.categories-item-btn-showall {
-  color: #ff6b08;
-  font-weight: normal;
-  font-size: 13px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  text-decoration: underline;
-  /* outline: none; */
-}
-.categories-item-btn-slider {
-  padding: 0 10px;
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-  top: 10px;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-}
-.categories-item-btn-slider button {
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 50%;
-  background-color: #fff;
-  outline: none;
-
-}
-.categories-item-btn-slider button:hover{
-  background-color: #ff6b08;
-
-}
-.categories-item-listcards {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.listcards-itemcard {
-  width: 295px;
-  height: 350px;
-  margin-bottom: 20px;
 }

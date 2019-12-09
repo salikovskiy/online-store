@@ -8,6 +8,7 @@ import './components/account.js';
 import './services/services';
 import './services/test';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import services from './services/services';
 import './components/favorit/favorit.js'
 
@@ -40,6 +41,9 @@ import './components/favorit/favorit.js'
 
 // // services.deletedProduct("5de8deed408e4026aa0e59f8")
 =======
+=======
+import './components/autentification/autentification';
+>>>>>>> 88775391aef166f5c23db6e00e6cc9318991f153
 import './components/favorit/favorit';
 import './components/filter/filter';
 >>>>>>> c28be3cd3f5f921dab09ed952b7ac759b046bee7

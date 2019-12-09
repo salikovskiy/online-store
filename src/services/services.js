@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
@@ -90,18 +91,20 @@ export default {
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
     if (data.data.status === 'success') {
-      this.loginUser(userInfo);
+      await this.loginUser(userInfo);
     } else {
       const regex = /[a-z0-9\.\-\+]+@[a-z0-9\.\-\+]+/gim;
       const res = data.data.error;
       console.error(`This email: ${res.match(regex)} already exists`);
     }
+    return data;
   },
 
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
+    localStorage.setItem('userId', data.data.userData.userId);
     return data;
   },
   async logoutUser(userInfo) {
@@ -112,6 +115,7 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('userId');
   },
 
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {

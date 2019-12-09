@@ -9,7 +9,11 @@ import services from './services';
 // services.registrateUser(defaultUser);
 // services.loginUser(defaultUser);
 <<<<<<< HEAD
+<<<<<<< HEAD
 // services.logoutUser(defaultUser);
 =======
 // // services.logoutUser(defaultUser);
 >>>>>>> c28be3cd3f5f921dab09ed952b7ac759b046bee7
+=======
+// services.logoutUser(defaultUser);
+>>>>>>> 88775391aef166f5c23db6e00e6cc9318991f153

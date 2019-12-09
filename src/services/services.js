@@ -105,6 +105,7 @@ export default {
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
     localStorage.setItem('userId', data.data.userData.userId);
+    localStorage.setItem('userName', data.data.userData.name);
     return data;
   },
 
@@ -117,6 +118,7 @@ export default {
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
   },
 
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {

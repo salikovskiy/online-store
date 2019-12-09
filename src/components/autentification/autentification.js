@@ -46,6 +46,7 @@ async function getFormData(evt) {
       PNotify.error(`This email: ${res.match(regex)} already exists`);
     } else {
       PNotify.success('You have registrated successfully');
+      // showStackBarTop('success');
     }
     console.log(result);
   } else if (keys.length === 2) {
@@ -79,7 +80,7 @@ function setListeners() {
   if (localStorage.getItem('token') === null) {
     state.isLogin = false;
     refs.login.textContent = 'Реєстрація/Увійти';
-    refs.login.removeEventListener('click', exit);
+    // refs.login.removeEventListener('click', exit);
     refs.login.addEventListener('click', openModalWindowWithRegistrationForm);
     refs.closeBtn.addEventListener(
       'click',
@@ -89,7 +90,7 @@ function setListeners() {
     refs.registerBtn.addEventListener('click', openRegistrateForm);
   } else {
     state.isLogin = true;
-    refs.login.textContent = 'Вийти';
+    refs.login.style.display = 'none';
     refs.login.removeEventListener(
       'click',
       openModalWindowWithRegistrationForm,
@@ -101,7 +102,7 @@ function setListeners() {
     );
     refs.registerBtn.removeEventListener('click', openRegistrateForm);
     refs.registrationForm.classList.remove('is-open');
-    refs.login.addEventListener('click', exit);
+    // refs.login.addEventListener('click', exit);
   }
 }
 setListeners();

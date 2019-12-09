@@ -13,11 +13,8 @@
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=cyrillic"
-      rel="stylesheet"
-    />
   </head>
+
   <body>
     <header class="header">
       <div class="hamburger">
@@ -26,7 +23,11 @@
       <div class="menu-wrapper-none" id="modalka">
         <button class="close">&#10005;</button>
         <nav class="navigation conteiner">
-          <ul class="navigation__menu_list"></ul>
+          <ul class="navigation__menu_list">
+            <li class="loginOnMobile navigation__menu_list-item">
+              Реєстрація / Увійти
+            </li>
+          </ul>
         </nav>
       </div>
       <div class="search-wrapper">
@@ -61,7 +62,7 @@
         </p>
       </div>
     </footer>
-
+    <script type="module" src="../components/sideBar/sideBar.js"></script>
     <script type="module" src="./src/index.js"></script>
   </body>
 </html>

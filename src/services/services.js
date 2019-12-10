@@ -6,14 +6,15 @@ axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 export default {
   refs: {
     filter: document.querySelector('.filter'),
-    clear: document.querySelector('.clear-btn')
+    clear: document.querySelector('.clear-btn'),
   },
 
   page: 1,
+  isLoading: false,
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      console.log(data.data.ads);
+      // console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -46,6 +47,7 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
+
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -53,11 +55,29 @@ export default {
     }
   },
 
+  async getIsLoading(load) {
+    console.log('load', load);
+    const res = await load;
+    if (res) {
+      return res;
+    }
+    return res;
+  },
+
   async getCategoriesWithNumberCategories(numberCategories, homePage) {
     try {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
+
+      this.isLoading = true;
+
+      // const load = await data.data.ads.docs;
+      // if (load) {
+      //   this.isLoading = this.isLoading = true;
+      // }
+      console.log('this.isLoading', this.isLoading);
+      this.getIsLoading(this.isLoading);
       // console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {

@@ -50,7 +50,7 @@ refs.body.addEventListener('click', event => {
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
-  refs.accountBtn.textContent = userName[0];
+  // refs.accountBtn.textContent = userName[0];
 }
 
 //---------------открываем модалку

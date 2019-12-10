@@ -1,6 +1,7 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
-import stylesCategories from './categories.css'
+import stylesCategories from './categories.css';
+// import createdFavoritCard from '../favorit/favorit.js';
 
 // import listCategories from '../templates/listCategories.hbs'
 
@@ -10,14 +11,17 @@ const refs = {
   btnShowAll: null,
   btnSlider: null,
   createAd: document.querySelector('.create-ad'),
+  favorit: document.querySelector('.favorite'),
 };
+
+// refs.favorit.addEventListener('click', createdFavoritCard);
 
 const getCategories = () => {
   return services.getAllProduct();
 };
 
 function paint({ categories }) {
-  console.log('список категорий', categories);
+  // console.log('список категорий', categories);
   let string = '';
   categories.forEach(element => {
     string += `<li class="categories-item data-category="${element._id}">
@@ -69,17 +73,16 @@ renderData();
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
     services
-    .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
-    .then(data => {
-      console.log(data);
-      let card = '';
-      data.forEach(item => {
-        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+      .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
+      .then(data => {
+        // console.log(data);
+        let card = '';
+        data.forEach(item => {
+          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        });
+        refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
       });
-      refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
-    });
-
   }
 };
 window.addEventListener('click', drawAllItemCardByCategory);
-console.log('fdf')
+// console.log('fdf');

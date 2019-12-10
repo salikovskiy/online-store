@@ -17,12 +17,9 @@ body {
   overflow: scroll;
   top: 0;
   background-color: rgb(0, 0, 0, 0.702);
-
-
 }
 
 .modal {
-
   /* border: 1px solid black; */
   width: 290px;
   position: absolute;
@@ -57,8 +54,7 @@ body {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-weight: 600;
-  font-size: 20px;
+  /* font-size: 20px; */
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -116,7 +112,7 @@ body {
   content: '';
   position: absolute;
   background-repeat: no-repeat;
-  /* margin-left: 5px; */
+  margin-left: 5px;
   background-image: url(../img/heart.png);
   width: 20px;
   height: 20px;
@@ -133,15 +129,19 @@ body {
 }
 
 .description {
-  margin: 0 auto;
+  margin: 0;
   width: 250px;
   font-size: 13px;
-  text-align: center;
+  text-align: left;
   margin-bottom: 15px;
+  padding-left: 20px;
 }
 
-.description-title {
-  align-items: start;
+.descripton-title {
+  text-align: left;
+  font-size: 12px;
+  padding-left: 20px;
+  padding-bottom: 10px;
 }
 
 .links {
@@ -160,7 +160,7 @@ body {
   .modal {
     display: flex;
     width: 100%;
-    max-width: 925px;
+    max-width: 756px;
 
     position: absolute;
     top: 50%;
@@ -177,7 +177,6 @@ body {
   }
 
   .exit {
-    font-weight: 600;
     font-size: 20px;
     border: none;
     background-color: transparent;
@@ -213,9 +212,10 @@ body {
   }
 
   .btn-buy {
+    margin: 0;
     cursor: pointer;
     display: block;
-    width: 295px;
+    width: 255px;
     height: 50px;
     background-color: #ff6b08;
     border: none;
@@ -271,9 +271,9 @@ body {
 
   .description {
     text-align: left;
-    margin: 0 auto;
     font-size: 13px;
     line-height: 18px;
+    width: 300px;
   }
 
   .favorites::after {
@@ -294,5 +294,21 @@ body {
     background-image: url(../img/share.png);
     width: 20px;
     height: 20px;
+  }
+}
+
+
+@media (min-width: 1280px) {
+  .container {
+    width: 1240px;
+  }
+
+  .search-input {
+    width: 350px;
+  }
+
+
+  .modal {
+    width: 823px;
   }
 }

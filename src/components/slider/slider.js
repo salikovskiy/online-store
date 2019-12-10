@@ -1,15 +1,21 @@
 import axios from 'axios';
 
-const arr = {
+const state = {
   currentImage: '',
   currentCategory: null,
   allAds: [],
+  prevImage: null,
+  nextImage: null,
 };
 
-async function getInfo(numberCategories = 1, homePage = 1, limit = 25) {
+const action = {};
+
+async function getInfo(numberCategories = 1, homePage = 1, limit = 100) {
   arr.allAds = await axios
     .get(`/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`)
     .then(data => console.log(data.data.ads.docs));
 }
 
 getInfo();
+
+function changeImage(action) {}

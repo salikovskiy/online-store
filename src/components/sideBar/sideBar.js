@@ -52,8 +52,7 @@ refs.ul.addEventListener('click', onHandleClick);
 
 // вывод входа в личный кабинет
 
-const userLogin = JSON.parse(localStorage.getItem('userInfo')).name;
-refs.logIn.textContent = userLogin;
+const userLogin = localStorage.getItem('userName');
 
 refs.logIn.addEventListener('click', event => {
   if (!localStorage.getItem('token')) {
@@ -64,6 +63,7 @@ refs.logIn.addEventListener('click', event => {
   }
 });
 
-if (localStorage.getItem('token')) {
-  refs.logOut.setAttribute('style', 'display: block');
-}
+// if (localStorage.getItem('token')) {
+//   refs.logIn.textContent = userLogin;
+//   refs.logOut.setAttribute('style', 'display: block');
+// }

@@ -147,7 +147,7 @@ export default {
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
     try {
       const data = await axios.get(
-        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
+        `/ads/all?limit=${limit}&category=${numberCategories}&page=${homePage}`,
       );
       return data.data.ads.docs;
     } catch (error) {

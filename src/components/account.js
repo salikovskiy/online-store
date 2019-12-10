@@ -48,7 +48,7 @@ refs.body.addEventListener('click', event => {
   }
 });
 if (localStorage.getItem('token')) {
-  const userName = JSON.parse(localStorage.getItem('userInfo')).name;
+  const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
   refs.accountBtn.textContent = userName[0];
 }

@@ -1,6 +1,6 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
-import stylesCategories from './categories.css'
+import stylesCategories from './categories.css';
 
 // import listCategories from '../templates/listCategories.hbs'
 
@@ -26,8 +26,8 @@ function paint({ categories }) {
                 <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивiться всi</button>
                 </div>
                 <div class="categories-item-btn-slider visually-hidden">
-                <button class="categories-item-btn-slider-prev data-category="${element._id}""></button>
-                <button class="categories-item-btn-slider-next data-category="${element._id}""></button>
+                <button class="categories-item-btn-slider-prev data-category="${element._id}""><</button>
+                <button class="categories-item-btn-slider-next data-category="${element._id}"">></button>
                 </div>
                 <ul class="categories-item-listcards" data-category="${element._id}">
                     </ul>
@@ -69,17 +69,16 @@ renderData();
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
     services
-    .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
-    .then(data => {
-      console.log(data);
-      let card = '';
-      data.forEach(item => {
-        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+      .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
+      .then(data => {
+        console.log(data);
+        let card = '';
+        data.forEach(item => {
+          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        });
+        refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
       });
-      refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
-    });
-
   }
 };
 window.addEventListener('click', drawAllItemCardByCategory);
-console.log('fdf')
+console.log('fdf');

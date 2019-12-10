@@ -1,16 +1,14 @@
 import axios from 'axios';
+import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
-  refs: {
-    filter: document.querySelector('.filter'),
-    clear: document.querySelector('.clear-btn'),
-  },
-
+  page: 1,
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
+      console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -55,6 +53,7 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
+      // console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -90,18 +89,21 @@ export default {
   async registrateUser(userInfo) {
     const data = await axios.post('/auth/register', userInfo);
     if (data.data.status === 'success') {
-      this.loginUser(userInfo);
+      await this.loginUser(userInfo);
     } else {
       const regex = /[a-z0-9\.\-\+]+@[a-z0-9\.\-\+]+/gim;
       const res = data.data.error;
       console.error(`This email: ${res.match(regex)} already exists`);
     }
+    return data;
   },
 
   async loginUser(userInfo) {
     const data = await axios.post('/auth/login', userInfo);
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
+    localStorage.setItem('userId', data.data.userData.userId);
+    localStorage.setItem('userName', data.data.userData.name);
     return data;
   },
   async logoutUser(userInfo) {
@@ -112,6 +114,8 @@ export default {
 
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
   },
 
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {

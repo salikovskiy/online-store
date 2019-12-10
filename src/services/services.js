@@ -10,7 +10,6 @@ export default {
   },
 
   page: 1,
-  isLoading: false,
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
@@ -55,30 +54,11 @@ export default {
     }
   },
 
-  async getIsLoading(load) {
-    console.log('load', load);
-    const res = await load;
-    if (res) {
-      return res;
-    }
-    return res;
-  },
-
   async getCategoriesWithNumberCategories(numberCategories, homePage) {
     try {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-
-      this.isLoading = true;
-
-      // const load = await data.data.ads.docs;
-      // if (load) {
-      //   this.isLoading = this.isLoading = true;
-      // }
-      console.log('this.isLoading', this.isLoading);
-      this.getIsLoading(this.isLoading);
-      // console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);

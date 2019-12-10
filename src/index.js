@@ -17,4 +17,4 @@ import './services/test';
 import './components/sideBar/sideBar.js';
 import './components/autentification/autentification';
 import './components/favorit/favorit';
-// import './components/filter/filter';
+import './components/filter/filter';

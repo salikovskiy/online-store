@@ -12,11 +12,6 @@ const categories = document.querySelector('.categories');
 console.log(categories);
 
 categories.addEventListener('click', e => {
-  // console.log(
-  //   'e.target.parentNode.parentNode :',
-  //   e.target.parentNode.parentNode,
-  // );
-
   if (e.target.nodeName === 'DIV') {
     console.log(e.target);
 
@@ -49,10 +44,3 @@ modalWindow.addEventListener('click', e => {
     modalWindow.setAttribute('class', 'modal-window');
   }
 });
-
-// if (window.innerWidth < 720) {
-//   console.log('object 291');
-// } else if (window.innerWidth >= 720) {
-//   console.log('object 720');
-// }
-// const id = '5d8cdf235c35f91a27d75b8f';

@@ -66,6 +66,10 @@ body {
   margin-bottom: 46px;
 }
 
+.links {
+  display: flex;
+}
+
 .btn-buy {
   margin: 0 auto;
   cursor: pointer;
@@ -88,6 +92,8 @@ body {
 }
 
 .favorites {
+  display: inline-block;
+
   position: relative;
   margin-right: 20px;
   color: #878686;
@@ -297,7 +303,6 @@ body {
   }
 }
 
-
 @media (min-width: 1280px) {
   .container {
     width: 1240px;
@@ -306,7 +311,6 @@ body {
   .search-input {
     width: 350px;
   }
-
 
   .modal {
     width: 823px;

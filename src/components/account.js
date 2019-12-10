@@ -1,6 +1,7 @@
 import '../public/account.css';
 import services from '../services/services.js';
 import userAds from '../components/templates/userAds.hbs';
+import userFav from '../components/templates/userFav.hbs';
 
 const refs = {
   modal: document.querySelector('.js-lightbox'),
@@ -29,7 +30,6 @@ const refs = {
 const token =
   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
 
-
 //const token = localStorage.getItem('token')
 //!!!!!!!!добавить local storage вместо токена
 
@@ -39,17 +39,20 @@ refs.body.addEventListener('click', event => {
     return;
   }
 
-  if (event.target == refs.headerBtn) {
+  if (event.target == refs.headerBtn || event.target == refs.userName) {
+    /////!!!!!!!Ане добавить
     refs.popup.style.display = 'block';
   }
 
   //---------------закрываем popup
-  if (event.target !== refs.headerBtn) {
+  if (event.target !== refs.headerBtn && event.target !== refs.userName) {
+    /////!!!!!!!Ане добавить
     refs.popup.style.display = 'none';
   }
 });
 
 const userName = JSON.parse(localStorage.getItem('userInfo')).name;
+
 refs.userName.textContent = userName;
 refs.accountBtn.textContent = userName[0];
 
@@ -83,9 +86,10 @@ refs.popupEnter.addEventListener('click', event => {
     ) {
       services.getUser(token).then(data => {
         refs.ads.innerHTML = userAds(data.data.ads);
+        //const editBtn = document.querySelector('ads_item-btn-edit')//редактировать как??????????
       });
     }
-    
+
     //----------------добавляем избранное
     if (
       event.target == refs.favorite ||
@@ -94,22 +98,24 @@ refs.popupEnter.addEventListener('click', event => {
       event.target == refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userAds(data.data.user.favorites);
+        refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });
     }
   });
 
   //--------------удаляем объявления и снова отрисовываем!
   let deleteButton = document.querySelector('.lightbox__content');
+
   deleteButton.addEventListener('click', evt => {
     if (evt.target.nodeName !== 'BUTTON') {
       return;
     }
+
     const id = evt.target.closest('li').dataset.id;
     services.deletedProduct(id);
 
     services.getUserFavorites(token).then(data => {
-      refs.favorites.innerHTML = userAds(data.data.user.favorites);
+      refs.favorites.innerHTML = userFav(data.data.user.favorites);
     });
   });
 });

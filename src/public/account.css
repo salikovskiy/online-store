@@ -179,8 +179,9 @@ ul {
   margin-bottom: 18px;
 }
 
-.ads_item-btn {
-  display: block;
+.ads_item-btn,
+.ads_item-btn-edit {
+  display: inline-block;
   font-size: 12px;
   font-family: 'Roboto';
   color: rgb(135, 134, 134);
@@ -190,7 +191,17 @@ ul {
   position: relative;
   border: none;
   background-color: #fff;
-  margin: 0 auto;
+  cursor: pointer;
+}
+
+.ads_item-btn {
+margin-right: 30px;
+
+}
+
+.ads_item-btn:focus,
+.ads_item-btn-edit:focus {
+  outline: none;
 }
 
 .ads_item-btn::after {
@@ -202,6 +213,17 @@ ul {
   background-image: url('.././img/delete-24px.svg');
   top: 4px;
   left: 52px;
+}
+
+.ads_item-btn-edit::after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('.././img/edit-24px.svg');
+  top: 0;
+  left: 70px;
 }
 
 .account_btn-wrapper {
@@ -241,6 +263,10 @@ ul {
     font-weight: 400;
     color: rgb(0, 0, 0);
     line-height: 1.2;
+  }
+
+  .account_btn:focus {
+    outline: none;
   }
 
   .popup {
@@ -309,6 +335,7 @@ ul {
 
   .lightbox__button {
     right: 30px;
+    
   }
 
   .lightbox__button i {
@@ -354,14 +381,22 @@ ul {
     margin-bottom: 12px;
   }
 
-  .ads_item-btn {
-    margin: 0;
+  .ads_item-btn,
+  .ads_item-btn-edit {
     font-size: 14px;
     background-color: rgb(244, 246, 251);
   }
 
+  .ads_item-btn {
+    margin-right: 40px;
+  }
+
   .ads_item-btn::after {
     left: 65px;
+  }
+
+  .ads_item-btn-edit::after {
+    left: 78px;
   }
 }
 
@@ -418,12 +453,20 @@ ul {
     margin-bottom: 20px;
   }
 
-  .ads_item-btn {
-    margin: 0;
+  .ads_item-btn,
+  .ads_item-btn-edit {
     font-size: 16px;
+  }
+
+  .ads_item-btn {
+  margin-right: 100px ;
   }
 
   .ads_item-btn::after {
     left: 74px;
+  }
+
+  .ads_item-btn-edit::after {
+    left: 88px;
   }
 }

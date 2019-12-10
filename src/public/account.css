@@ -294,6 +294,7 @@ ul {
     text-align: left;
     padding: 26px;
     position: relative;
+    cursor: pointer;
   }
 
   .popup-exit::after {
@@ -305,6 +306,11 @@ ul {
     background-image: url('../img/logout.svg');
     top: 25px;
     right: 32px;
+  }
+
+  .popup-exit-text:hover {
+    width: 50px;
+    border-bottom: solid 3px #ff6b08;
   }
 
   .lightbox__button {
@@ -375,6 +381,12 @@ ul {
     font-size: 18px;
     width: 50px;
     height: 50px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .account_btn:hover {
+    border: solid 3px #ff6b08;
   }
 
   .popup {

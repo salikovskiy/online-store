@@ -1,9 +1,7 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
 import stylesCategories from './categories.css';
-import Axios from 'axios';
 
-// import listCategories from '../templates/listCategories.hbs'
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -11,36 +9,15 @@ const state = {
 };
 
 const refs = {
+  mainSection: document.querySelector('.main-section'),
   contanierCategories: document.querySelector('.categories'),
   ulInner: null,
   ulInnerCurent: null,
   btnShowAll: null,
   btnSlider: null,
   createAd: document.querySelector('.create-ad'),
+  overlayCategoryContainer: null,
 };
-
-
-// // ----------MY----------------
-// const myState = {
-//   allCategories: [],
-
-// }
-
-// async function getAllInformation () {
-//   myState.allCategories = await services.getAllProduct().then(data => data.categories);
-//   console.log(myState.allProducts)
-
-
-// }
-
-// getAllInformation();
-
-
-// // --------------------------
-
-
-
-
 services.getAllProduct().then(data =>{
   paint(data)
 });
@@ -56,11 +33,16 @@ function visibleBtnCategoriesItem (listItemCard, indexCategory) {
   }
 };
 
+function drawDivPagination(){
+  let divPagginator = `<div class = "overlayPagination">Здесь будет код влада</div>`
+  return divPagginator;
+
+}
+
 function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
   categories.forEach((element, index) => {
-    // console.log("что такое элемент?", element);
     if (index < 3) {
       string += `<li class="categories-item data-category="${element._id}">
       <div class="categories-item-overlay-title">
@@ -76,10 +58,15 @@ function paint({ categories }) {
                 </li>`;
               }
   });
-
+  if(categories.length > 3){
+    refs.mainSection.insertAdjacentHTML('beforeend', drawDivPagination())
+    console.log("запускаю функцию отрисовки дива пагинатора");
+  }
+  
   refs.contanierCategories.insertAdjacentHTML('beforeend', string);
   refs.ulInner = document.querySelectorAll('.categories-item-listcards');
   
+
   refs.ulInner.forEach((element, index) => {
     let card = '';
     services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
@@ -107,6 +94,7 @@ const drawAllItemCardByCategory = e => {
     services
     .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
     .then(data => {
+      console.log("data.length",data.length);
       let card = '';
       data.forEach(item => {
         card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
@@ -118,6 +106,12 @@ const drawAllItemCardByCategory = e => {
         return name;
       }, '');
       refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"><h2 class="category-item-title">${nameCategory}</h2><ul class="categoryContainer">${card}</ul></li>`;
+      if(data.length > 10){
+        refs.overlayCategoryContainer = document.querySelector(".overlayCategoryContainer")
+        console.log("запускаю функцию отрисовки дива пагинатора");
+        refs.overlayCategoryContainer.insertAdjacentHTML('beforeend', drawDivPagination())
+    
+      }
     });
   }
 };

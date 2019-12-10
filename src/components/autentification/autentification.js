@@ -1,6 +1,7 @@
 import services from '../../services/services';
 import PNotify from 'pnotify/dist/es/PNotify.js';
 import 'pnotify/dist/PNotifyBrightTheme.css';
+import preload from '../../components/preloader/preloader.js';
 const refs = {
   login: document.querySelector('.login-register'),
   registrationForm: document.querySelector('.lightboxRegistration'),
@@ -16,6 +17,8 @@ const refs = {
   modalka: document.querySelector('#modalka'),
   logOut: document.querySelector('.logout'),
   lightbox: document.querySelector('.js-lightbox'),
+  body: document.querySelector('body'),
+  loginMobile: null,
 };
 
 const state = {
@@ -25,7 +28,6 @@ const state = {
 };
 
 function openModalWindowWithRegistrationForm(evt) {
-  evt.preventDefault();
   refs.registrationForm.classList.add('isOpened');
   refs.modalka.setAttribute('class', 'menu-wrapper-none');
 }
@@ -33,6 +35,15 @@ function closeModalWindowWithRegistrationForm() {
   refs.registrationForm.classList.remove('isOpened');
 }
 
+refs.body.addEventListener('click', evt => {
+  if (refs.loginMobile === null) {
+    refs.loginMobile = document.querySelector('.loginOnMobile');
+    refs.loginMobile.addEventListener(
+      'click',
+      openModalWindowWithRegistrationForm,
+    );
+  }
+});
 async function getFormData(evt) {
   evt.preventDefault();
   const data = {};
@@ -53,7 +64,6 @@ async function getFormData(evt) {
       const res = result.data.error;
       PNotify.error(`This email: ${res.match(regex)} already exists`);
     } else {
-      // PNotify.success('You have registrated successfully');
       showStackModalLeft('success');
     }
     console.log(result);
@@ -104,13 +114,13 @@ function setListeners() {
     refs.form.addEventListener('submit', getFormData);
     refs.registerBtn.addEventListener('click', openRegistrateForm);
     if (window.innerWidth < 720) {
-      console.log('yes');
-      refs.login.style.display = 'none';
-
       refs.loginOnMobile.addEventListener(
         'click',
         openModalWindowWithRegistrationForm,
       );
+      refs.logOut.removeEventListener('click', exit);
+      refs.registerBtn.removeEventListener('click', openRegistrateForm);
+      refs.login.style.display = 'none';
     }
   } else {
     state.isLogin = true;
@@ -132,7 +142,12 @@ function setListeners() {
     refs.exitBtn.addEventListener('click', exit);
   }
   if (window.innerWidth < 720) {
+    refs.login.style.display = 'none';
     refs.logOut.addEventListener('click', exit);
+    refs.loginOnMobile.removeEventListener(
+      'click',
+      openModalWindowWithRegistrationForm,
+    );
   }
 }
 setListeners();

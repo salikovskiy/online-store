@@ -45,6 +45,7 @@
   justify-content: space-around;
   align-items: center;
 }
+
 .form__text {
   width: 90%;
   text-align: center;
@@ -65,6 +66,7 @@
   background-color: rgb(255, 255, 255);
   border: solid 1px grey;
 }
+
 button.logout::after {
   display: block;
   content: '';
@@ -76,6 +78,7 @@ button.logout::after {
   right: 32px;
   transform: translateY(-50%);
 }
+
 .btn--google {
   background-color: rgb(255, 255, 255);
   border: solid 1px grey;
@@ -85,7 +88,9 @@ button.logout::after {
   background-size: 20%;
   background-position: left 10% center;
   text-align: center;
+  font-weight: 700;
 }
+
 /* LIGHTBOX */
 .lightboxRegistration {
   position: fixed;
@@ -172,6 +177,7 @@ button.logout::after {
 [ui-pnotify].ui-pnotify.stack-bar-top {
   width: 100%;
 }
+
 @media (min-width: 320px) and (max-width: 400px) {
   .form__btn {
     font-size: 11px;

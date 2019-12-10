@@ -39,7 +39,7 @@ getCategorys();
 // переход на категорию
 
 const onHandleClick = async evt => {
-  // console.log('work');
+  console.log('work');
   console.log(evt.target.id);
   const getCategory = await services.getCategoriesWithNumberCategories(
     evt.target.id,

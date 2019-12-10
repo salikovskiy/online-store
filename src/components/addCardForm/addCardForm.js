@@ -4,8 +4,8 @@ import API from '../../services/services.js';
 
 // ------------Отрисовка шаблона------------
 
-const modalForm = document.querySelector('.modalForm');
-const openModalForm = document.querySelector('.create-ad');
+const addNewModalForm = document.querySelector('.modalForm');
+const openNewAddform = document.querySelector('.create-ad');
 
 const category = {
   name: [],
@@ -24,7 +24,7 @@ async function getData() {
   });
 }
 
-const formMarkup = `
+const addNewCardformMarkup = `
 <div class="modalBox">
 <div class="formWrapper">
 <button type="button" class="closeForm" data-action="closeForm">
@@ -76,11 +76,61 @@ const formMarkup = `
 </div>
 </div>`;
 
+const formMarkupMobile = `
+<div class="modalBox">
+<div class="formWrapper">
+<button type="button" class="closeForm" data-action="closeForm">
+<i class="material-icons">close</i>
+</button>
+<form class="form">
+<p class="formTitle">Додати оголошення</p>
+<div class="firstInput__Wrapper iw">
+<input class="firstInput" type="text" name="title" placeholder="Назва товару" />
+</div>
+<div class="secondInput__Wrapper iw">
+<div class="formGroup">
+<label class="secondLabel">
+<div class="imageArr">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+<image class="cardImg" src="" alt="" width="75" height="60">
+</div>
+<input type="file" name="images" class="fileInput" multiple />
+</label>
+</div>
+</div>
+<div class="thirdInput__Wrapper iw">
+<input class="thirdInput" type="text" name="description" placeholder="Опис товару"/>
+</div>
+<div class="selectWrapper iw">
+<select class="categorySelect" name="category" placeholder="Категорія">
+<option></option>
+</select>
+</div>
+<div class="fourthInput__Wrapper iw">
+<input class="fourthInput" type="number" name="price" placeholder="0.00 грн"/>
+</div>
+<div class="firthInput__Wrapper iw">
+<input class="fifthInput" type="text" name="phone" placeholder="+38 (0--) --- -- --" />
+</div>
+<button type="submit" class="addButton" data-action="submitForm">Додати
+</button>
+</form>
+</div>
+</div>`;
+
 //--------------Рендер формы по клику---------------
 
-openModalForm.addEventListener('click', e => {
+openNewAddform.addEventListener('click', e => {
   e.preventDefault();
-  modalForm.insertAdjacentHTML('beforeend', formMarkup);
+  if (window.innerWidth < 768) {
+    addNewModalForm.insertAdjacentHTML('beforeend', formMarkupMobile);
+  } else if (window.innerWidth > 769) {
+    addNewModalForm.insertAdjacentHTML('beforeend', addNewCardformMarkup);
+  }
   const select = document.querySelector('.categorySelect');
   getData().then(data => {
     let string = '';
@@ -124,7 +174,7 @@ openModalForm.addEventListener('click', e => {
       e.target.className === 'material-icons' ||
       e.target.className === 'modalBox'
     ) {
-      modalForm.innerHTML = '';
+      addNewModalForm.innerHTML = '';
     }
   });
 
@@ -148,7 +198,7 @@ openModalForm.addEventListener('click', e => {
     });
     const newCard = formParser();
     // API.adsProduct(newCard);
-    modalForm.innerHTML = '<div class="modalSpace"';
+    addNewModalForm.innerHTML = '<div class="modalSpace"';
     console.log('Объект данных из формы:', newCard);
   });
 });

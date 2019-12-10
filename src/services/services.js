@@ -5,7 +5,7 @@ export default {
   searchAllItems(searchItem, homePage) {
     return axios
       .get(`/ads/all?search=${searchItem}&limit=12&page=${homePage}`)
-      .then(data => data.data.ads.docs);
+      .then(data => data.data.ads);
   },
   searchInCategory(numberCategories, homePage, searchItem) {
     return axios.get(
@@ -148,16 +148,14 @@ export default {
   },
 
   async getQuantityAllItemsByCategory(numberCategories, homePage) {
-    try{
-    const data = await axios.get(
-      `/ads/all?category=${numberCategories}&page=${homePage}`,
-    );
-    return data.data.ads.totalDocs;
+    try {
+      const data = await axios.get(
+        `/ads/all?category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.totalDocs;
     } catch (error) {
       console.log(error);
       throw new Error(error);
     }
   },
-
-
 };

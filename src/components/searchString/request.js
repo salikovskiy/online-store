@@ -1,34 +1,39 @@
 import services from '../../services/services.js';
-import template from '../templates/template.hbs';
 import debounce from 'lodash.debounce';
 import itemCard from '../itemCard/itemCard';
+import styleSearch from './styleSearch.css';
 
 const refs = {
   input: document.querySelector('.search-input'),
-  main: document.querySelector('.main'),
-  form: document.querySelector('.from'),
+  main: document.querySelector('.main-section'),
+  form: document.querySelector('form'),
   ulCont: document.querySelector('.categories'),
 };
 
 function handleInput(e) {
   e.preventDefault();
-  let string = '';
+  console.log(e);
   let searchItem = refs.input.value.toLowerCase();
   console.log(searchItem);
-  services.searchAllItems(searchItem).then(data => {
-    console.log(data);
-    let card = '';
-    data.forEach(item => {
-      card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+  services
+    .searchAllItems(searchItem)
+    .then(data => {
+      console.log(data);
+
+      refs.ulCont.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
+      return data;
+    })
+    .then(data => {
+      const searchRes = document.querySelector('.searchResult');
+      const card = data.docs
+        .map(item => `<li class="listcards-itemcard">${itemCard(item)}</li>`)
+        .join('');
+      searchRes.insertAdjacentHTML('beforeend', card);
+      if (data.totalPages > 1) {
+        const paginationNav = `<div class='overlayPagination'>place for pagination</div>`;
+        searchRes.insertAdjacentHTML('beforeend', paginationNav);
+      }
     });
-    refs.ulCont.insertAdjacentHTML('beforeend', card);
-    // refs.ulInner[e.target.dataset.category - 1].innerHTML = card;
-  });
-  // .then(data => {
-  //   let string = template(data);
-  //   refs.ulCont.innerHTML = '';
-  //   return string;
-  // })
-  // .then(string => refs.ulCont.insertAdjacentHTML('beforeend', string));
 }
-refs.form.addEventListener('input', debounce(handleInput, 500));
+refs.form.addEventListener('submit', handleInput);
+// refs.form.addEventListener('input', handleInput);

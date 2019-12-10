@@ -1,7 +1,7 @@
 import './styles.css';
 import './components/itemCard/cardstyle.css';
 import './components/searchString/request.js';
-import './components/categories/categories'
+import './components/categories/categories';
 
 import './components/itemCard/itemCard';
 

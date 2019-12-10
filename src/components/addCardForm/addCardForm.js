@@ -95,6 +95,7 @@ openModalForm.addEventListener('click', e => {
   const modalBox = document.querySelector('.modalBox');
   const form = document.querySelector('.form');
   const image = [];
+  let cardImg = document.querySelector('.cardImg');
 
   // -------------------------------------
 
@@ -105,6 +106,7 @@ openModalForm.addEventListener('click', e => {
       let reader = new FileReader();
       reader.onload = (function(theFile) {
         return function(e) {
+          cardImg.src = e.target.result;
           image.push(e.target.result);
         };
       })(f);
@@ -132,25 +134,18 @@ openModalForm.addEventListener('click', e => {
     e.preventDefault();
     const imagesContainer = document.querySelector('.imageArr');
     let string = '';
-    console.log(`image`, image);
     if (image.length !== null) {
       image.forEach(elem => {
         string += `<image class="cardImg" src="${elem}" alt="picture" width="75" height="60"></image>`;
       });
-      console.log('Картинки', imagesContainer);
       imagesContainer.innerHTML = string;
     }
-
-    // const addImages = imagesContainer.querySelectorAll('.cardImg');
-    // let newCardImg = document.querySelector('.cardImg');
-    // newCardImg.src = `${image[0]}`;
     category.currentCategory = document.querySelector('select').value;
     category.allCategories.forEach((item, index) => {
       if (item.category === category.currentCategory) {
         category.currentCategory = index + 1;
       }
     });
-
     const newCard = formParser();
     // API.adsProduct(newCard);
     modalForm.innerHTML = '<div class="modalSpace"';
@@ -159,9 +154,9 @@ openModalForm.addEventListener('click', e => {
 });
 
 function formParser() {
-  let newCardImg = document.querySelector('.cardImg');
+  let cardImg = document.querySelector('.cardImg');
   return {
-    images: newCardImg.src,
+    images: [cardImg.src],
     title: document.querySelector('.firstInput').value,
     category: category.currentCategory,
     price: Number(document.querySelector('.fourthInput').value),
@@ -169,5 +164,3 @@ function formParser() {
     description: document.querySelector('.thirdInput').value,
   };
 }
-
-//-----------------------------

@@ -15,6 +15,7 @@ const refs = {
   btnMenu: document.querySelector('.modal-menu'),
   modalka: document.querySelector('#modalka'),
   logOut: document.querySelector('.logout'),
+  lightbox: document.querySelector('.js-lightbox'),
 };
 
 const state = {

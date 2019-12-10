@@ -54,14 +54,14 @@ refs.ul.addEventListener('click', onHandleClick);
 
 const userLogin = localStorage.getItem('userName');
 
-// refs.logIn.addEventListener('click', event => {
-//   if (!localStorage.getItem('token')) {
-//     return;
-//   }
-//   // if ((event.target = refs.logIn)) {
-//   //   refs.modal.classList.add('is-open');
-//   // }
-// });
+refs.logIn.addEventListener('click', event => {
+  if (!localStorage.getItem('token')) {
+    return;
+  }
+  if ((event.target = refs.logIn)) {
+    refs.modal.classList.add('is-open');
+  }
+});
 
 // if (localStorage.getItem('token')) {
 //   refs.logIn.textContent = userLogin;

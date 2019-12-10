@@ -59,8 +59,7 @@ function paint({ categories }) {
               }
   });
   if(categories.length > 3){
-    refs.mainSection.insertAdjacentHTML('beforeend', drawDivPagination())
-    console.log("запускаю функцию отрисовки дива пагинатора");
+    refs.contanierCategories.insertAdjacentHTML('afterend', drawDivPagination())
   }
   
   refs.contanierCategories.insertAdjacentHTML('beforeend', string);
@@ -94,7 +93,6 @@ const drawAllItemCardByCategory = e => {
     services
     .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
     .then(data => {
-      console.log("data.length",data.length);
       let card = '';
       data.forEach(item => {
         card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
@@ -106,9 +104,8 @@ const drawAllItemCardByCategory = e => {
         return name;
       }, '');
       refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"><h2 class="category-item-title">${nameCategory}</h2><ul class="categoryContainer">${card}</ul></li>`;
-      if(data.length > 10){
+      if(data.length > 12){
         refs.overlayCategoryContainer = document.querySelector(".overlayCategoryContainer")
-        console.log("запускаю функцию отрисовки дива пагинатора");
         refs.overlayCategoryContainer.insertAdjacentHTML('beforeend', drawDivPagination())
     
       }

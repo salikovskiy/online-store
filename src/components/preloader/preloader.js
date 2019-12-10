@@ -7,7 +7,7 @@ preload.innerHTML =
 document.body.appendChild(preload);
 
 window.addEventListener('load', function() {
-  preload.className += ' fade';
+  preload.className += 'fade';
 
   setTimeout(function() {
     preload.style.display = 'none';

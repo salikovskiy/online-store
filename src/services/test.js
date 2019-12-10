@@ -8,4 +8,4 @@
 
 // services.registrateUser(defaultUser);
 // services.loginUser(defaultUser);
-// // services.logoutUser(defaultUser);
+// services.logoutUser(defaultUser);

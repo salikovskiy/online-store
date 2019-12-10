@@ -1,5 +1,4 @@
 import services from '../../services/services.js';
-import debounce from 'lodash.debounce';
 import itemCard from '../itemCard/itemCard';
 import styleSearch from './styleSearch.css';
 

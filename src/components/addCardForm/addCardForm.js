@@ -186,7 +186,7 @@ openNewAddform.addEventListener('click', e => {
       }
     });
     const newCard = formParser();
-    // API.adsProduct(newCard);
+    API.adsProduct(newCard);
     addNewModalForm.innerHTML = '<div class="modalSpace"';
     console.log('Объект данных из формы:', newCard);
   });

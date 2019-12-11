@@ -19,6 +19,7 @@ const refs = {
   lightbox: document.querySelector('.js-lightbox'),
   body: document.querySelector('body'),
   loginMobile: null,
+  popupEnter: document.querySelector('.popup-enter'),
 };
 
 const state = {
@@ -143,17 +144,6 @@ function setListeners() {
   if (window.innerWidth < 768) {
     refs.login.style.display = 'none';
     refs.logOut.addEventListener('click', exit);
-    refs.loginOnMobile.removeEventListener(
-      'click',
-      openModalWindowWithRegistrationForm,
-    );
-    if (refs.loginMobile === null) {
-      refs.loginMobile = document.querySelector('.loginOnMobile');
-      refs.loginMobile.addEventListener(
-        'click',
-        openModalWindowWithRegistrationForm,
-      );
-    }
   }
 }
 setListeners();

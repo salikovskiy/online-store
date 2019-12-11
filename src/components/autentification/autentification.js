@@ -27,7 +27,6 @@ const state = {
   isRegistrationFormOpen: false,
   isRegistered: false,
 };
-refs.registrationForm.style.display = 'none';
 
 function openModalWindowWithRegistrationForm(evt) {
   refs.registrationForm.style.display = 'flex';
@@ -96,6 +95,7 @@ function openRegistrateForm(evt) {
 }
 
 function setListeners() {
+  refs.registrationForm.style.display = 'none';
   if (localStorage.getItem('token') === null) {
     state.isLogin = false;
     refs.login.textContent = 'Реєстрація/Увійти';

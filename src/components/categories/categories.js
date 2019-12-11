@@ -42,6 +42,7 @@ function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
   categories.forEach((element, index) => {
+    console.log('element', element.category);
     if (index < 3) {
       string += `<li class="categories-item data-category="${element._id}">
       <div class="categories-item-overlay-title">
@@ -92,6 +93,7 @@ function paint({ categories }) {
 
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
+    console.log('e.target.dataset.category', e.target.dataset.category);
     services
       .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
       .then(data => {

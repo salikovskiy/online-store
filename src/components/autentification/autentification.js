@@ -19,7 +19,7 @@ const refs = {
   lightbox: document.querySelector('.js-lightbox'),
   body: document.querySelector('body'),
   loginMobile: null,
-  popupEnter: document.querySelector('.popup-enter'),
+  createAd: document.querySelector('.create-ad'),
 };
 
 const state = {
@@ -128,6 +128,7 @@ function setListeners() {
     refs.loginOnMobile.textContent = userLogin;
     refs.logOut.setAttribute('style', 'display: block');
     refs.login.style.display = 'none';
+    refs.createAd.style.width = '200px';
     refs.login.removeEventListener(
       'click',
       openModalWindowWithRegistrationForm,

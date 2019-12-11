@@ -4,7 +4,7 @@ import API from '../../services/services.js';
 
 const openNewAddform = document.querySelector('.create-ad');
 
-const addNewModalForm = document.querySelector('.modalForm');
+let addNewModalForm = document.querySelector('.modalForm');
 const category = {
   name: [],
   currentCategory: null,
@@ -16,11 +16,11 @@ const addNewCardformMarkup = `
 <button type="button" class="closeForm" data-action="closeForm">
 <i class="material-icons">close</i>
 </button>
-<form class="form">
+<form class="formAdd">
 <p class="formTitle">Додати оголошення</p>
 <div class="firstInput__Wrapper iw">
 <label for="firstInput" class="firstInput__label">Назва товару</label>
-<input class="firstInput" type="text" name="title" />
+<input class="firstInput" type="text" name="title" required/>
 </div>
 <div class="secondInput__Wrapper iw">
 <p class="secondInput--title">Фото</p>
@@ -34,27 +34,27 @@ const addNewCardformMarkup = `
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 </div>
-<input type="file" name="images" class="fileInput" multiple />
+<input type="file" name="images" class="fileInput" multiple required />
 </label>
 </div>
 </div>
 <div class="thirdInput__Wrapper iw">
 <label for="thirdInput" class="thirdInput__label">Опис товару</label>
-<input class="thirdInput" type="text" name="description" />
+<input class="thirdInput" type="text" name="description" required />
 </div>
 <div class="selectWrapper iw">
 <label for="select">Категорія товару</label>
-<select class="categorySelect" name="category">
+<select class="categorySelect" name="category" required>
 <option></option>
 </select>
 </div>
 <div class="fourthInput__Wrapper iw">
 <label class="fourthInput__label" for="fourthInput">Ціна</label>
-<input class="fourthInput" type="number" name="price" />
+<input class="fourthInput" type="number" name="price" required />
 </div>
 <div class="firthInput__Wrapper iw">
 <label for="fifthInput" class="fifthInput__label">Телефон</label>
-<input class="fifthInput" type="text" name="phone" />
+<input class="fifthInput" type="text" name="phone" required />
 </div>
 <button type="submit" class="addButton" data-action="submitForm">Додати
 </button>
@@ -68,10 +68,10 @@ const formMarkupMobile = `
 <button type="button" class="closeForm" data-action="closeForm">
 <i class="material-icons">close</i>
 </button>
-<form class="form">
+<form class="formAdd">
 <p class="formTitle">Додати оголошення</p>
 <div class="firstInput__Wrapper iw">
-<input class="firstInput" type="text" name="title" placeholder="Назва товару" />
+<input class="firstInput" type="text" name="title" placeholder="Назва товару" required />
 </div>
 <div class="secondInput__Wrapper iw">
 <div class="formGroup">
@@ -84,7 +84,7 @@ const formMarkupMobile = `
 <image class="cardImg" src="" alt="" width="75" height="60">
 <image class="cardImg" src="" alt="" width="75" height="60">
 </div>
-<input type="file" name="images" class="fileInput" multiple />
+<input type="file" name="images" class="fileInput" multiple required />
 </label>
 </div>
 </div>
@@ -92,15 +92,15 @@ const formMarkupMobile = `
 <input class="thirdInput" type="text" name="description" placeholder="Опис товару"/>
 </div>
 <div class="selectWrapper iw">
-<select class="categorySelect" name="category">
-<option selected="selected" hidden>Категорія</option>
+<select class="categorySelect" name="category" required>
+<option class="hiddenOption" selected="selected" hidden>Категорія</option>
 </select>
 </div>
 <div class="fourthInput__Wrapper iw">
-<input class="fourthInput" type="number" name="price" placeholder="0.00 грн"/>
+<input class="fourthInput" type="number" name="price" placeholder="0.00 грн" required/>
 </div>
 <div class="firthInput__Wrapper iw">
-<input class="fifthInput" type="text" name="phone" placeholder="+38 (0--) --- -- --" />
+<input class="fifthInput" type="text" name="phone" placeholder="+38 (0--) --- -- --" required />
 </div>
 <button type="submit" class="addButton" data-action="submitForm">Додати
 </button>
@@ -138,7 +138,7 @@ openNewAddform.addEventListener('click', e => {
 
   const addProductImg = document.querySelector('.fileInput');
   const modalBox = document.querySelector('.modalBox');
-  const form = document.querySelector('.form');
+  const form = document.querySelector('.formAdd');
   const image = [];
   let cardImg = document.querySelector('.cardImg');
 
@@ -186,7 +186,7 @@ openNewAddform.addEventListener('click', e => {
       }
     });
     const newCard = formParser();
-    API.adsProduct(newCard);
+    // API.adsProduct(newCard);
     addNewModalForm.innerHTML = '<div class="modalSpace"';
     console.log('Объект данных из формы:', newCard);
   });

@@ -1,7 +1,7 @@
 @media (min-width: 320px) {
   .create-ad {
     position: fixed;
-    top: 75vh;
+    top: 30vh;
     right: 3vw;
     display: block;
     width: 50px;
@@ -19,17 +19,14 @@
   }
 
   .modalBox {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     opacity: 1;
     background-color: rgb(0, 0, 0, 0.7);
     width: 100vw;
     height: 740px;
-  }
-
-  .modalBox.is-closed {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
+    z-index: 1000001;
   }
 
   .formWrapper {
@@ -42,7 +39,7 @@
     padding: 40px 20px;
   }
 
-  .form {
+  .formAdd {
     display: flex;
     flex-direction: column;
     width: 250px;
@@ -144,12 +141,14 @@
     width: 250px;
     height: 50px;
     border: solid 1px #e6e6e6;
+    padding: 0 0 0 4px;
   }
 
   .categorySelect {
     width: 250px;
     height: 50px;
     border: solid 1px #e6e6e6;
+    opacity: 0.6;
   }
 
   .category--option {
@@ -196,22 +195,20 @@
   }
 
   .modalBox {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     opacity: 1;
     background-color: rgb(0, 0, 0, 0.7);
     width: 100vw;
     height: 1024px;
-  }
-
-  .modalBox.is-closed {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
+    z-index: 1000001;
   }
 
   .formWrapper {
     position: absolute;
     background-color: rgb(255, 255, 255);
+    width: 720px;
     height: auto;
     top: 50%;
     left: 50%;
@@ -219,7 +216,7 @@
     padding: 50px 40px;
   }
 
-  .form {
+  .formAdd {
     display: flex;
     flex-direction: column;
     width: 640px;
@@ -336,9 +333,10 @@
   }
 
   .categorySelect {
-    width: 468px;
+    width: 466px;
     height: 60px;
     border: solid 1px #e6e6e6;
+    opacity: 1;
   }
 
   .addButton {
@@ -385,30 +383,32 @@
     letter-spacing: 1px;
   }
 
-  .modalBox {
+  .modalForm {
     position: relative;
+  }
+
+  .modalBox {
+    position: fixed;
+    top: 0;
+    left: 0;
     opacity: 1;
     pointer-events: initial;
     background-color: rgb(0, 0, 0, 0.7);
     width: 100vw;
     height: 100vh;
-  }
-
-  .modalBox.is-closed {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
+    z-index: 1000001;
   }
 
   .formWrapper {
     background-color: rgb(255, 255, 255);
+    width: 920px;
     height: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  .form {
+  .formAdd {
     display: flex;
     flex-direction: column;
     width: 800px;
@@ -529,14 +529,15 @@
   }
 
   .categorySelect {
-    width: 602px;
+    width: 600px;
     height: 60px;
     border: solid 1px #e6e6e6;
+    opacity: 1;
   }
 
   .addButton {
     margin-top: 35px;
-    margin-right: 106px;
+    /* margin-right: 106px; */
     text-align: center;
     width: 294px;
     height: 60px;

@@ -184,6 +184,16 @@ ol {
   color: #000000;
 }
 
+.sideContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sideCard {
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
 @media (min-width: 768px) {
   .navigation__menu_list-item:first-child {
     display: none;
@@ -214,6 +224,12 @@ ol {
 
   .navigation__menu_list {
     width: 41%;
+  }
+
+  .sideContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 }
 

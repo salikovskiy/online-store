@@ -35,15 +35,6 @@ function closeModalWindowWithRegistrationForm() {
   refs.registrationForm.classList.remove('isOpened');
 }
 
-refs.body.addEventListener('click', evt => {
-  if (refs.loginMobile === null) {
-    refs.loginMobile = document.querySelector('.loginOnMobile');
-    refs.loginMobile.addEventListener(
-      'click',
-      openModalWindowWithRegistrationForm,
-    );
-  }
-});
 async function getFormData(evt) {
   evt.preventDefault();
   const data = {};
@@ -113,14 +104,22 @@ function setListeners() {
     );
     refs.form.addEventListener('submit', getFormData);
     refs.registerBtn.addEventListener('click', openRegistrateForm);
-    if (window.innerWidth < 720) {
+    if (window.innerWidth < 768) {
       refs.loginOnMobile.addEventListener(
         'click',
         openModalWindowWithRegistrationForm,
       );
       refs.logOut.removeEventListener('click', exit);
-      refs.registerBtn.removeEventListener('click', openRegistrateForm);
       refs.login.style.display = 'none';
+      refs.body.addEventListener('click', evt => {
+        if (refs.loginMobile === null) {
+          refs.loginMobile = document.querySelector('.loginOnMobile');
+          refs.loginMobile.addEventListener(
+            'click',
+            openModalWindowWithRegistrationForm,
+          );
+        }
+      });
     }
   } else {
     state.isLogin = true;
@@ -141,13 +140,20 @@ function setListeners() {
     refs.registrationForm.classList.remove('isOpened');
     refs.exitBtn.addEventListener('click', exit);
   }
-  if (window.innerWidth < 720) {
+  if (window.innerWidth < 768) {
     refs.login.style.display = 'none';
     refs.logOut.addEventListener('click', exit);
     refs.loginOnMobile.removeEventListener(
       'click',
       openModalWindowWithRegistrationForm,
     );
+    if (refs.loginMobile === null) {
+      refs.loginMobile = document.querySelector('.loginOnMobile');
+      refs.loginMobile.addEventListener(
+        'click',
+        openModalWindowWithRegistrationForm,
+      );
+    }
   }
 }
 setListeners();

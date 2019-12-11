@@ -29,7 +29,7 @@ function handleInput(e) {
         .join('');
       searchRes.insertAdjacentHTML('beforeend', card);
       if (data.totalPages > 1) {
-        const paginationNav = `<div class='overlayPagination'>place for pagination</div>`;
+        const paginationNav = `<div class='overlayPagination'>Place for pagination</div>`;
         searchRes.insertAdjacentHTML('beforeend', paginationNav);
       }
     });

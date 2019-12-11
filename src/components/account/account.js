@@ -120,7 +120,7 @@ refs.body.addEventListener('click', event => {
 });
 
 //----------------имя
-m
+
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;

@@ -55,11 +55,11 @@ refs.ul.addEventListener('click', onHandleClick);
 // const userLogin = JSON.parse(localStorage.getItem('userInfo')).name;
 // refs.logIn.textContent = userLogin;
 
-if (localStorage.getItem('token')) {
-  const userName = localStorage.getItem('userName');
-  refs.userName.textContent = userName;
-  refs.accountBtn.textContent = userName[0];
-}
+// if (localStorage.getItem('token')) {
+//   const userName = localStorage.getItem('userName');
+//   refs.userName.textContent = userName;
+//   refs.accountBtn.textContent = userName[0];
+// }
 
 // refs.logIn.addEventListener('click', event => {
 //   if (!localStorage.getItem('token')) {

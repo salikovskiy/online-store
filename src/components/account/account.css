@@ -434,6 +434,11 @@ margin-right: 30px;
     max-width: 1000px;
   }
 
+  .lightbox__button {
+    width: 40px;
+    height: 40px;
+  }
+
   .lightbox__button i {
     font-size: 46px;
   }

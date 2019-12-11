@@ -27,8 +27,10 @@ const state = {
   isRegistrationFormOpen: false,
   isRegistered: false,
 };
+refs.registrationForm.style.display = 'none';
 
 function openModalWindowWithRegistrationForm(evt) {
+  refs.registrationForm.style.display = 'flex';
   refs.registrationForm.classList.add('isOpened');
   refs.modalka.setAttribute('class', 'menu-wrapper-none');
 }
@@ -114,6 +116,7 @@ function setListeners() {
       refs.login.style.display = 'none';
       refs.body.addEventListener('click', evt => {
         if (refs.loginMobile === null) {
+          refs.registrationForm.style.display = 'flex';
           refs.loginMobile = document.querySelector('.loginOnMobile');
           refs.loginMobile.addEventListener(
             'click',

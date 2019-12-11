@@ -1,14 +1,19 @@
 import axios from 'axios';
-import PNotify_1 from 'pnotify/dist/es/PNotify';
+// import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 
 export default {
+  refs: {
+    filter: document.querySelector('.filter'),
+    clear: document.querySelector('.clear-btn'),
+  },
+
   page: 1,
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      console.log(data.data.ads);
+      // console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -41,6 +46,7 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
+
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -53,7 +59,6 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
-      // console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -103,8 +108,10 @@ export default {
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
     localStorage.setItem('userId', data.data.userData.userId);
+    localStorage.setItem('userName', data.data.userData.name);
     return data;
   },
+
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
     const data = await axios.post('/auth/logout', userInfo, {
@@ -114,12 +121,13 @@ export default {
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
   },
 
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
     try {
       const data = await axios.get(
-        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
+        `/ads/all?limit=${limit}&category=${numberCategories}&page=${homePage}`,
       );
       return data.data.ads.docs;
     } catch (error) {

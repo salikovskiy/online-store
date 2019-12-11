@@ -28,3 +28,9 @@
   border: 1px solid #ff6b08;
   height: 30px;
 }
+
+.categoryStyle {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}

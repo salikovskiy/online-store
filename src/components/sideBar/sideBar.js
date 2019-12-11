@@ -61,16 +61,19 @@ const onHandleClick = async evt => {
 
 refs.ul.addEventListener('click', onHandleClick);
 
-// вывод входа в личный кабинет
+//вывод входа в личный кабинет
 
 const userLogin = localStorage.getItem('userName');
+
+if (localStorage.getItem('token')) {
+  const userName = localStorage.getItem('userName');
+  refs.userName.textContent = userName;
+  refs.accountBtn.textContent = userName[0];
+}
 
 refs.logIn.addEventListener('click', event => {
   if (!localStorage.getItem('token')) {
     return;
-  }
-  if ((event.target = refs.logIn)) {
-    refs.modal.classList.add('is-open');
   }
 });
 

@@ -2,7 +2,6 @@ import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
 import stylesCategories from './categories.css';
 
-
 const state = {
   curentIdCategoryForDrawAllItem: 0,
   arrCategoriesByIdName: [],
@@ -18,31 +17,31 @@ const refs = {
   createAd: document.querySelector('.create-ad'),
   overlayCategoryContainer: null,
 };
-services.getAllProduct().then(data =>{
-  paint(data)
+services.getAllProduct().then(data => {
+  paint(data);
 });
 
-function visibleBtnCategoriesItem (listItemCard, indexCategory) {
+function visibleBtnCategoriesItem(listItemCard, indexCategory) {
   refs.btnShowAll = document.querySelectorAll('.categories-item-btn-showall');
   refs.btnSlider = document.querySelectorAll('.categories-item-btn-slider');
   if (listItemCard.length > 4) {
     refs.btnShowAll[indexCategory].classList.remove('visually-hidden');
-    if(window.innerWidth >767){
-    refs.btnSlider[indexCategory].classList.remove('visually-hidden');
+    if (window.innerWidth > 767) {
+      refs.btnSlider[indexCategory].classList.remove('visually-hidden');
     }
   }
-};
+}
 
-function drawDivPagination(){
-  let divPagginator = `<div class = "overlayPagination">Здесь будет код влада</div>`
+function drawDivPagination() {
+  let divPagginator = `<div class = "overlayPagination">Здесь будет код влада</div>`;
   return divPagginator;
-
 }
 
 function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
   categories.forEach((element, index) => {
+    console.log('element', element.category);
     if (index < 3) {
       string += `<li class="categories-item data-category="${element._id}">
       <div class="categories-item-overlay-title">
@@ -56,15 +55,17 @@ function paint({ categories }) {
                 <ul class="categories-item-listcards" data-category="${element._id}">
                 </ul>
                 </li>`;
-              }
+    }
   });
-  if(categories.length > 3){
-    refs.contanierCategories.insertAdjacentHTML('afterend', drawDivPagination())
+  if (categories.length > 3) {
+    refs.contanierCategories.insertAdjacentHTML(
+      'afterend',
+      drawDivPagination(),
+    );
   }
-  
+
   refs.contanierCategories.insertAdjacentHTML('beforeend', string);
   refs.ulInner = document.querySelectorAll('.categories-item-listcards');
-  
 
   refs.ulInner.forEach((element, index) => {
     let card = '';
@@ -81,35 +82,41 @@ function paint({ categories }) {
   });
 }
 
-
 // const unvisibleBtnCategoriesItem = (indexCategory) => {
 //   refs.btnShowAll[indexCategory].classList.add('visually-hidden');
 //   refs.btnSlider[indexCategory].classList.add('visually-hidden');
 // }
 
-
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
+    console.log('e.target.dataset.category', e.target.dataset.category);
     services
-    .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
-    .then(data => {
-      let card = '';
-      data.forEach(item => {
-        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-      });
-      const nameCategory = state.arrCategoriesByIdName.reduce((name, elem) => {
-        if (elem._id == e.target.dataset.category) {
-          name = elem.category;
+      .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
+      .then(data => {
+        let card = '';
+        data.forEach(item => {
+          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        });
+        const nameCategory = state.arrCategoriesByIdName.reduce(
+          (name, elem) => {
+            if (elem._id == e.target.dataset.category) {
+              name = elem.category;
+            }
+            return name;
+          },
+          '',
+        );
+        refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"><h2 class="category-item-title">${nameCategory}</h2><ul class="categoryContainer">${card}</ul></li>`;
+        if (data.length > 12) {
+          refs.overlayCategoryContainer = document.querySelector(
+            '.overlayCategoryContainer',
+          );
+          refs.overlayCategoryContainer.insertAdjacentHTML(
+            'beforeend',
+            drawDivPagination(),
+          );
         }
-        return name;
-      }, '');
-      refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"><h2 class="category-item-title">${nameCategory}</h2><ul class="categoryContainer">${card}</ul></li>`;
-      if(data.length > 12){
-        refs.overlayCategoryContainer = document.querySelector(".overlayCategoryContainer")
-        refs.overlayCategoryContainer.insertAdjacentHTML('beforeend', drawDivPagination())
-    
-      }
-    });
+      });
   }
 };
 

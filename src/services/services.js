@@ -2,8 +2,33 @@ import axios from 'axios';
 import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
-
 export default {
+  searchAllItems(searchItem, homePage) {
+    return axios
+      .get(`/ads/all?search=${searchItem}&limit=12&page=${homePage}`)
+      .then(data => data.data.ads);
+  },
+  searchInCategory(numberCategories, homePage, searchItem) {
+    return axios.get(
+      `/ads/all?category=${numberCategories}&limit=12&page=${homePage}&search=${searchItem}`,
+    );
+  },
+  async getItemCategory(numberCategories, numberPage) {
+    return await axios.get(
+      `/ads/all?category=${numberCategories}&page=${numberPage}`,
+    );
+  },
+  async getAllCategories() {
+    try {
+      return await axios
+        .get('/ads/all')
+        .then(({ data }) => data.ads.categories);
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
   page: 1,
   async getAllProduct() {
     try {
@@ -103,6 +128,7 @@ export default {
     localStorage.setItem('token', data.data.token);
     localStorage.setItem('userInfo', data.config.data);
     localStorage.setItem('userId', data.data.userData.userId);
+    localStorage.setItem('userName', data.data.userData.name);
     return data;
   },
   async logoutUser(userInfo) {
@@ -114,12 +140,13 @@ export default {
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
   },
 
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
     try {
       const data = await axios.get(
-        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
+        `/ads/all?limit=${limit}&category=${numberCategories}&page=${homePage}`,
       );
       return data.data.ads.docs;
     } catch (error) {

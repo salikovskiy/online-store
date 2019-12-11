@@ -1,4 +1,10 @@
 import './styles.css';
+import './components/itemCard/cardstyle.css';
+import './components/searchString/request.js';
+
+import './components/modal/modal';
+
+import './components/app';
 import './components/sideBar/sideBar.css';
 
 import './components/templates/menuList.hbs';

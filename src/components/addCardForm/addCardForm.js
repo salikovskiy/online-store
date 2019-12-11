@@ -2,27 +2,13 @@ import axios from 'axios';
 import styles from './addCardstyle.css';
 import API from '../../services/services.js';
 
-// ------------Отрисовка шаблона------------
-
-const addNewModalForm = document.querySelector('.modalForm');
 const openNewAddform = document.querySelector('.create-ad');
 
+const addNewModalForm = document.querySelector('.modalForm');
 const category = {
   name: [],
   currentCategory: null,
 };
-
-async function getData() {
-  category.allCategories = await API.getAllProduct().then(
-    data => data.categories,
-  );
-  return API.getAllProduct().then(data => {
-    data.categories.forEach(item => {
-      category.name = [...category.name, item];
-    });
-    return category.name;
-  });
-}
 
 const addNewCardformMarkup = `
 <div class="modalBox">
@@ -106,8 +92,8 @@ const formMarkupMobile = `
 <input class="thirdInput" type="text" name="description" placeholder="Опис товару"/>
 </div>
 <div class="selectWrapper iw">
-<select class="categorySelect" name="category" placeholder="Категорія">
-<option></option>
+<select class="categorySelect" name="category">
+<option selected="selected" hidden>Категорія</option>
 </select>
 </div>
 <div class="fourthInput__Wrapper iw">
@@ -122,10 +108,19 @@ const formMarkupMobile = `
 </div>
 </div>`;
 
-//--------------Рендер формы по клику---------------
-
 openNewAddform.addEventListener('click', e => {
   e.preventDefault();
+  async function getData() {
+    category.allCategories = await API.getAllProduct().then(
+      data => data.categories,
+    );
+    return API.getAllProduct().then(data => {
+      data.categories.forEach(item => {
+        category.name = [...category.name, item];
+      });
+      return category.name;
+    });
+  }
   if (window.innerWidth < 768) {
     addNewModalForm.insertAdjacentHTML('beforeend', formMarkupMobile);
   } else if (window.innerWidth > 769) {
@@ -147,8 +142,6 @@ openNewAddform.addEventListener('click', e => {
   const image = [];
   let cardImg = document.querySelector('.cardImg');
 
-  // -------------------------------------
-
   function handleFileSelect(evt) {
     let file = evt.target.files;
     let f;
@@ -166,8 +159,6 @@ openNewAddform.addEventListener('click', e => {
 
   addProductImg.addEventListener('input', handleFileSelect);
 
-  //-------------Закртытие формы по клику и отправке-----------
-
   modalBox.addEventListener('click', e => {
     if (
       e.target.dataset.action === 'closeForm' ||
@@ -177,8 +168,6 @@ openNewAddform.addEventListener('click', e => {
       addNewModalForm.innerHTML = '';
     }
   });
-
-  //-------------Собираю данные из формы-------------
 
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -197,7 +186,7 @@ openNewAddform.addEventListener('click', e => {
       }
     });
     const newCard = formParser();
-    // API.adsProduct(newCard);
+    API.adsProduct(newCard);
     addNewModalForm.innerHTML = '<div class="modalSpace"';
     console.log('Объект данных из формы:', newCard);
   });

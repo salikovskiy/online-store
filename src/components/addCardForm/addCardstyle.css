@@ -152,6 +152,10 @@
     border: solid 1px #e6e6e6;
   }
 
+  .category--option {
+    color: #c5c5c5;
+  }
+
   .addButton {
     display: block;
     margin-top: 20px;
@@ -273,6 +277,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 468px;
+    height: auto;
   }
 
   .secondInput__Wrapper {
@@ -464,6 +469,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 600px;
+    height: auto;
   }
 
   .secondInput__Wrapper {

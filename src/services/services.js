@@ -1,29 +1,213 @@
 import axios from 'axios';
+// import PNotify_1 from 'pnotify/dist/es/PNotify';
+
 axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
+
 export default {
-  async ads() {
-    console.log('result');
-    const data = await axios.post(
-      '/ads',
-      {
-        images: [
-          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FtpuqtWy3qfScHgF_GM63-UdpRuw%3D%2F0x0%3A1440x2594%2F1200x800%2Ffilters%3Afocal(605x1182%3A835x1412)%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_image%2Fimage%2F59677615%2Fnintendo_switch_online_art_1440.0.png&f=1&nofb=1',
-        ],
-        title: 'nintendo',
-        category: 2,
-        price: 1000000,
-        phone: '0898777432',
-        description: 'cool game',
+  refs: {
+    filter: document.querySelector('.filter'),
+    clear: document.querySelector('.clear-btn'),
+  },
+
+  page: 1,
+  async getAllProduct() {
+    try {
+      const data = await axios.get(`/ads/all`);
+      // console.log(data.data.ads);
+      return data.data.ads;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async getAlerts() {
+    try {
+      const data = await axios.get('https://sciactive.com/pnotify/');
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async getCardById(id) {
+    try {
+      const data = await axios.get(`/ads/${id}`);
+      return data.data.goal;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async limitExtradition(limit, pageNumber) {
+    try {
+      const data = await axios.get(
+        `/ads/all?limit=${limit}&page=${pageNumber}`,
+      );
+
+      return data.data.ads;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async getCategoriesWithNumberCategories(numberCategories, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.docs;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async adsProduct(object) {
+    try {
+      const data = await axios.post('/ads', object, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async deletedProduct(adId) {
+    try {
+      const data = await axios.delete(`/ads/${adId}`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+
+  async registrateUser(userInfo) {
+    const data = await axios.post('/auth/register', userInfo);
+    if (data.data.status === 'success') {
+      await this.loginUser(userInfo);
+    } else {
+      const regex = /[a-z0-9\.\-\+]+@[a-z0-9\.\-\+]+/gim;
+      const res = data.data.error;
+      console.error(`This email: ${res.match(regex)} already exists`);
+    }
+    return data;
+  },
+
+  async loginUser(userInfo) {
+    const data = await axios.post('/auth/login', userInfo);
+    localStorage.setItem('token', data.data.token);
+    localStorage.setItem('userInfo', data.config.data);
+    localStorage.setItem('userId', data.data.userData.userId);
+    localStorage.setItem('userName', data.data.userData.name);
+    return data;
+  },
+
+  async logoutUser(userInfo) {
+    const token = localStorage.getItem('token');
+    const data = await axios.post('/auth/logout', userInfo, {
+      headers: { Authorization: token },
+    });
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+  },
+
+  async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?limit=${limit}&category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.docs;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getUser(token) {
+    const heders = {
+      headers: {
+        Authorization: token,
       },
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZTc5ZTIyNmIzMDg2MjZiOWQ0ZTBhYiIsImlhdCI6MTU3NTQ2MDM4Nn0.F-oHdzl_uXQpB9oiMOF0b61yL59kHwIIadFzBKjfZ7U',
+    };
+    try {
+      let result = await axios.get(`/ads`, heders);
+      //  console.log('getUser', result);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
+  async getQuantityAllItemsByCategory(numberCategories, homePage) {
+    try {
+      const data = await axios.get(
+        `/ads/all?category=${numberCategories}&page=${homePage}`,
+      );
+      return data.data.ads.totalDocs;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getUserFavorites(token) {
+    const heders = {
+      headers: {
+        Authorization: token,
+      },
+    };
+    try {
+      let result = await axios.get(`/user/favorites`, heders);
+      // console.log('get_Favorites', result);
+      return result;
+    } catch (error) {}
+  },
+  async adsFavoritCardById(id) {
+    try {
+      const data = await axios.put(
+        `/user/favorite/${id}`,
+        {},
+        {
+          headers: { Authorization: `${localStorage.getItem('token')}` },
         },
-      },
-    );
-    console.log(data);
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async getAllProductFavorite() {
+    try {
+      const data = await axios.get(`/user/favorites`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data.data.user.favorites;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  },
+  async deletedFavoritCardById(id) {
+    try {
+      const data = await axios.delete(`/user/favorite/${id}`, {
+        headers: { Authorization: `${localStorage.getItem('token')}` },
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   },
 };
-
-console.log('d');

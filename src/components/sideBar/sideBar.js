@@ -37,6 +37,7 @@ const getCategorys = async () => {
     refs.ul.insertAdjacentHTML('beforeend', string);
   });
 };
+
 getCategorys();
 
 // переход на категорию
@@ -50,16 +51,17 @@ const onHandleClick = async evt => {
     evt.target.id,
     services.page,
   );
-  // console.log(getCategory);
   refs.categories.insertAdjacentHTML(
     'beforeend',
     getCategory
       .map(elem => `<li class="sideCard">${itemCard(elem)}</li>`)
       .join(''),
   );
+  console.table('yfgfgg', refs.categories);
 };
 
 refs.ul.addEventListener('click', onHandleClick);
+// refs.logIn.removeEventListener('click', onHandleClick);
 
 // вывод входа в личный кабинет
 

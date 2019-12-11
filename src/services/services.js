@@ -8,7 +8,7 @@ export default {
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      //console.log(data.data.ads);
+      console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);

@@ -23,6 +23,7 @@ const refs = {
   popupEnterText: document.querySelector('.popup-enter-text'),
   popupExitText: document.querySelector('.popup-exit-text'),
   body: document.querySelector('body'),
+  btnWrapper: document.querySelector('.account_btn-wrapper'),
   userName: document.querySelector('.account_btn-name'),
   accountBtn: document.querySelector('.account_btn'),
   menu: document.querySelector('.modal-menu'),
@@ -97,10 +98,10 @@ refs.menu.addEventListener('click', () => {
   });
 });
 
-const token =
-  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
+// const token =
+//   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
 
-//const token = localStorage.getItem('token');
+const token = localStorage.getItem('token');
 //!!!!!!!!добавить local storage вместо токена
 
 ///--------------открываем popup
@@ -120,6 +121,10 @@ refs.body.addEventListener('click', event => {
 });
 
 //----------------имя
+
+if (!localStorage.getItem('token') && window.innerWidth > 320) {
+  refs.btnWrapper.style.display = 'none';
+}
 
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');

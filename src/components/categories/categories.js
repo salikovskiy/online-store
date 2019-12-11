@@ -17,7 +17,7 @@ const getCategories = () => {
 };
 
 function paint({ categories }) {
-  //console.log('список категорий', categories);
+  console.log('список категорий', categories);
   let string = '';
   categories.forEach(element => {
     string += `<li class="categories-item data-category="${element._id}">
@@ -71,7 +71,7 @@ const drawAllItemCardByCategory = e => {
     services
     .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
     .then(data => {
-      //console.log(data);
+      console.log(data);
       let card = '';
       data.forEach(item => {
         card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
@@ -82,4 +82,4 @@ const drawAllItemCardByCategory = e => {
   }
 };
 window.addEventListener('click', drawAllItemCardByCategory);
-//console.log('fdf')
+console.log('fdf')

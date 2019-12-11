@@ -233,9 +233,6 @@ margin-right: 30px;
 }
 
 @media (min-width: 768px) {
-  .account_btn-wrapper {
-    display: flex;
-  }
 
   .account_btn-name {
     line-height: 40px;
@@ -263,6 +260,10 @@ margin-right: 30px;
 
   .account_btn:focus {
     outline: none;
+  }
+
+  .account_btn-wrapper {
+  display: flex;
   }
 
   .popup {

@@ -27,16 +27,13 @@ refs.close.addEventListener('click', () => {
 
 // выводим категории
 
-// const state = {
-//   categories: [],
-// };
-
 const getCategorys = async () => {
   await services.getAllProduct().then(data => {
     const string = category(data.categories);
     refs.ul.insertAdjacentHTML('beforeend', string);
   });
 };
+
 getCategorys();
 
 // переход на категорию
@@ -44,13 +41,10 @@ getCategorys();
 const onHandleClick = async evt => {
   refs.categories.innerHTML = '';
   refs.categories.classList.add('sideContainer');
-  // console.log(evt.target.id);
-  // console.log('block', refs.categories);
   const getCategory = await services.getCategoriesWithNumberCategories(
     evt.target.id,
     services.page,
   );
-  // console.log(getCategory);
   refs.categories.insertAdjacentHTML(
     'beforeend',
     getCategory
@@ -65,19 +59,13 @@ refs.ul.addEventListener('click', onHandleClick);
 
 const userLogin = localStorage.getItem('userName');
 
-if (localStorage.getItem('token')) {
-  const userName = localStorage.getItem('userName');
-  refs.userName.textContent = userName;
-  refs.accountBtn.textContent = userName[0];
-}
-
 refs.logIn.addEventListener('click', event => {
   if (!localStorage.getItem('token')) {
     return;
   }
 });
 
-// if (localStorage.getItem('token')) {
-//   refs.logIn.textContent = userLogin;
-//   refs.logOut.setAttribute('style', 'display: block');
-// }
+if (localStorage.getItem('token')) {
+  refs.logIn.textContent = userLogin;
+  refs.logOut.setAttribute('style', 'display: block');
+}

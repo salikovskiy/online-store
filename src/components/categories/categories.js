@@ -1,6 +1,7 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
 import stylesCategories from './categories.css';
+import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -66,19 +67,31 @@ function paint({ categories }) {
       `<li>${drawDivPagination()}</li>`,
     );
   }
+  if (categories.length > 3) {
+    refs.contanierCategories.insertAdjacentHTML(
+      'afterend',
+      drawDivPagination(),
+    );
+  }
+
+  refs.contanierCategories.insertAdjacentHTML('beforeend', string);
+  refs.ulInner = document.querySelectorAll('.categories-item-listcards');
 
   refs.ulInner.forEach((element, index) => {
     let card = '';
-    services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
-      visibleBtnCategoriesItem(data, index);
+    services
+      .getCategoriesWithNumberCategories(index + 1, 1)
+      .then(data => {
+        visibleBtnCategoriesItem(data, index);
 
-      data.forEach((item, index) => {
-        if (index < 4) {
-          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-        }
-      });
-      element.insertAdjacentHTML('beforeend', card);
-    });
+        data.forEach((item, index) => {
+          if (index < 4) {
+            card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+          }
+        });
+        element.insertAdjacentHTML('beforeend', card);
+      })
+      .finally(() => functionFavoriteDrow());
   });
 }
 
@@ -116,7 +129,8 @@ const drawAllItemCardByCategory = e => {
             drawDivPagination(),
           );
         }
-      });
+      })
+      .finally(() => functionFavoriteDrow());
   }
 };
 

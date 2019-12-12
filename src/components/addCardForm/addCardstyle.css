@@ -1,17 +1,23 @@
 @media (min-width: 320px) {
   .create-ad {
     position: fixed;
-    top: 30vh;
-    right: 3vw;
+    bottom: 3vh;
+    right: 50%;
     display: block;
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    margin-right: 5px;
     padding-bottom: 4px;
+    z-index: 100;
+    transform: translateX(50%);
   }
 
- 
+  .create-ad::after {
+    content: '+';
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+  }
 
   .modalBox {
     position: fixed;
@@ -182,7 +188,12 @@
     text-transform: uppercase;
   }
 
-
+  .create-ad::after {
+    content: 'СТВОРИТИ ОГОЛОШЕННЯ';
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+  }
 
   .modalForm {
     position: relative;
@@ -369,6 +380,13 @@
     text-transform: uppercase;
   }
 
+  .create-ad::after {
+    content: 'СТВОРИТИ ОГОЛОШЕННЯ';
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
 
   .modalForm {
     position: relative;

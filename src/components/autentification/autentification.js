@@ -19,6 +19,7 @@ const refs = {
   lightbox: document.querySelector('.js-lightbox'),
   body: document.querySelector('body'),
   loginMobile: null,
+  createAd: document.querySelector('.create-ad'),
 };
 
 const state = {
@@ -28,6 +29,7 @@ const state = {
 };
 
 function openModalWindowWithRegistrationForm(evt) {
+  refs.registrationForm.style.display = 'flex';
   refs.registrationForm.classList.add('isOpened');
   refs.modalka.setAttribute('class', 'menu-wrapper-none');
 }
@@ -35,15 +37,6 @@ function closeModalWindowWithRegistrationForm() {
   refs.registrationForm.classList.remove('isOpened');
 }
 
-refs.body.addEventListener('click', evt => {
-  if (refs.loginMobile === null) {
-    refs.loginMobile = document.querySelector('.loginOnMobile');
-    refs.loginMobile.addEventListener(
-      'click',
-      openModalWindowWithRegistrationForm,
-    );
-  }
-});
 async function getFormData(evt) {
   evt.preventDefault();
   const data = {};
@@ -102,6 +95,7 @@ function openRegistrateForm(evt) {
 }
 
 function setListeners() {
+  refs.registrationForm.style.display = 'none';
   if (localStorage.getItem('token') === null) {
     state.isLogin = false;
     refs.login.textContent = 'Реєстрація/Увійти';
@@ -113,14 +107,23 @@ function setListeners() {
     );
     refs.form.addEventListener('submit', getFormData);
     refs.registerBtn.addEventListener('click', openRegistrateForm);
-    if (window.innerWidth < 720) {
+    if (window.innerWidth < 768) {
       refs.loginOnMobile.addEventListener(
         'click',
         openModalWindowWithRegistrationForm,
       );
       refs.logOut.removeEventListener('click', exit);
-      refs.registerBtn.removeEventListener('click', openRegistrateForm);
       refs.login.style.display = 'none';
+      refs.body.addEventListener('click', evt => {
+        if (refs.loginMobile === null) {
+          refs.registrationForm.style.display = 'flex';
+          refs.loginMobile = document.querySelector('.loginOnMobile');
+          refs.loginMobile.addEventListener(
+            'click',
+            openModalWindowWithRegistrationForm,
+          );
+        }
+      });
     }
   } else {
     state.isLogin = true;
@@ -128,6 +131,7 @@ function setListeners() {
     refs.loginOnMobile.textContent = userLogin;
     refs.logOut.setAttribute('style', 'display: block');
     refs.login.style.display = 'none';
+    refs.createAd.style.width = '200px';
     refs.login.removeEventListener(
       'click',
       openModalWindowWithRegistrationForm,
@@ -141,13 +145,9 @@ function setListeners() {
     refs.registrationForm.classList.remove('isOpened');
     refs.exitBtn.addEventListener('click', exit);
   }
-  if (window.innerWidth < 720) {
+  if (window.innerWidth < 768) {
     refs.login.style.display = 'none';
     refs.logOut.addEventListener('click', exit);
-    refs.loginOnMobile.removeEventListener(
-      'click',
-      openModalWindowWithRegistrationForm,
-    );
   }
 }
 setListeners();

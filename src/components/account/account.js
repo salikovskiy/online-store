@@ -1,6 +1,7 @@
-import '../public/account.css';
-import services from '../services/services.js';
-import userAds from '../components/templates/userAds.hbs';
+import './account.css';
+import services from '../../services/services.js';
+import userAds from '../../components/templates/userAds.hbs';
+import userFav from '../../components/templates/userFav.hbs';
 
 const refs = {
   modal: document.querySelector('.js-lightbox'),
@@ -22,9 +23,80 @@ const refs = {
   popupEnterText: document.querySelector('.popup-enter-text'),
   popupExitText: document.querySelector('.popup-exit-text'),
   body: document.querySelector('body'),
+  btnWrapper: document.querySelector('.account_btn-wrapper'),
   userName: document.querySelector('.account_btn-name'),
   accountBtn: document.querySelector('.account_btn'),
+  menu: document.querySelector('.modal-menu'),
 };
+
+///------------------для мобилки
+
+refs.menu.addEventListener('click', () => {
+  const onMobile = document.querySelector('.loginOnMobile');
+  const modalka = document.querySelector('#modalka');
+  onMobile.addEventListener('click', e => {
+    if (e.target === onMobile) {
+      refs.modal.classList.add('is-open');
+      modalka.setAttribute('class', 'menu-wrapper-none');
+    }
+  });
+
+  //--------------открываем личный кабинет
+  refs.modal.addEventListener('click', event => {
+    if (
+      event.target.nodeName == 'I' ||
+      event.target == refs.btn ||
+      event.target == refs.overlay
+    ) {
+      refs.modal.classList.remove('is-open');
+    }
+
+    //--------------добавляем объявления юзера
+    if (
+      event.target == refs.ads ||
+      event.target == refs.wrapperAds ||
+      event.target == refs.wrapperTitleAds ||
+      event.target == refs.lightboxTitleAds
+    ) {
+      services.getUser(token).then(data => {
+        refs.ads.innerHTML = userAds(data.data.ads);
+      });
+    }
+
+    //----------------добавляем избранное
+    if (
+      event.target == refs.favorite ||
+      event.target == refs.wrapperFav ||
+      event.target == refs.wrapperTitleFav ||
+      event.target == refs.lightboxTitleFav
+    ) {
+      services.getUserFavorites(token).then(data => {
+        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+      });
+    }
+
+    let deleteButton = document.querySelector('.lightbox__content');
+
+    deleteButton.addEventListener('click', event => {
+      if (event.target.nodeName !== 'BUTTON') {
+        return;
+      }
+  
+      if (event.target.dataset.del) {
+        const id = event.target.closest('li').dataset.id;
+        services.deletedProduct(id);
+      }
+  
+      // // if(evt.target.dataset.edit) {
+      // //   //редактируем
+      // // }
+  
+      services.getUserFavorites(token).then(data => {
+        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+      });
+    });
+  });
+});
 
 // const token =
 //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZWJmNmJiNDA4ZTQwMjZhYTBlNjNmZiIsImlhdCI6MTU3NTc0NTIxMX0.TTIUMe21zVLseN_8Wu0hWTXcTa0nEWLZ5wdeKrBFJbQ';
@@ -38,15 +110,22 @@ refs.body.addEventListener('click', event => {
     return;
   }
 
-  if (event.target == refs.headerBtn) {
+  if (event.target == refs.headerBtn || event.target == refs.userName) {
     refs.popup.style.display = 'block';
   }
 
   //---------------закрываем popup
-  if (event.target !== refs.headerBtn) {
+  if (event.target !== refs.headerBtn && event.target !== refs.userName) {
     refs.popup.style.display = 'none';
   }
 });
+
+//----------------имя
+
+if (!localStorage.getItem('token') && window.innerWidth > 320) {
+  refs.btnWrapper.style.display = 'none';
+}
+
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
@@ -94,31 +173,30 @@ refs.popupEnter.addEventListener('click', event => {
       event.target == refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userAds(data.data.user.favorites);
+        refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });
     }
   });
 
   //--------------удаляем объявления и снова отрисовываем!
   let deleteButton = document.querySelector('.lightbox__content');
-  deleteButton.addEventListener('click', evt => {
-    if (evt.target.nodeName !== 'BUTTON') {
+
+  deleteButton.addEventListener('click', event => {
+    if (event.target.nodeName !== 'BUTTON') {
       return;
     }
-    const id = evt.target.closest('li').dataset.id;
-    services.deletedProduct(id);
+
+    if (event.target.dataset.del) {
+      const id = event.target.closest('li').dataset.id;
+      services.deletedProduct(id);
+    }
+
+    // if(evt.target.dataset.edit) {
+    //   //редактируем
+    // }
 
     services.getUserFavorites(token).then(data => {
-      refs.favorites.innerHTML = userAds(data.data.user.favorites);
+      refs.favorites.innerHTML = userFav(data.data.user.favorites);
     });
   });
 });
-
-//----------------выходим из аккаунта
-// refs.popupExit.addEventListener('click', event =>{
-//   console.log(event.target)
-//   if (event.target == refs.popupExit ||
-//     event.target == refs.popupExitText) {
-//     //Аня добавь выход!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//   }
-// })

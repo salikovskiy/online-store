@@ -8,8 +8,8 @@ const refs = {
   overlay: document.querySelector('.lightbox__overlay'),
   content: document.querySelector('.lightbox__content'),
   btn: document.querySelector('button[data-action="close-lightbox"]'),
-  ads: document.querySelector('.ads'),
-  favorites: document.querySelector('.favorites'),
+  ads: document.querySelector('.ads_acc'),
+  favorites: document.querySelector('.favorites_acc'),
   headerBtn: document.querySelector('.account_btn'),
   wrapperAds: document.querySelector('.ads-wrapper'),
   wrapperFav: document.querySelector('.fav-wrapper'),
@@ -81,16 +81,16 @@ refs.menu.addEventListener('click', () => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
-  
+
       if (event.target.dataset.del) {
         const id = event.target.closest('li').dataset.id;
         services.deletedProduct(id);
       }
-  
+
       // // if(evt.target.dataset.edit) {
       // //   //редактируем
       // // }
-  
+
       services.getUserFavorites(token).then(data => {
         refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });

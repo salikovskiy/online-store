@@ -1,6 +1,7 @@
 {{#each this}}
 <li class="ads_item" data-id="{{_id}}">
     <div class="ads_item-wrapper">
+<<<<<<< HEAD
     <img class="ads_item-photo" src="{{images}}" alt="product photo">
     <div class="ads-item-description-wrapper">
     <p class="ads_item-title">{{title}}</p>
@@ -9,6 +10,16 @@
     <button class="ads_item-btn" data-del="delete">Видалити</button>
     <button class="ads_item-btn-edit" data-edit="edit">Редагувати</button>
     </div>
+=======
+        <img class="ads_item-photo" src="{{images}}" alt="product photo">
+        <div class="ads-item-description-wrapper">
+            <p class="ads_item-title">{{title}}</p>
+            <p class="ads_item-description">{{description}}</p>
+            <p class="ads_item-price">Ціна: {{price}} грн.</p>
+            <button class="ads_item-btn" data-del="delete">Видалити</button>
+            <button class="ads_item-btn-edit" data-edit="edit">Редагувати</button>
+        </div>
+>>>>>>> 222ea123f3681c2e76a49ee442ebabbc837a272b
     </div>
 </li>
 {{/each}}

@@ -8,7 +8,25 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
-  <style type="text/css">#hellopreloader>p{display:none;}#hellopreloader_preload{display: block;position: fixed;z-index: 99999;top: 0;left: 0;width: 100%;height: 100%;min-width: 1000px;background: #F9690E url(http://hello-site.ru//main/images/preloads/oval.svg) center center no-repeat;background-size:60px;}</style>
+  <style type="text/css">
+    #hellopreloader>p {
+      display: none;
+    }
+
+    #hellopreloader_preload {
+      display: block;
+      position: fixed;
+      z-index: 99999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      min-width: 1000px;
+      background: #F9690E url(http://hello-site.ru//main/images/preloads/oval.svg) center center no-repeat;
+      background-size: 60px;
+    }
+
+  </style>
 </head>
 
 <body>
@@ -86,7 +104,7 @@
       <div class="registrate-form lightboxContent">
         <form class="form">
           <p>Ви можете авторизуватися за допомогою Google Account:</p>
-          <button class="form__btn"></button>
+          <button class="form__btn btn--google">Google</button>
           <p>
             Або увійти за допомогою і-мейлу й пароля, попередньо
             зареєструвашись:
@@ -113,6 +131,7 @@
       </div>
     </section>
   </header>
+  <section class="modalForm"></section>
   <section class="clear">
     <div class="filter"></div>
     <button class="clear-btn"><span>&#8634;</span> Очістити фільтри</button>
@@ -133,9 +152,30 @@
     </div>
   </footer>
   <div class="modal-window" id="product-modal"></div>
-<div id="hellopreloader"><div id="hellopreloader_preload"></div></div>
-  
-<script type="text/javascript">var hellopreloader = document.getElementById("hellopreloader_preload");function fadeOutnojquery(el){el.style.opacity = 1;var interhellopreloader = setInterval(function(){el.style.opacity = el.style.opacity - 0.05;if (el.style.opacity <=0.05){ clearInterval(interhellopreloader);hellopreloader.style.display = "none";}},16);}window.onload = function(){setTimeout(function(){fadeOutnojquery(hellopreloader);},3000);};</script>
+  <div id="hellopreloader">
+    <div id="hellopreloader_preload"></div>
+  </div>
+
+  <script type="text/javascript">
+    var hellopreloader = document.getElementById("hellopreloader_preload");
+
+    function fadeOutnojquery(el) {
+      el.style.opacity = 1;
+      var interhellopreloader = setInterval(function () {
+        el.style.opacity = el.style.opacity - 0.05;
+        if (el.style.opacity <= 0.05) {
+          clearInterval(interhellopreloader);
+          hellopreloader.style.display = "none";
+        }
+      }, 16);
+    }
+    window.onload = function () {
+      setTimeout(function () {
+        fadeOutnojquery(hellopreloader);
+      }, 3000);
+    };
+
+  </script>
 
 
 </body>

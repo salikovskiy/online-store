@@ -104,16 +104,16 @@ refs.menu.addEventListener('click', () => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
-  
+
       if (event.target.dataset.del) {
         const id = event.target.closest('li').dataset.id;
         services.deletedProduct(id);
       }
-  
+
       // // if(evt.target.dataset.edit) {
       // //   //редактируем
       // // }
-  
+
       services.getUserFavorites(token).then(data => {
         refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });
@@ -148,7 +148,7 @@ if (!localStorage.getItem('token') && window.innerWidth > 767) {
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
-  refs.accountBtn.textContent = userName[0];
+  // refs.accountBtn.textContent = userName[0];
 }
 
 //---------------открываем модалку

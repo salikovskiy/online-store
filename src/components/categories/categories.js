@@ -1,6 +1,7 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
 import stylesCategories from './categories.css';
+import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -41,6 +42,7 @@ function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
   categories.forEach((element, index) => {
+    console.log('element', element.category);
     if (index < 3) {
       string += `<li class="categories-item data-category="${element._id}">
       <div class="categories-item-overlay-title">
@@ -65,19 +67,31 @@ function paint({ categories }) {
       `<li>${drawDivPagination()}</li>`,
     );
   }
+  if (categories.length > 3) {
+    refs.contanierCategories.insertAdjacentHTML(
+      'afterend',
+      drawDivPagination(),
+    );
+  }
+
+  refs.contanierCategories.insertAdjacentHTML('beforeend', string);
+  refs.ulInner = document.querySelectorAll('.categories-item-listcards');
 
   refs.ulInner.forEach((element, index) => {
     let card = '';
-    services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
-      visibleBtnCategoriesItem(data, index);
+    services
+      .getCategoriesWithNumberCategories(index + 1, 1)
+      .then(data => {
+        visibleBtnCategoriesItem(data, index);
 
-      data.forEach((item, index) => {
-        if (index < 4) {
-          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-        }
-      });
-      element.insertAdjacentHTML('beforeend', card);
-    });
+        data.forEach((item, index) => {
+          if (index < 4) {
+            card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+          }
+        });
+        element.insertAdjacentHTML('beforeend', card);
+      })
+      .finally(() => functionFavoriteDrow());
   });
 }
 
@@ -88,6 +102,7 @@ function paint({ categories }) {
 
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
+    console.log('e.target.dataset.category', e.target.dataset.category);
     services
       .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
       .then(data => {
@@ -114,7 +129,8 @@ const drawAllItemCardByCategory = e => {
             drawDivPagination(),
           );
         }
-      });
+      })
+      .finally(() => functionFavoriteDrow());
   }
 };
 

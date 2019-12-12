@@ -25,7 +25,11 @@ refs.close.addEventListener('click', () => {
   refs.modalka.setAttribute('class', 'menu-wrapper-none');
 });
 
-refs.categories.addEventListener('click', () => {
+refs.ul.addEventListener('click', () => {
+  refs.modalka.setAttribute('class', 'menu-wrapper-none');
+});
+
+refs.modalka.addEventListener('click', () => {
   refs.modalka.setAttribute('class', 'menu-wrapper-none');
 });
 

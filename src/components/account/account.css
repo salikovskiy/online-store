@@ -81,10 +81,6 @@ ul {
   outline: none;
 }
 
-.lightbox__button i {
-  font-size: 24px;
-}
-
 .lightbox__button:hover,
 .lightbox__button:focus {
   background-color: rgba(0, 0, 0, 0.5);

@@ -194,6 +194,10 @@
     font-weight: 500;
   }
 
+  .modalForm {
+    position: relative;
+  }
+
   .modalBox {
     position: fixed;
     top: 0;

@@ -1,14 +1,17 @@
 @import './components/autentification/autentification.css';
+
 html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 *,
 *::before,
 *::after {
   -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
+
 img {
   display: block;
   max-width: 100%;
@@ -22,9 +25,11 @@ ul,
 p {
   margin: 0;
 }
+
 a {
   text-decoration: none;
 }
+
 ul {
   list-style: none;
   padding: 0;
@@ -83,12 +88,16 @@ body {
   justify-content: flex-end;
 }
 
+.headers-btns-wrapper {
+  display: flex;
+  width: 28%;
+
+}
+
 .create-ad,
 .login-register {
-  display: none;
   border: none;
   background-color: #ff6b08;
-  width: 220px;
   height: 70px;
   text-align: center;
   color: white;
@@ -97,9 +106,13 @@ body {
 }
 
 .login-register {
-  display: block;
+  display: none;
   background-color: rgb(206, 204, 204);
   color: #000;
+}
+
+.create-ad {
+  width: 100%;
 }
 
 .create-ad:hover {
@@ -236,6 +249,12 @@ body {
 
   .footer p:first-child {
     margin-bottom: 0;
+  }
+
+  .login-register,
+  .create-ad {
+    display: block;
+    width: 50%;
   }
 }
 

@@ -19,7 +19,7 @@ const refs = {
   lightbox: document.querySelector('.js-lightbox'),
   body: document.querySelector('body'),
   loginMobile: null,
-  createAd: document.querySelector('.create-ad'),
+  createAd: document.querySelector('.create-ad'),      
 };
 
 const state = {

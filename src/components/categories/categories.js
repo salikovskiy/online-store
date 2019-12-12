@@ -1,6 +1,7 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
 import stylesCategories from './categories.css';
+import pagination from '../pagination/pagination';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -109,10 +110,9 @@ const drawAllItemCardByCategory = e => {
           refs.overlayCategoryContainer = document.querySelector(
             '.overlayCategoryContainer',
           );
-          refs.overlayCategoryContainer.insertAdjacentHTML(
-            'beforeend',
-            drawDivPagination(),
-          );
+          refs.overlayCategoryContainer
+            .insertAdjacentHTML('beforeend', drawDivPagination())
+            .finally(() => pagination(Number(e.target.dataset.category)));
         }
       });
   }

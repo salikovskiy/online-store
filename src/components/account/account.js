@@ -64,7 +64,7 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
+        //refs.ads.innerHTML = userAds(data.data.ads);
         state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
       });
 
@@ -78,14 +78,14 @@ refs.menu.addEventListener('click', () => {
       }
     }
 
-    if (
-      event.target === refs.ads ||
-      event.target === refs.wrapperAds ||
-      event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds
-    ) {
-      !state.isOpen && (refs.ads.innerHTML = '');
-    }
+    // if (
+    //   event.target === refs.ads ||
+    //   event.target === refs.wrapperAds ||
+    //   event.target === refs.wrapperTitleAds ||
+    //   event.target === refs.lightboxTitleAds
+    // ) {
+    //   !state.isOpen && (refs.ads.innerHTML = '');
+    // }
 
     //----------------добавляем избранное
     if (
@@ -95,7 +95,7 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        //refs.favorites.innerHTML = userFav(data.data.user.favorites);
         state.isOpen &&
           (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });
@@ -110,14 +110,14 @@ refs.menu.addEventListener('click', () => {
       }
     }
 
-    if (
-      event.target === refs.favorite ||
-      event.target === refs.wrapperFav ||
-      event.target === refs.wrapperTitleFav ||
-      event.target === refs.lightboxTitleFav
-    ) {
-      !state.isOpen && (refs.favorites.innerHTML = '');
-    }
+    // if (
+    //   event.target === refs.favorite ||
+    //   event.target === refs.wrapperFav ||
+    //   event.target === refs.wrapperTitleFav ||
+    //   event.target === refs.lightboxTitleFav
+    // ) {
+    //   !state.isOpen && (refs.favorites.innerHTML = '');
+    // }
 
     let deleteButton = document.querySelector('.lightbox__content');
 
@@ -194,7 +194,7 @@ refs.popupEnter.addEventListener('click', event => {
     }
     state.isOpen = !state.isOpen;
 
-    state.isOpen = !state.isOpen;
+    //state.isOpen = !state.isOpen;
 
     //--------------добавляем объявления юзера
     if (
@@ -204,7 +204,7 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
+        //refs.ads.innerHTML = userAds(data.data.ads);
         state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
       });
 
@@ -226,7 +226,7 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        //refs.favorites.innerHTML = userFav(data.data.user.favorites);
         state.isOpen &&
           (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });

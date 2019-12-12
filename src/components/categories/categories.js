@@ -2,6 +2,7 @@ import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
 import stylesCategories from './categories.css';
 import pagination from '../pagination/pagination';
+import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -33,8 +34,8 @@ function visibleBtnCategoriesItem(listItemCard, indexCategory) {
   }
 }
 
-function drawDivPagination() {
-  let divPagginator = `<div class = "overlayPagination">Здесь будет код влада</div>`;
+function drawDivPagination(id) {
+  let divPagginator = `<div class = "overlayPagination" data-categoryPagination="${id}"></div>`;
   return divPagginator;
 }
 
@@ -69,16 +70,19 @@ function paint({ categories }) {
 
   refs.ulInner.forEach((element, index) => {
     let card = '';
-    services.getCategoriesWithNumberCategories(index + 1, 1).then(data => {
-      visibleBtnCategoriesItem(data, index);
+    services
+      .getCategoriesWithNumberCategories(index + 1, 1)
+      .then(data => {
+        visibleBtnCategoriesItem(data, index);
 
-      data.forEach((item, index) => {
-        if (index < 4) {
-          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-        }
-      });
-      element.insertAdjacentHTML('beforeend', card);
-    });
+        data.forEach((item, index) => {
+          if (index < 4) {
+            card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+          }
+        });
+        element.insertAdjacentHTML('beforeend', card);
+      })
+      .finally(() => functionFavoriteDrow());
   });
 }
 
@@ -105,15 +109,22 @@ const drawAllItemCardByCategory = e => {
           },
           '',
         );
-        refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"><h2 class="category-item-title">${nameCategory}</h2><ul class="categoryContainer">${card}</ul></li>`;
-        if (data.length > 12) {
-          refs.overlayCategoryContainer = document.querySelector(
-            '.overlayCategoryContainer',
-          );
-          refs.overlayCategoryContainer
-            .insertAdjacentHTML('beforeend', drawDivPagination())
-            .finally(() => pagination(Number(e.target.dataset.category)));
-        }
+        refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"
+        data-idCategory="${e.target.dataset.category}">
+        <h2 class="category-item-title">${nameCategory}</h2>
+        <ul class="categoryContainer" data-categorycontainer="${e.target.dataset.category}">${card}</ul></li>`;
+
+        refs.overlayCategoryContainer = document.querySelector(
+          '.overlayCategoryContainer',
+        );
+        refs.overlayCategoryContainer.insertAdjacentHTML(
+          'beforeend',
+          drawDivPagination(e.target.dataset.category),
+        );
+      })
+      .finally(() => {
+        functionFavoriteDrow();
+        pagination(Number(e.target.dataset.category));
       });
   }
 };

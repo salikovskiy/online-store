@@ -1,6 +1,7 @@
 import services from '../../services/services.js';
 import itemCard from '../itemCard/itemCard';
 import styleSearch from './styleSearch.css';
+import pagination from '../pagination/pagination.js';
 
 const refs = {
   input: document.querySelector('.search-input'),
@@ -22,17 +23,7 @@ function handleInput(e) {
       refs.ulCont.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
       return data;
     })
-    .then(data => {
-      const searchRes = document.querySelector('.searchResult');
-      const card = data.docs
-        .map(item => `<li class="listcards-itemcard">${itemCard(item)}</li>`)
-        .join('');
-      searchRes.insertAdjacentHTML('beforeend', card);
-      if (data.totalPages > 1) {
-        const paginationNav = `<div class='overlayPagination'>Place for pagination</div>`;
-        searchRes.insertAdjacentHTML('beforeend', paginationNav);
-      }
-    });
+    .finally(() => pagination(searchItem));
 }
 refs.form.addEventListener('submit', handleInput);
 // refs.form.addEventListener('input', handleInput);

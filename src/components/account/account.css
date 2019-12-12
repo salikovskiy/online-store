@@ -68,8 +68,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   margin: 0;
   border: none;
@@ -81,10 +81,6 @@ ul {
   outline: none;
 }
 
-.lightbox__button i {
-  font-size: 26px;
-}
-
 .lightbox__button:hover,
 .lightbox__button:focus {
   background-color: rgba(0, 0, 0, 0.5);
@@ -93,6 +89,7 @@ ul {
 .lightbox__wrapper {
   padding: 20px 0 20px;
   box-shadow: 0 0 3px #363738;
+  cursor: pointer;
 }
 
 .lightbox__title {
@@ -113,7 +110,7 @@ ul {
   left: 12px;
   width: 30px;
   height: 30px;
-  background-image: url('.././img/edit-24px.svg');
+  background-image: url('../../img/edit-24px.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -126,13 +123,13 @@ ul {
   left: 12px;
   width: 30px;
   height: 30px;
-  background-image: url('.././img/favorite-heart.svg');
+  background-image: url('../../img/favorite-heart.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.ads,
-.favorites {
+.ads_acc,
+.favorites_acc {
   padding: 0 20px 0;
 }
 
@@ -180,8 +177,9 @@ ul {
   margin-bottom: 18px;
 }
 
-.ads_item-btn {
-  display: block;
+.ads_item-btn,
+.ads_item-btn-edit {
+  display: inline-block;
   font-size: 12px;
   font-family: 'Roboto';
   color: rgb(135, 134, 134);
@@ -191,7 +189,17 @@ ul {
   position: relative;
   border: none;
   background-color: #fff;
-  margin: 0 auto;
+  cursor: pointer;
+}
+
+.ads_item-btn {
+margin-right: 30px;
+
+}
+
+.ads_item-btn:focus,
+.ads_item-btn-edit:focus {
+  outline: none;
 }
 
 .ads_item-btn::after {
@@ -200,9 +208,20 @@ ul {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-image: url('.././img/delete-24px.svg');
+  background-image: url('../../img/delete-24px.svg');
   top: 4px;
   left: 52px;
+}
+
+.ads_item-btn-edit::after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../img/edit-24px.svg');
+  top: 0;
+  left: 70px;
 }
 
 .account_btn-wrapper {
@@ -212,12 +231,10 @@ ul {
 .popup {
   z-index: 1000;
   display: none;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
-  .account_btn-wrapper {
-    display: flex;
-  }
 
   .account_btn-name {
     line-height: 40px;
@@ -241,6 +258,14 @@ ul {
     font-weight: 400;
     color: rgb(0, 0, 0);
     line-height: 1.2;
+  }
+
+  .account_btn:focus {
+    outline: none;
+  }
+
+  .account_btn-wrapper {
+  display: flex;
   }
 
   .popup {
@@ -303,7 +328,7 @@ ul {
     position: absolute;
     width: 20px;
     height: 20px;
-    background-image: url('../img/logout.svg');
+    background-image: url('../../img/logout.svg');
     top: 25px;
     right: 32px;
   }
@@ -314,7 +339,10 @@ ul {
   }
 
   .lightbox__button {
+    width: 36px;
+    height: 36px;;
     right: 30px;
+    
   }
 
   .lightbox__button i {
@@ -360,14 +388,22 @@ ul {
     margin-bottom: 12px;
   }
 
-  .ads_item-btn {
-    margin: 0;
+  .ads_item-btn,
+  .ads_item-btn-edit {
     font-size: 14px;
     background-color: rgb(244, 246, 251);
   }
 
+  .ads_item-btn {
+    margin-right: 40px;
+  }
+
   .ads_item-btn::after {
     left: 65px;
+  }
+
+  .ads_item-btn-edit::after {
+    left: 78px;
   }
 }
 
@@ -390,7 +426,7 @@ ul {
   }
 
   .popup {
-    right: 314px;
+    right: 422px;
   }
 
   .popup-enter,
@@ -402,8 +438,13 @@ ul {
     max-width: 1000px;
   }
 
+  .lightbox__button {
+    width: 40px;
+    height: 40px;
+  }
+
   .lightbox__button i {
-    font-size: 46px;
+    font-size: 40px;
   }
 
   .ads_item-photo {
@@ -430,12 +471,20 @@ ul {
     margin-bottom: 20px;
   }
 
-  .ads_item-btn {
-    margin: 0;
+  .ads_item-btn,
+  .ads_item-btn-edit {
     font-size: 16px;
+  }
+
+  .ads_item-btn {
+  margin-right: 100px ;
   }
 
   .ads_item-btn::after {
     left: 74px;
+  }
+
+  .ads_item-btn-edit::after {
+    left: 88px;
   }
 }

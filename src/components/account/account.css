@@ -81,6 +81,10 @@ ul {
   outline: none;
 }
 
+.lightbox__button i {
+  font-size: 24px;
+}
+
 .lightbox__button:hover,
 .lightbox__button:focus {
   background-color: rgba(0, 0, 0, 0.5);
@@ -89,6 +93,7 @@ ul {
 .lightbox__wrapper {
   padding: 20px 0 20px;
   box-shadow: 0 0 3px #363738;
+  cursor: pointer;
 }
 
 .lightbox__title {
@@ -127,8 +132,8 @@ ul {
   background-position: center;
 }
 
-.ads,
-.favorites {
+.ads_acc,
+.favorites_acc {
   padding: 0 20px 0;
 }
 
@@ -230,6 +235,7 @@ margin-right: 30px;
 .popup {
   z-index: 1000;
   display: none;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -337,6 +343,8 @@ margin-right: 30px;
   }
 
   .lightbox__button {
+    width: 36px;
+    height: 36px;;
     right: 30px;
     
   }
@@ -422,7 +430,7 @@ margin-right: 30px;
   }
 
   .popup {
-    right: 314px;
+    right: 422px;
   }
 
   .popup-enter,
@@ -440,7 +448,7 @@ margin-right: 30px;
   }
 
   .lightbox__button i {
-    font-size: 46px;
+    font-size: 40px;
   }
 
   .ads_item-photo {

@@ -29,13 +29,17 @@ const refs = {
   menu: document.querySelector('.modal-menu'),
 };
 
+const state = {
+  isOpen: false,
+};
+
 ///------------------для мобилки
 
 refs.menu.addEventListener('click', () => {
   const onMobile = document.querySelector('.loginOnMobile');
   const modalka = document.querySelector('#modalka');
   onMobile.addEventListener('click', e => {
-    if (e.target === onMobile) {
+    if (localStorage.getItem('token') && e.target === onMobile) {
       refs.modal.classList.add('is-open');
       modalka.setAttribute('class', 'menu-wrapper-none');
     }
@@ -44,35 +48,55 @@ refs.menu.addEventListener('click', () => {
   //--------------открываем личный кабинет
   refs.modal.addEventListener('click', event => {
     if (
-      event.target.nodeName == 'I' ||
-      event.target == refs.btn ||
-      event.target == refs.overlay
+      event.target.nodeName === 'I' ||
+      event.target === refs.btn ||
+      event.target === refs.overlay
     ) {
       refs.modal.classList.remove('is-open');
     }
 
+    state.isOpen = !state.isOpen;
     //--------------добавляем объявления юзера
     if (
-      event.target == refs.ads ||
-      event.target == refs.wrapperAds ||
-      event.target == refs.wrapperTitleAds ||
-      event.target == refs.lightboxTitleAds
+      event.target === refs.ads ||
+      event.target === refs.wrapperAds ||
+      event.target === refs.wrapperTitleAds ||
+      event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
+        state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
       });
+    }
+
+    if (
+      event.target === refs.ads ||
+      event.target === refs.wrapperAds ||
+      event.target === refs.wrapperTitleAds ||
+      event.target === refs.lightboxTitleAds
+    ) {
+      !state.isOpen && (refs.ads.innerHTML = '');
     }
 
     //----------------добавляем избранное
     if (
-      event.target == refs.favorite ||
-      event.target == refs.wrapperFav ||
-      event.target == refs.wrapperTitleFav ||
-      event.target == refs.lightboxTitleFav
+      event.target === refs.favorite ||
+      event.target === refs.wrapperFav ||
+      event.target === refs.wrapperTitleFav ||
+      event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        state.isOpen &&
+          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });
+    }
+
+    if (
+      event.target === refs.favorite ||
+      event.target === refs.wrapperFav ||
+      event.target === refs.wrapperTitleFav ||
+      event.target === refs.lightboxTitleFav
+    ) {
+      !state.isOpen && (refs.favorites.innerHTML = '');
     }
 
     let deleteButton = document.querySelector('.lightbox__content');
@@ -110,7 +134,7 @@ refs.body.addEventListener('click', event => {
     return;
   }
 
-  if (event.target == refs.headerBtn || event.target == refs.userName) {
+  if (event.target === refs.headerBtn || event.target === refs.userName) {
     refs.popup.style.display = 'block';
   }
 
@@ -122,7 +146,7 @@ refs.body.addEventListener('click', event => {
 
 //----------------имя
 
-if (!localStorage.getItem('token') && window.innerWidth > 320) {
+if (!localStorage.getItem('token') && window.innerWidth > 767) {
   refs.btnWrapper.style.display = 'none';
 }
 
@@ -146,19 +170,21 @@ refs.popupEnter.addEventListener('click', event => {
   //---------------закрываем модалку
   refs.modal.addEventListener('click', event => {
     if (
-      event.target.nodeName == 'I' ||
-      event.target == refs.btn ||
-      event.target == refs.overlay
+      event.target.nodeName === 'I' ||
+      event.target === refs.btn ||
+      event.target === refs.overlay
     ) {
       refs.modal.classList.remove('is-open');
     }
 
+    state.isOpen = !state.isOpen;
+
     //--------------добавляем объявления юзера
     if (
-      event.target == refs.ads ||
-      event.target == refs.wrapperAds ||
-      event.target == refs.wrapperTitleAds ||
-      event.target == refs.lightboxTitleAds
+      event.target === refs.ads ||
+      event.target === refs.wrapperAds ||
+      event.target === refs.wrapperTitleAds ||
+      event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
         refs.ads.innerHTML = userAds(data.data.ads);
@@ -167,16 +193,25 @@ refs.popupEnter.addEventListener('click', event => {
 
     //----------------добавляем избранное
     if (
-      event.target == refs.favorite ||
-      event.target == refs.wrapperFav ||
-      event.target == refs.wrapperTitleFav ||
-      event.target == refs.lightboxTitleFav
+      event.target === refs.favorite ||
+      event.target === refs.wrapperFav ||
+      event.target === refs.wrapperTitleFav ||
+      event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
       });
     }
   });
+
+  if (
+    event.target === refs.ads ||
+    event.target === refs.wrapperAds ||
+    event.target === refs.wrapperTitleAds ||
+    event.target === refs.lightboxTitleAds
+  ) {
+    !state.isOpen && (refs.ads.innerHTML = '');
+  }
 
   //--------------удаляем объявления и снова отрисовываем!
   let deleteButton = document.querySelector('.lightbox__content');

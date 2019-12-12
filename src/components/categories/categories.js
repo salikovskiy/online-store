@@ -56,15 +56,15 @@ function paint({ categories }) {
                 </li>`;
     }
   });
-  if (categories.length > 3) {
-    refs.contanierCategories.insertAdjacentHTML(
-      'afterend',
-      drawDivPagination(),
-    );
-  }
-
   refs.contanierCategories.insertAdjacentHTML('beforeend', string);
   refs.ulInner = document.querySelectorAll('.categories-item-listcards');
+
+  if (categories.length > 3) {
+    refs.contanierCategories.insertAdjacentHTML(
+      'beforeend',
+      `<li>${drawDivPagination()}</li>`,
+    );
+  }
 
   refs.ulInner.forEach((element, index) => {
     let card = '';

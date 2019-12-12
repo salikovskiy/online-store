@@ -1,4 +1,4 @@
-import services from './services';
+// import services from './services';
 
 // const defaultUser = {
 //   email: 'anna2546542@gmail.com',

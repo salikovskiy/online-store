@@ -56,7 +56,6 @@ refs.menu.addEventListener('click', () => {
     }
 
     state.isOpen = !state.isOpen;
-
     //--------------добавляем объявления юзера
     if (
       event.target === refs.ads ||
@@ -72,6 +71,15 @@ refs.menu.addEventListener('click', () => {
         }
       });
     }
+
+    // if (
+    //   event.target === refs.ads ||
+    //   event.target === refs.wrapperAds ||
+    //   event.target === refs.wrapperTitleAds ||
+    //   event.target === refs.lightboxTitleAds
+    // ) {
+    //   !state.isOpen && (refs.ads.innerHTML = '');
+    // }
 
     //----------------добавляем избранное
     if (
@@ -170,6 +178,8 @@ refs.popupEnter.addEventListener('click', event => {
     }
 
     state.isOpen = !state.isOpen;
+
+    //state.isOpen = !state.isOpen;
 
     //--------------добавляем объявления юзера
     if (

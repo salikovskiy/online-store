@@ -1,0 +1,43 @@
+.pageContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .pag-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 15px;
+    background-color: #fff;
+    border: solid 1px #000107;
+  }
+  
+  .onBlack {
+    background-color: #000107;
+    color: #fff;
+  }
+  
+  .unvisible {
+    visibility: hidden;
+  }
+    
+  .checked {
+      background-color: #000107;
+      color: #fff;
+    }
+    
+  .pag-btn:hover {
+      background-color: #000107;
+      color: #fff;
+    }
+    
+    .more-btn {
+      display: block;
+      width: 294px;
+      height: 60px;
+      background-color: #ff6b08;
+      border: none;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #fff;
+      font-weight: 500;
+    }

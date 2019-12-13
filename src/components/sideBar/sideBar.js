@@ -25,6 +25,14 @@ refs.close.addEventListener('click', () => {
   refs.modalka.setAttribute('class', 'menu-wrapper-none');
 });
 
+refs.ul.addEventListener('click', () => {
+  refs.modalka.setAttribute('class', 'menu-wrapper-none');
+});
+
+refs.modalka.addEventListener('click', () => {
+  refs.modalka.setAttribute('class', 'menu-wrapper-none');
+});
+
 // выводим категории
 
 const getCategorys = async () => {

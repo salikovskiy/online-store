@@ -9,7 +9,7 @@ import './components/sideBar/sideBar.css';
 import './components/account/account';
 
 import './components/templates/menuList.hbs';
-//import './components/categories/categories';
+import './components/categories/categories';
 
 import './components/itemCard/itemCard';
 

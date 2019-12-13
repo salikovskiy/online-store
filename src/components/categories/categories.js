@@ -3,6 +3,7 @@ import itemCard from '../itemCard/itemCard';
 import './categories.css';
 import pagination from '../pagination/pagination';
 import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
+import {getCategoryItemInfo} from '../pagination/pagination';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -43,8 +44,8 @@ function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
   categories.forEach((element, index) => {
-    if (index < 3){
-    string += `<li class="categories-item data-category="${element._id}">
+    if (index < 3) {
+      string += `<li class="categories-item" data-liCategory="${element._id}">
                 <div class="categories-item-overlay-title">
                 <h2 class="categories-item-title" >${element.category}</h2>
                 <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивiться всi</button>
@@ -56,7 +57,7 @@ function paint({ categories }) {
                 <ul class="categories-item-listcards" data-category="${element._id}">
                     </ul>
                 </li>`;
-  }
+    }
   });
   refs.contanierCategories.insertAdjacentHTML('beforeend', string);
   refs.ulInner = document.querySelectorAll('.categories-item-listcards');
@@ -64,7 +65,7 @@ function paint({ categories }) {
   if (categories.length > 3) {
     refs.contanierCategories.insertAdjacentHTML(
       'beforeend',
-      `<li>${drawDivPagination()}</li>`
+      `<li>${drawDivPagination()}</li>`,
     );
   }
 
@@ -84,6 +85,8 @@ function paint({ categories }) {
       })
       .finally(() => {
         functionFavoriteDrow();
+        // getCategoryItemInfo();
+
       });
   });
 }
@@ -109,7 +112,7 @@ const drawAllItemCardByCategory = e => {
             }
             return name;
           },
-          ''
+          '',
         );
         refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"
         data-idCategory="${e.target.dataset.category}">

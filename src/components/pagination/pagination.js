@@ -1,3 +1,23 @@
+// export async function getCategoryItemInfo() {
+//   state.totalPages = null;
+//   state.categoryItemsShow = [...document.querySelectorAll('.categories-item')];
+//   console.log('__________________________state.categoryItemsShow', state.categoryItemsShow);
+
+//   state.categoryNumber = categoryNumber;
+//   state.refs.container = document.querySelector(`body`);
+//   state.refs.placeForCards = document.querySelector(`.categoryContainer`);
+//   state.refs.placeForPaginationButtons = document.querySelector(
+//     `.overlayPagination`,
+//   );
+//   // state.totalPages = await axios
+//   //   .get(`/ads/all?limit=${state.limit}&category=${categoryNumber}&page=1`)
+//   //   .then(data => data.data.ads.totalPages);
+//   // state.categoryArr = await axios
+//   //   .get(`/ads/all?limit=${state.limit}&category=${categoryNumber}&page=1`)
+//   //   .then(data => data.data.ads.docs);
+// }
+
+
 import API from '../../services/services';
 import axios from 'axios';
 import './stylePagination.css';

@@ -4,7 +4,6 @@ import modal from '../templates/modal.hbs';
 import modalMobile from '../templates/modal-mobile.hbs';
 import services from '../../services/services.js';
 import functionFavoriteDrowModal from '../favorit/functionFavoriteDrowModal.js';
-axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
 const body = document.querySelector('body');
 const btn = document.querySelector('#btn');
 const btnExit = document.querySelector('.exit');

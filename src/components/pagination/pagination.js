@@ -269,7 +269,7 @@ export default async function pagination(value) {
       })
       .finally(() => {
         state.refs.searchRes.insertAdjacentHTML('beforeend', card);
-        // state.refs.placeForPaginationButtons.classList.remove('unvisible');
+        state.refs.placeForPaginationButtons.classList.remove('unvisible');
       });
   }
 }

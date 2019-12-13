@@ -65,18 +65,12 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
-        state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
+        if (state.isOpen) {
+          refs.ads.innerHTML = userAds(data.data.ads);
+        } else if (!state.isOpen) {
+          refs.ads.innerHTML = '';
+        }
       });
-
-      if (
-        event.target === refs.ads ||
-        event.target === refs.wrapperAds ||
-        event.target === refs.wrapperTitleAds ||
-        event.target === refs.lightboxTitleAds
-      ) {
-        !state.isOpen && (refs.ads.innerHTML = '');
-      }
     }
 
     //----------------добавляем избранное
@@ -87,20 +81,15 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
-        state.isOpen &&
-          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
+        if (state.isOpen) {
+          refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        } else if (!state.isOpen) {
+          refs.favorites.innerHTML = '';
+        }
       });
-
-      if (
-        event.target === refs.favorite ||
-        event.target === refs.wrapperFav ||
-        event.target === refs.wrapperTitleFav ||
-        event.target === refs.lightboxTitleFav
-      ) {
-        !state.isOpen && (refs.favorites.innerHTML = '');
-      }
     }
+
+    //----------------удаляем и отрисовываем
 
     let deleteButton = document.querySelector('.lightbox__content');
 
@@ -114,13 +103,17 @@ refs.menu.addEventListener('click', () => {
         services.deletedProduct(id);
       }
 
-      // // if(evt.target.dataset.edit) {
-      // //   //редактируем
-      // // }
+      services.getUser(token).then(data => {
+        refs.ads.innerHTML = userAds(data.data.ads);
+      });
 
       services.getUserFavorites(token).then(data => {
         refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });
+
+      // // if(evt.target.dataset.edit) {
+      // //   //редактируем
+      // // }
     });
   });
 });
@@ -152,7 +145,7 @@ if (!localStorage.getItem('token') && window.innerWidth > 767) {
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
-  // refs.accountBtn.textContent = userName[0];
+  refs.accountBtn.textContent = userName[0];
 }
 
 //---------------открываем модалку
@@ -175,6 +168,7 @@ refs.popupEnter.addEventListener('click', event => {
     ) {
       refs.modal.classList.remove('is-open');
     }
+
     state.isOpen = !state.isOpen;
 
     //--------------добавляем объявления юзера
@@ -185,18 +179,12 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
-        state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
+        if (state.isOpen) {
+          refs.ads.innerHTML = userAds(data.data.ads);
+        } else if (!state.isOpen) {
+          refs.ads.innerHTML = '';
+        }
       });
-
-      if (
-        event.target === refs.ads ||
-        event.target === refs.wrapperAds ||
-        event.target === refs.wrapperTitleAds ||
-        event.target === refs.lightboxTitleAds
-      ) {
-        !state.isOpen && (refs.ads.innerHTML = '');
-      }
     }
 
     //----------------добавляем избранное
@@ -207,25 +195,20 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
-        state.isOpen &&
-          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
+        if (state.isOpen) {
+          refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        } else if (!state.isOpen) {
+          refs.favorites.innerHTML = '';
+        }
       });
-
-      if (
-        event.target === refs.favorite ||
-        event.target === refs.wrapperFav ||
-        event.target === refs.wrapperTitleFav ||
-        event.target === refs.lightboxTitleFav
-      ) {
-        !state.isOpen && (refs.favorites.innerHTML = '');
-      }
     }
 
     //--------------удаляем объявления и снова отрисовываем!
-    let deleteButton = document.querySelector('.lightbox__content');
+    let deleteEditButton = document.querySelector('.lightbox__content');
+    // let deleteAds = document.querySelector('[data-del="delete-ads"]');
+    // let deleteFav = document.querySelector('[data-del="delete-fav"]');
 
-    deleteButton.addEventListener('click', event => {
+    deleteEditButton.addEventListener('click', event => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
@@ -235,13 +218,19 @@ refs.popupEnter.addEventListener('click', event => {
         services.deletedProduct(id);
       }
 
-      // if(evt.target.dataset.edit) {
-      //   //редактируем
-      // }
-
+      services.getUser(token).then(data => {
+        refs.ads.innerHTML = userAds(data.data.ads);
+      });
+    
       services.getUserFavorites(token).then(data => {
         refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });
+
+        //////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+      // if(event.target.dataset.edit) {
+      //   console.log(event.target)
+      // }
     });
   });
 });

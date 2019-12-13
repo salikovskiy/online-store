@@ -60,21 +60,21 @@ function paint({ categories }) {
   });
   refs.contanierCategories.insertAdjacentHTML('beforeend', string);
   refs.ulInner = document.querySelectorAll('.categories-item-listcards');
-​
+
   if (categories.length > 3) {
     refs.contanierCategories.insertAdjacentHTML(
       'beforeend',
-      `<li>${drawDivPagination()}</li>`,
+      `<li>${drawDivPagination()}</li>`
     );
   }
-​
+
   refs.ulInner.forEach((element, index) => {
     let card = '';
     services
       .getCategoriesWithNumberCategories(index + 1, 1)
       .then(data => {
         visibleBtnCategoriesItem(data, index);
-​
+
         data.forEach((item, index) => {
           if (index < 4) {
             card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
@@ -82,7 +82,9 @@ function paint({ categories }) {
         });
         element.insertAdjacentHTML('beforeend', card);
       })
-      .finally(() => functionFavoriteDrow());
+      .finally(() => {
+        functionFavoriteDrow();
+      });
   });
 }
 
@@ -107,7 +109,7 @@ const drawAllItemCardByCategory = e => {
             }
             return name;
           },
-          '',
+          ''
         );
         refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"
         data-idCategory="${e.target.dataset.category}">

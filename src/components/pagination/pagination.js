@@ -21,36 +21,83 @@ export default async function pagination(value) {
   };
 
   async function getCategoryInfo(categoryNumber) {
+    state.totalPages = null;
+    state.currentPage = 1;
     state.categoryNumber = categoryNumber;
     state.refs.container = document.querySelector(`body`);
     state.refs.placeForCards = document.querySelector(`.categoryContainer`);
-    state.refs.placeForPaginationButtons = document.querySelector(`.overlayPagination`);
+    state.refs.placeForPaginationButtons = document.querySelector(
+      `.overlayPagination`,
+    );
     state.totalPages = await axios
-      .get(`/ads/all?category=${categoryNumber}&page=${state.currentPage}`)
+      .get(`/ads/all?limit=${state.limit}&category=${categoryNumber}&page=1`)
       .then(data => data.data.ads.totalPages);
-    state.categoryArr = await axios.get(
-      `/ads/all?limit=${limit}&category=${categoryNumber}&page=${state.currentPage}`,
-    ).then(data => data.data.ads.docs);
+    state.categoryArr = await axios
+      .get(`/ads/all?limit=${state.limit}&category=${categoryNumber}&page=1`)
+      .then(data => data.data.ads.docs);
   }
 
   async function getSearchInfo(searchValue) {
+    console.log('==================state', state);
     state.totalPages = null;
     state.currentPage = 1;
     state.searchValue = searchValue;
     state.refs.container = document.querySelector('body');
     state.refs.placeForCards = document.querySelector('.categories');
     state.refs.placeForPaginationButtons = document.querySelector(
-      '.pagination'
+      '.pagination',
     );
-
     state.searchArr = await axios
-      .get(`/ads/all?search=${searchValue}&limit=${state.limit}&page=${state.currentPage}`)
+      .get(`/ads/all?search=${searchValue}&limit=${state.limit}&page=1`)
       .then(data => data.data.ads.docs);
     state.totalPages = await axios
-      .get(`/ads/all?search=${searchValue}&limit=${state.limit}&page=${state.currentPage}`)
+      .get(`/ads/all?search=${searchValue}&limit=${state.limit}&page=1`)
       .then(data => data.data.ads.totalPages);
   }
 
+  async function search() {
+    let card = '';
+    let searchItem = state.searchValue.toLowerCase();
+    await axios
+      .get(
+        `/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`,
+      )
+      .then(data => data.data.ads)
+      .then(data => {
+        state.refs.placeForCards.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
+        return data;
+      })
+      .then(data => {
+        state.refs.searchRes = document.querySelector('.searchResult');
+        card = data.docs
+          .map(item => `<li class="listcards-itemcard">${itemCard(item)}</li>`)
+          .join('');
+      })
+      .finally(() => {
+        state.refs.searchRes.insertAdjacentHTML('beforeend', card);
+      });
+  }
+
+  async function search2() {
+    let card = '';
+    let searchItem = state.searchValue.toLowerCase();
+    console.log("cur", state.currentPage)
+    await axios
+      .get(
+        `/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`,
+      )
+      .then(data => data.data.ads)
+      .then(data => {
+        card = data.docs
+          .map(item => `<li class="listcards-itemcard">${itemCard(item)}</li>`)
+          .join('');
+      })
+      .finally(() => {
+        state.refs.searchRes.insertAdjacentHTML('beforeend', card);
+      });
+  }
+
+  // ===============pagination block=================================
   function createPagination() {
     state.currentPage = 1;
     function pageButtons(pagesCount) {
@@ -74,6 +121,7 @@ export default async function pagination(value) {
     pagBtnsArr[0].classList.add('checked');
     state.refs.container.addEventListener('click', e => {
       let card = '';
+
       if (e.target.nodeName === 'BUTTON' && e.target.dataset.pagnumber) {
         state.currentPage = +e.target.dataset.pagnumber;
         pagBtnsArr.forEach(item => item.classList.remove('checked'));
@@ -97,27 +145,10 @@ export default async function pagination(value) {
             .finally(() => {
               state.refs.placeForCards.innerHTML = `${card}`;
             });
-
         state.searchValue !== null && search();
       }
 
-      function search() {
-        let searchItem = state.searchValue.toLowerCase();
-        API.searchAllItems(searchItem, state.currentPage)
-          .then(data => {
-            state.refs.placeForCards.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
-            return data;
-          })
-          .then(data => {
-            state.refs.searchRes = document.querySelector('.searchResult');
-            const card = data.docs
-              .map(
-                item => `<li class="listcards-itemcard">${itemCard(item)}</li>`,
-              )
-              .join('');
-            state.refs.searchRes.insertAdjacentHTML('beforeend', card);
-          });
-      }
+      // ===========================end paggination Block ==============================
 
       if (e.target.nodeName === 'BUTTON' && e.target.dataset.more) {
         let card = '';
@@ -144,38 +175,45 @@ export default async function pagination(value) {
               state.refs.placeForCards.insertAdjacentHTML('beforeend', card);
             });
         state.searchValue !== null && search2();
-        function search2() {
-          let searchItem = state.searchValue.toLowerCase();
-          API.searchAllItems(searchItem, state.currentPage).then(data => {
-            state.refs.searchRes = document.querySelector('.searchResult');
-            const card = data.docs
-              .map(
-                item => `<li class="listcards-itemcard">${itemCard(item)}</li>`,
-              )
-              .join('');
-            state.refs.searchRes.insertAdjacentHTML('beforeend', card);
-
-          });
-        }
       }
     });
   }
 
   value.constructor === Number && (await getCategoryInfo(value));
   value.constructor === String && (await getSearchInfo(value));
+
+  // ==============category=====================
+
   if (state.totalPages > 1) {
-    state.refs.placeForPaginationButtons.innerHTML = await createPagination(
-      state.totalPages,
-    );
-    await addListener();
+    let card = '';
+    axios
+      .get(
+        `/ads/all?limit=${state.limit}&category=${state.categoryNumber}&page=${state.currentPage}`,
+      )
+      .then(data => data.data.ads.docs)
+      .then(data => {
+        data.forEach(item => {
+          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+        });
+      })
+      .then(() => (state.refs.placeForCards.innerHTML = `${card}`))
+      .finally(() => {
+        async function create() {
+          state.refs.placeForPaginationButtons.innerHTML = await createPagination(
+            state.totalPages,
+          );
+          await addListener();
+        }
+        create();
+      });
   }
   if (state.totalPages === 1 && state.categoryNumber !== null) {
     let card = '';
-    API.getAllItemsWithNumberCategories(
-      state.categoryNumber,
-      state.limit,
-      state.currentPage,
-    )
+    await axios
+      .get(
+        `/ads/all?limit=${state.limit}&category=${state.categoryNumber}&page=${state.currentPage}`,
+      )
+      .then(data => data.data.ads.docs)
       .then(data => {
         data.forEach(item => {
           card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
@@ -187,14 +225,16 @@ export default async function pagination(value) {
       });
   }
 
+  // ===========search====================
+
   if (state.totalPages === 1 && state.searchValue !== null) {
     let card = '';
 
     let searchItem = state.searchValue.toLowerCase();
-    API.searchAllItems(searchItem, state.currentPage)
-      .then(data => {
-        console.log(data);
-
+    axios
+    .get(`/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`)
+    .then(data => data.data.ads)
+    .then(data => {
         state.refs.placeForCards.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
         return data;
       })
@@ -212,10 +252,12 @@ export default async function pagination(value) {
   if (state.totalPages > 1 && state.searchValue !== null) {
     let card = '';
     let searchItem = state.searchValue.toLowerCase();
-    API.searchAllItems(searchItem, state.currentPage)
+    await axios
+      .get(
+        `/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`,
+      )
+      .then(data => data.data.ads)
       .then(data => {
-        console.log(data);
-
         state.refs.placeForCards.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
         return data;
       })
@@ -227,7 +269,7 @@ export default async function pagination(value) {
       })
       .finally(() => {
         state.refs.searchRes.insertAdjacentHTML('beforeend', card);
-        state.refs.placeForPaginationButtons.classList.remove('unvisible');
+        // state.refs.placeForPaginationButtons.classList.remove('unvisible');
       });
   }
 }

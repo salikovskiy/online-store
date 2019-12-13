@@ -12,9 +12,7 @@ const refs = {
 
 function handleInput(e) {
   e.preventDefault();
-  console.log(e);
   let searchItem = refs.input.value.toLowerCase();
-  console.log(searchItem);
   services
     .searchAllItems(searchItem)
     .then(data => {

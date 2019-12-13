@@ -3,17 +3,20 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  width: 810px;
+  width: 54%;
 }
 
 .input-field-wrapper {
-  width: 525px;
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input-field {
   margin: 0;
   padding: 0;
-  width: 525px;
+  width: 88%;
   height: 50px;
   margin-bottom: 28px;
   border: 1px solid grey;
@@ -37,24 +40,56 @@
 }
 
 .form-btns-wrapper {
-  width: 529px;
+  width: 83%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
+.form__text {
+  width: 90%;
+  text-align: center;
+}
+
 .form__btn {
-  width: 250px;
+  width: 44%;
   height: 70px;
   background: transparent;
   border: none;
   text-transform: uppercase;
   font-weight: 700;
   background-color: #ff6b08;
+  cursor: pointer;
+  color: #000;
 }
 
 .btn--register {
-  background-color: rgb(206, 204, 204);
+  background-color: rgb(255, 255, 255);
+  border: solid 1px grey;
+}
+
+button.logout::after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../img/logout.svg');
+  top: 25px;
+  right: 32px;
+  transform: translateY(-50%);
+}
+
+.btn--google {
+  background-color: rgb(255, 255, 255);
+  border: solid 1px grey;
+  width: 30%;
+  background-image: url('../../img/searchGoogle.svg');
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: left 10% center;
+  text-align: center;
+  font-weight: 700;
 }
 
 /* LIGHTBOX */
@@ -105,6 +140,7 @@
   height: 100vh;
   align-items: center;
   padding: 20px 0;
+  position: relative;
 }
 
 .lightboxRegistration.isOpened .lightboxContent {
@@ -114,7 +150,7 @@
 .lightboxButton {
   position: absolute;
   top: 5px;
-  right: 10%;
+  right: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +161,7 @@
   border: none;
   border-radius: 50%;
   background-color: transparent;
-  color: rgb(255, 250, 250);
+  color: rgb(0, 0, 0);
   cursor: pointer;
   transition: background-color 200ms ease-in-out;
   outline: none;
@@ -142,4 +178,18 @@
 
 [ui-pnotify].ui-pnotify.stack-bar-top {
   width: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 400px) {
+  .form__btn {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 800px) {
+  .lightboxButton {
+    color: #fff;
+    background-color: black;
+    right: 60px;
+  }
 }

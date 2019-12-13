@@ -25,7 +25,9 @@ function handleSubmit(e) {
   if (e.target === e.currentTarget) {
     return;
   }
-
+  const preload = document.querySelector('.preloaderfade');
+  preload.className = 'preloader';
+  preload.style.display = 'block';
   let active = e.currentTarget.querySelector('.isActiveCategory');
   document.querySelector('.categories').classList.add('categoryStyle');
   if (active) {
@@ -45,7 +47,13 @@ function handleSubmit(e) {
       });
       document.querySelector('.categories').innerHTML = card;
     })
-    .finally(() => functionFavoriteDrow());
+    .finally(() => {
+      functionFavoriteDrow();
+      setTimeout(function() {
+        preload.className += 'fade';
+        preload.style.display = 'none';
+      }, 600);
+    });
 }
 
 function handleSubmitClear() {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import PNotify_1 from 'pnotify/dist/es/PNotify';
 
-axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
+axios.defaults.baseURL = 'https://dashads.goit.co.ua/api/v1';
 export default {
   searchAllItems(searchItem, homePage) {
     return axios

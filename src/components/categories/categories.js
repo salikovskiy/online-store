@@ -26,12 +26,12 @@ services.getAllProduct().then(data => {
 function visibleBtnCategoriesItem(listItemCard, indexCategory) {
   refs.btnShowAll = document.querySelectorAll('.categories-item-btn-showall');
   refs.btnSlider = document.querySelectorAll('.categories-item-btn-slider');
-  // if (listItemCard.length > 4) {
-  //   refs.btnShowAll[indexCategory].classList.remove('visually-hidden');
-  //   if (window.innerWidth > 767) {
-  //     refs.btnSlider[indexCategory].classList.remove('visually-hidden');
-  //   }
-  // }
+  if (listItemCard.length > 4) {
+    refs.btnShowAll[indexCategory].classList.remove('visually-hidden');
+    if (window.innerWidth > 767) {
+      refs.btnSlider[indexCategory].classList.remove('visually-hidden');
+    }
+  }
 }
 
 function drawDivPagination(id) {

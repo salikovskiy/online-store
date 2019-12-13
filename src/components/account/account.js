@@ -30,8 +30,8 @@ const refs = {
 };
 
 const state = {
-  isOpen: false
-}
+  isOpen: false,
+};
 
 ///------------------для мобилки
 
@@ -61,7 +61,7 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.ads ||
       event.target === refs.wrapperAds ||
       event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
+      event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
         state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
@@ -72,7 +72,7 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.ads ||
       event.target === refs.wrapperAds ||
       event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
+      event.target === refs.lightboxTitleAds
     ) {
       !state.isOpen && (refs.ads.innerHTML = '');
     }
@@ -85,7 +85,8 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        state.isOpen && (refs.favorites.innerHTML = userFav(data.data.user.favorites));
+        state.isOpen &&
+          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });
     }
 
@@ -190,7 +191,7 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.ads ||
       event.target === refs.wrapperAds ||
       event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
+      event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
         state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
@@ -201,7 +202,7 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.ads ||
       event.target === refs.wrapperAds ||
       event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
+      event.target === refs.lightboxTitleAds
     ) {
       !state.isOpen && (refs.ads.innerHTML = '');
     }
@@ -225,7 +226,8 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        state.isOpen && (refs.favorites.innerHTML = userFav(data.data.user.favorites));
+        state.isOpen &&
+          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });
     }
 

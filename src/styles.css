@@ -121,7 +121,7 @@ main {
 
 .login-register {
   display: none;
-  background-color: rgb(206, 204, 204);
+  background-color: rgba(206, 204, 204, 0.479);
   color: #000;
 }
 

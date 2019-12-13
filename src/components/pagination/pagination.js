@@ -3,29 +3,7 @@ import axios from 'axios';
 import './stylePagination.css';
 import itemCard from '../itemCard/itemCard';
 
-// const refs = {
-//   input: document.querySelector('.search-input'),
-//   main: document.querySelector('.main-section'),
-//   form: document.querySelector('form'),
-//   ulCont: document.querySelector('.categories'),
-// };
-
 export default async function pagination(value) {
-  const initialState = {
-    categoryNumber: null,
-    searchValue: null,
-    currentPage: 1,
-    totalPages: null,
-    categoryArr: [],
-    searchArr: [],
-    refs: {
-      container: null,
-      placeForCards: null,
-      placeForPaginationButtons: null,
-      searchRes: null,
-    },
-  };
-
   const state = {
     categoryNumber: null,
     searchValue: null,
@@ -33,6 +11,7 @@ export default async function pagination(value) {
     totalPages: null,
     categoryArr: [],
     searchArr: [],
+    limit: 3,
     refs: {
       container: null,
       placeForCards: null,
@@ -45,37 +24,30 @@ export default async function pagination(value) {
     state.categoryNumber = categoryNumber;
     state.refs.container = document.querySelector(`body`);
     state.refs.placeForCards = document.querySelector(`.categoryContainer`);
-    state.refs.placeForPaginationButtons = document.querySelector(
-      `.overlayPagination`,
-    );
+    state.refs.placeForPaginationButtons = document.querySelector(`.overlayPagination`);
     state.totalPages = await axios
       .get(`/ads/all?category=${categoryNumber}&page=${state.currentPage}`)
       .then(data => data.data.ads.totalPages);
-    state.categoryArr = await API.getAllItemsWithNumberCategories(
-      categoryNumber,
-      12,
-      state.currentPage,
-    );
+    state.categoryArr = await axios.get(
+      `/ads/all?limit=${limit}&category=${categoryNumber}&page=${state.currentPage}`,
+    ).then(data => data.data.ads.docs);
   }
 
   async function getSearchInfo(searchValue) {
     state.totalPages = null;
     state.currentPage = 1;
     state.searchValue = searchValue;
-    //общий контейнер для всего. Нужен только для того чтобы отловить событие
     state.refs.container = document.querySelector('body');
-    //место куда вставлять карточки. Общая ul для конкретной категрии.
     state.refs.placeForCards = document.querySelector('.categories');
-    //место, куда вставить кнопки пагинации
     state.refs.placeForPaginationButtons = document.querySelector(
-      '.pagination',
+      '.pagination'
     );
 
     state.searchArr = await axios
-      .get(`/ads/all?search=${searchValue}&limit=12&page=${state.currentPage}`)
+      .get(`/ads/all?search=${searchValue}&limit=${state.limit}&page=${state.currentPage}`)
       .then(data => data.data.ads.docs);
     state.totalPages = await axios
-      .get(`/ads/all?search=${searchValue}&limit=12&page=${state.currentPage}`)
+      .get(`/ads/all?search=${searchValue}&limit=${state.limit}&page=${state.currentPage}`)
       .then(data => data.data.ads.totalPages);
   }
 
@@ -111,11 +83,10 @@ export default async function pagination(value) {
         state.currentPage === state.totalPages &&
           moreBtn.classList.add('unvisible');
 
-        //вставить отрисовку по номеру страницы ---state.currentPage---
         state.categoryNumber !== null &&
           API.getAllItemsWithNumberCategories(
             state.categoryNumber,
-            12,
+            state.limit,
             state.currentPage,
           )
             .then(data => {
@@ -132,7 +103,6 @@ export default async function pagination(value) {
 
       function search() {
         let searchItem = state.searchValue.toLowerCase();
-        console.log('state.currentPage :', state.currentPage);
         API.searchAllItems(searchItem, state.currentPage)
           .then(data => {
             state.refs.placeForCards.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
@@ -158,12 +128,11 @@ export default async function pagination(value) {
         state.currentPage += 1;
         state.currentPage === state.totalPages &&
           moreBtn.classList.add('unvisible');
-        //добавить отрисовку по номеру страницы ---state.currentPage---
 
         state.categoryNumber !== null &&
           API.getAllItemsWithNumberCategories(
             state.categoryNumber,
-            12,
+            state.limit,
             state.currentPage,
           )
             .then(data => {
@@ -185,10 +154,7 @@ export default async function pagination(value) {
               )
               .join('');
             state.refs.searchRes.insertAdjacentHTML('beforeend', card);
-            // if (data.totalPages > 1) {
-            //   const paginationNav = `<div class='overlayPagination'></div>`;
-            //   searchRes.insertAdjacentHTML('beforeend', paginationNav);
-            // }
+
           });
         }
       }
@@ -207,7 +173,7 @@ export default async function pagination(value) {
     let card = '';
     API.getAllItemsWithNumberCategories(
       state.categoryNumber,
-      12,
+      state.limit,
       state.currentPage,
     )
       .then(data => {
@@ -237,11 +203,6 @@ export default async function pagination(value) {
         card = data.docs
           .map(item => `<li class="listcards-itemcard">${itemCard(item)}</li>`)
           .join('');
-
-        // if (data.totalPages > 1) {
-        //   const paginationNav = `<div class='overlayPagination'></div>`;
-        //   searchRes.insertAdjacentHTML('beforeend', paginationNav);
-        // }
       })
       .finally(() => {
         state.refs.placeForPaginationButtons.classList.add('unvisible');
@@ -270,5 +231,3 @@ export default async function pagination(value) {
       });
   }
 }
-// pagination(3);
-// pagination('nin');

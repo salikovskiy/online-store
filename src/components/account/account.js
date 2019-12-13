@@ -169,7 +169,7 @@ if (!localStorage.getItem('token') && window.innerWidth > 767) {
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
-  refs.accountBtn.textContent = userName[0];
+  // refs.accountBtn.textContent = userName[0];
 }
 
 //---------------открываем модалку

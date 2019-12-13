@@ -50,8 +50,6 @@ function paint({ categories }) {
       <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивитися всi</button>
                 </div>
                 <div class="categories-item-btn-slider visually-hidden">
-                <button class="categories-item-btn-slider-prev data-category="${element._id}""></button>
-                <button class="categories-item-btn-slider-next data-category="${element._id}""></button>
                 </div>
                 <ul class="categories-item-listcards" data-category="${element._id}">
                 </ul>

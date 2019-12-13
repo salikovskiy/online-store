@@ -7,6 +7,7 @@ import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
 const refs = {
   filter: document.querySelector('.filter'),
   clear: document.querySelector('.clear-btn'),
+  logo: document.querySelector('.logoReload'),
 };
 
 services.getAllProduct().then(data => {
@@ -17,6 +18,7 @@ services.getAllProduct().then(data => {
 
 refs.filter.addEventListener('click', handleSubmit);
 refs.clear.addEventListener('click', handleSubmitClear);
+refs.logo.addEventListener('click', handleSubmitClear);
 const preload = document.createElement('div');
 
 function handleSubmit(e) {

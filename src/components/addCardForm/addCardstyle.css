@@ -1,13 +1,13 @@
 @media (min-width: 320px) {
   .create-ad {
+    content: '+';
     position: fixed;
-    bottom: 3vh;
-    right: 50%;
+    bottom: 20px;
+    right: 45px;
     display: block;
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    padding-bottom: 4px;
     z-index: 100;
     transform: translateX(50%);
   }
@@ -26,14 +26,13 @@
     opacity: 1;
     background-color: rgb(0, 0, 0, 0.7);
     width: 100vw;
-    height: 740px;
+    height: 100%;
     z-index: 1000001;
   }
 
   .formWrapper {
     position: absolute;
     background-color: rgb(255, 255, 255);
-    height: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -174,9 +173,7 @@
 
 @media (min-width: 768px) {
   .create-ad {
-    position: static;
-    top: 0;
-    right: 0;
+    position: unset;
     border-radius: 0px;
     display: block;
     border: none;
@@ -186,6 +183,7 @@
     text-align: center;
     color: white;
     text-transform: uppercase;
+    transform: translateX(0%);
   }
 
   .create-ad::after {
@@ -206,7 +204,7 @@
     opacity: 1;
     background-color: rgb(0, 0, 0, 0.7);
     width: 100vw;
-    height: 1024px;
+    height: 100%;
     z-index: 1000001;
   }
 
@@ -214,7 +212,6 @@
     position: absolute;
     background-color: rgb(255, 255, 255);
     width: 720px;
-    height: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -373,7 +370,7 @@
     display: block;
     border: none;
     background-color: #ff6b08;
-    width: 215px;
+    width: 220px;
     height: 70px;
     text-align: center;
     color: white;
@@ -400,14 +397,13 @@
     pointer-events: initial;
     background-color: rgb(0, 0, 0, 0.7);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     z-index: 1000001;
   }
 
   .formWrapper {
     background-color: rgb(255, 255, 255);
     width: 920px;
-    height: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

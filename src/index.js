@@ -18,6 +18,9 @@ import './services/services';
 import './services/test';
 import './components/slider/slider';
 import './components/sideBar/sideBar.js';
+
 import './components/autentification/autentification';
+
 import './components/favorit/favorit';
-// import './components/filter/filter';
+import './components/addCardForm/addCardForm';
+import './components/filter/filter';

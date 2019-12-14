@@ -30,8 +30,8 @@ const refs = {
 };
 
 const state = {
-  isOpen: false
-}
+  isOpen: false,
+};
 
 ///------------------для мобилки
 
@@ -48,7 +48,7 @@ refs.menu.addEventListener('click', () => {
   //--------------открываем личный кабинет
   refs.modal.addEventListener('click', event => {
     if (
-      event.target.nodeName == 'I' ||
+      event.target.nodeName === 'I' ||
       event.target === refs.btn ||
       event.target === refs.overlay
     ) {
@@ -61,21 +61,31 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.ads ||
       event.target === refs.wrapperAds ||
       event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
+      event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
+        //refs.ads.innerHTML = userAds(data.data.ads);
         state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
       });
+
+      if (
+        event.target === refs.ads ||
+        event.target === refs.wrapperAds ||
+        event.target === refs.wrapperTitleAds ||
+        event.target === refs.lightboxTitleAds
+      ) {
+        !state.isOpen && (refs.ads.innerHTML = '');
+      }
     }
 
-    if (
-      event.target === refs.ads ||
-      event.target === refs.wrapperAds ||
-      event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
-    ) {
-      !state.isOpen && (refs.ads.innerHTML = '');
-    }
+    // if (
+    //   event.target === refs.ads ||
+    //   event.target === refs.wrapperAds ||
+    //   event.target === refs.wrapperTitleAds ||
+    //   event.target === refs.lightboxTitleAds
+    // ) {
+    //   !state.isOpen && (refs.ads.innerHTML = '');
+    // }
 
     //----------------добавляем избранное
     if (
@@ -85,18 +95,29 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        state.isOpen && (refs.favorites.innerHTML = userFav(data.data.user.favorites));
+        //refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        state.isOpen &&
+          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });
+
+      if (
+        event.target === refs.favorite ||
+        event.target === refs.wrapperFav ||
+        event.target === refs.wrapperTitleFav ||
+        event.target === refs.lightboxTitleFav
+      ) {
+        !state.isOpen && (refs.favorites.innerHTML = '');
+      }
     }
 
-    if (
-      event.target === refs.favorite ||
-      event.target === refs.wrapperFav ||
-      event.target === refs.wrapperTitleFav ||
-      event.target === refs.lightboxTitleFav
-    ) {
-      !state.isOpen && (refs.favorites.innerHTML = '');
-    }
+    // if (
+    //   event.target === refs.favorite ||
+    //   event.target === refs.wrapperFav ||
+    //   event.target === refs.wrapperTitleFav ||
+    //   event.target === refs.lightboxTitleFav
+    // ) {
+    //   !state.isOpen && (refs.favorites.innerHTML = '');
+    // }
 
     let deleteButton = document.querySelector('.lightbox__content');
 
@@ -104,16 +125,16 @@ refs.menu.addEventListener('click', () => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
-  
-      if (event.target.dataset.del) {
-        const id = event.target.closest('li').dataset.id;
-        services.deletedProduct(id);
-      }
-  
+
+      // if (event.target.dataset.del) {
+      //   const id = event.target.closest('li').dataset.id;
+      //   services.deletedProduct(id);
+      // }
+
       // // if(evt.target.dataset.edit) {
       // //   //редактируем
       // // }
-  
+
       services.getUserFavorites(token).then(data => {
         refs.favorites.innerHTML = userFav(data.data.user.favorites);
       });
@@ -148,7 +169,7 @@ if (!localStorage.getItem('token') && window.innerWidth > 767) {
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
-  refs.accountBtn.textContent = userName[0];
+  // refs.accountBtn.textContent = userName[0];
 }
 
 //---------------открываем модалку
@@ -165,59 +186,39 @@ refs.popupEnter.addEventListener('click', event => {
   //---------------закрываем модалку
   refs.modal.addEventListener('click', event => {
     if (
-      event.target.nodeName == 'I' ||
+      event.target.nodeName === 'I' ||
       event.target === refs.btn ||
       event.target === refs.overlay
     ) {
       refs.modal.classList.remove('is-open');
     }
-
     state.isOpen = !state.isOpen;
 
-    //--------------добавляем объявления юзера
-    // if (
-    //   event.target === refs.ads ||
-    //   event.target === refs.wrapperAds ||
-    //   event.target === refs.wrapperTitleAds ||
-    //   event.target === refs.lightboxTitleAds
-    // ) {
-    //   services.getUser(token).then(data => {
-    //     refs.ads.innerHTML = userAds(data.data.ads);
-    //   });
-    // }
+    //state.isOpen = !state.isOpen;
 
+    //--------------добавляем объявления юзера
     if (
       event.target === refs.ads ||
       event.target === refs.wrapperAds ||
       event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
+      event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
+        //refs.ads.innerHTML = userAds(data.data.ads);
         state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads));
       });
-    }
 
-    if (
-      event.target === refs.ads ||
-      event.target === refs.wrapperAds ||
-      event.target === refs.wrapperTitleAds ||
-      event.target === refs.lightboxTitleAds 
-    ) {
-      !state.isOpen && (refs.ads.innerHTML = '');
+      if (
+        event.target === refs.ads ||
+        event.target === refs.wrapperAds ||
+        event.target === refs.wrapperTitleAds ||
+        event.target === refs.lightboxTitleAds
+      ) {
+        !state.isOpen && (refs.ads.innerHTML = '');
+      }
     }
 
     //----------------добавляем избранное
-    // if (
-    //   event.target === refs.favorite ||
-    //   event.target === refs.wrapperFav ||
-    //   event.target === refs.wrapperTitleFav ||
-    //   event.target === refs.lightboxTitleFav
-    // ) {
-    //   services.getUserFavorites(token).then(data => {
-    //     refs.favorites.innerHTML = userFav(data.data.user.favorites);
-    //   });
-    // }
-
     if (
       event.target === refs.favorite ||
       event.target === refs.wrapperFav ||
@@ -225,39 +226,41 @@ refs.popupEnter.addEventListener('click', event => {
       event.target === refs.lightboxTitleFav
     ) {
       services.getUserFavorites(token).then(data => {
-        state.isOpen && (refs.favorites.innerHTML = userFav(data.data.user.favorites));
+        //refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        state.isOpen &&
+          (refs.favorites.innerHTML = userFav(data.data.user.favorites));
       });
+
+      if (
+        event.target === refs.favorite ||
+        event.target === refs.wrapperFav ||
+        event.target === refs.wrapperTitleFav ||
+        event.target === refs.lightboxTitleFav
+      ) {
+        !state.isOpen && (refs.favorites.innerHTML = '');
+      }
     }
 
-    if (
-      event.target === refs.favorite ||
-      event.target === refs.wrapperFav ||
-      event.target === refs.wrapperTitleFav ||
-      event.target === refs.lightboxTitleFav
-    ) {
-      !state.isOpen && (refs.favorites.innerHTML = '');
-    }
-  });
+    //--------------удаляем объявления и снова отрисовываем!
+    let deleteButton = document.querySelector('.lightbox__content');
 
-  //--------------удаляем объявления и снова отрисовываем!
-  let deleteButton = document.querySelector('.lightbox__content');
+    deleteButton.addEventListener('click', event => {
+      if (event.target.nodeName !== 'BUTTON') {
+        return;
+      }
 
-  deleteButton.addEventListener('click', event => {
-    if (event.target.nodeName !== 'BUTTON') {
-      return;
-    }
+      // if (event.target.dataset.del) {
+      //   const id = event.target.closest('li').dataset.id;
+      //   services.deletedProduct(id);
+      // }
 
-    if (event.target.dataset.del) {
-      const id = event.target.closest('li').dataset.id;
-      services.deletedProduct(id);
-    }
+      // if(evt.target.dataset.edit) {
+      //   //редактируем
+      // }
 
-    // if(evt.target.dataset.edit) {
-    //   //редактируем
-    // }
-
-    services.getUserFavorites(token).then(data => {
-      refs.favorites.innerHTML = userFav(data.data.user.favorites);
+      services.getUserFavorites(token).then(data => {
+        refs.favorites.innerHTML = userFav(data.data.user.favorites);
+      });
     });
   });
 });

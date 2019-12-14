@@ -1,6 +1,8 @@
 import services from '../../services/services.js';
 import itemCard from '../itemCard/itemCard';
 import styleSearch from './styleSearch.css';
+import pagination from '../pagination/pagination.js';
+import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
 
 const refs = {
   input: document.querySelector('.search-input'),
@@ -11,27 +13,22 @@ const refs = {
 
 function handleInput(e) {
   e.preventDefault();
-  console.log(e);
+  const preload = document.querySelector('.preloaderfade');
+  preload.className = 'preloader';
+  preload.style.display = 'block';
   let searchItem = refs.input.value.toLowerCase();
-  console.log(searchItem);
   services
     .searchAllItems(searchItem)
     .then(data => {
-      console.log(data);
-
       refs.ulCont.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
+      setTimeout(function() {
+        preload.className += 'fade';
+        preload.style.display = 'none';
+      }, 2600);
       return data;
     })
-    .then(data => {
-      const searchRes = document.querySelector('.searchResult');
-      const card = data.docs
-        .map(item => `<li class="listcards-itemcard">${itemCard(item)}</li>`)
-        .join('');
-      searchRes.insertAdjacentHTML('beforeend', card);
-      if (data.totalPages > 1) {
-        const paginationNav = `<div class='overlayPagination'>Place for pagination</div>`;
-        searchRes.insertAdjacentHTML('beforeend', paginationNav);
-      }
+    .finally(() => {
+      pagination(searchItem);
     });
 }
 refs.form.addEventListener('submit', handleInput);

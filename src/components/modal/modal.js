@@ -2,34 +2,38 @@ import axios from 'axios';
 import './styles.css';
 import modal from '../templates/modal.hbs';
 import modalMobile from '../templates/modal-mobile.hbs';
-axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
+import services from '../../services/services.js';
+import functionFavoriteDrowModal from '../favorit/functionFavoriteDrowModal.js';
 const body = document.querySelector('body');
 const btn = document.querySelector('#btn');
 const btnExit = document.querySelector('.exit');
 const modalWindow = document.querySelector('#product-modal');
 const categories = document.querySelector('.categories');
 
-console.log(categories);
+// console.log(categories);
 
 categories.addEventListener('click', e => {
   if (e.target.nodeName === 'DIV') {
-    console.log(e.target);
+    // console.log(e.target);
 
     const id = e.target.dataset.id;
-    axios.get(`/ads/${id}`).then(({ data }) => {
-      modalWindow.setAttribute('class', 'modal-window-color');
-      // modalWindow.innerHTML = modal(data.goal);
-      if (window.innerWidth < 720) {
-        console.log('min 720');
-        modalWindow.innerHTML = modalMobile(data.goal);
-      } else if (window.innerWidth >= 720 && window.innerWidth <= 1100) {
-        modalWindow.innerHTML = modal(data.goal);
-        console.log('max 720');
-      } else {
-        console.log('more');
-        modalWindow.innerHTML = modal(data.goal);
-      }
-    });
+    axios
+      .get(`/ads/${id}`)
+      .then(({ data }) => {
+        modalWindow.setAttribute('class', 'modal-window-color');
+        // modalWindow.innerHTML = modal(data.goal);
+        if (window.innerWidth < 720) {
+          console.log('min 720');
+          modalWindow.innerHTML = modalMobile(data.goal);
+        } else if (window.innerWidth >= 720 && window.innerWidth <= 1100) {
+          modalWindow.innerHTML = modal(data.goal);
+          console.log('max 720');
+        } else {
+          console.log('more');
+          modalWindow.innerHTML = modal(data.goal);
+        }
+      })
+      .finally(() => functionFavoriteDrowModal());
   }
 });
 

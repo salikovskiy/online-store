@@ -9,6 +9,7 @@
     height: 50px;
     border-radius: 25px;
     transform: translateX(50%);
+    z-index: 9999;
   }
 
   .create-ad::after {

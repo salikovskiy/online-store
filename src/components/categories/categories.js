@@ -76,8 +76,9 @@ function paint({ categories }) {
       .then(data => {
         visibleBtnCategoriesItem(data, index);
 
-        data.forEach((item, index) => {
-          if (index < 4) {
+        data.forEach((item, index, arr) => {
+          console.log(index);
+          if (index < arr.length) {
             card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
           }
         });

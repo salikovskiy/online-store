@@ -1,8 +1,9 @@
 import services from './../../services/services';
 import itemCard from '../itemCard/itemCard';
-import stylesCategories from './categories.css';
+import './categories.css';
 import pagination from '../pagination/pagination';
 import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
+import {getCategoryItemInfo} from '../pagination/pagination';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -44,15 +45,17 @@ function paint({ categories }) {
   let string = '';
   categories.forEach((element, index) => {
     if (index < 3) {
-      string += `<li class="categories-item data-category="${element._id}">
-      <div class="categories-item-overlay-title">
-      <h2 class="categories-item-title" >${element.category}</h2>
-      <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивитися всi</button>
+      string += `<li class="categories-item" data-liCategory="${element._id}">
+                <div class="categories-item-overlay-title">
+                <h2 class="categories-item-title" >${element.category}</h2>
+                <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивiться всi</button>
                 </div>
                 <div class="categories-item-btn-slider visually-hidden">
+                <button class="categories-item-btn-slider-prev data-category="${element._id}"">&lt;</button>
+                <button class="categories-item-btn-slider-next data-category="${element._id}"">&gt;</button>
                 </div>
                 <ul class="categories-item-listcards" data-category="${element._id}">
-                </ul>
+                    </ul>
                 </li>`;
     }
   });
@@ -80,7 +83,11 @@ function paint({ categories }) {
         });
         element.insertAdjacentHTML('beforeend', card);
       })
-      .finally(() => functionFavoriteDrow());
+      .finally(() => {
+        functionFavoriteDrow();
+        // getCategoryItemInfo();
+
+      });
   });
 }
 
@@ -111,7 +118,6 @@ const drawAllItemCardByCategory = e => {
         data-idCategory="${e.target.dataset.category}">
         <h2 class="category-item-title">${nameCategory}</h2>
         <ul class="categoryContainer" data-categorycontainer="${e.target.dataset.category}">${card}</ul></li>`;
-
         refs.overlayCategoryContainer = document.querySelector(
           '.overlayCategoryContainer',
         );

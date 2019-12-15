@@ -126,10 +126,10 @@ refs.menu.addEventListener('click', () => {
         return;
       }
 
-      if (event.target.dataset.del) {
-        const id = event.target.closest('li').dataset.id;
-        services.deletedProduct(id);
-      }
+      // if (event.target.dataset.del) {
+      //   const id = event.target.closest('li').dataset.id;
+      //   services.deletedProduct(id);
+      // }
 
       // // if(evt.target.dataset.edit) {
       // //   //редактируем
@@ -249,10 +249,10 @@ refs.popupEnter.addEventListener('click', event => {
         return;
       }
 
-      if (event.target.dataset.del) {
-        const id = event.target.closest('li').dataset.id;
-        services.deletedProduct(id);
-      }
+      // if (event.target.dataset.del) {
+      //   const id = event.target.closest('li').dataset.id;
+      //   services.deletedProduct(id);
+      // }
 
       // if(evt.target.dataset.edit) {
       //   //редактируем

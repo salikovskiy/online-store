@@ -2,38 +2,13 @@ import axios from 'axios';
 import PNotify_1 from 'pnotify/dist/es/PNotify';
 
 axios.defaults.baseURL = 'https://dashads.goit.co.ua/api/v1';
-export default {
-  searchAllItems(searchItem, homePage) {
-    return axios
-      .get(`/ads/all?search=${searchItem}&limit=12&page=${homePage}`)
-      .then(data => data.data.ads);
-  },
-  searchInCategory(numberCategories, homePage, searchItem) {
-    return axios.get(
-      `/ads/all?category=${numberCategories}&limit=12&page=${homePage}&search=${searchItem}`,
-    );
-  },
-  async getItemCategory(numberCategories, numberPage) {
-    return await axios.get(
-      `/ads/all?category=${numberCategories}&page=${numberPage}`,
-    );
-  },
-  async getAllCategories() {
-    try {
-      return await axios
-        .get('/ads/all')
-        .then(({ data }) => data.ads.categories);
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  },
 
+export default {
   page: 1,
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
-      // console.log(data.data.ads);
+      //console.log(data.data.ads);
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -66,7 +41,6 @@ export default {
       const data = await axios.get(
         `/ads/all?limit=${limit}&page=${pageNumber}`,
       );
-
       return data.data.ads;
     } catch (error) {
       console.log(error);
@@ -79,6 +53,7 @@ export default {
       const data = await axios.get(
         `/ads/all?category=${numberCategories}&page=${homePage}`,
       );
+      // console.log(data.data.ads.docs);
       return data.data.ads.docs;
     } catch (error) {
       console.log(error);
@@ -131,7 +106,6 @@ export default {
     localStorage.setItem('userName', data.data.userData.name);
     return data;
   },
-
   async logoutUser(userInfo) {
     const token = localStorage.getItem('token');
     const data = await axios.post('/auth/logout', userInfo, {
@@ -147,7 +121,7 @@ export default {
   async getAllItemsWithNumberCategories(numberCategories, limit, homePage) {
     try {
       const data = await axios.get(
-        `/ads/all?limit=${limit}&category=${numberCategories}&page=${homePage}`,
+        `/ads/all?limit=${limit}category=${numberCategories}&page=${homePage}`,
       );
       return data.data.ads.docs;
     } catch (error) {

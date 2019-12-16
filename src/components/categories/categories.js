@@ -43,8 +43,8 @@ function drawDivPagination(id) {
 function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
-  categories.forEach((element, index) => {
-    if (index < 3) {
+  categories.forEach((element, index, arr) => {
+    if (index < arr.length) {
       string += `<li class="categories-item" data-liCategory="${element._id}">
                 <div class="categories-item-overlay-title">
                 <h2 class="categories-item-title" >${element.category}</h2>

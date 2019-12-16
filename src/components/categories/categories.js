@@ -3,7 +3,7 @@ import itemCard from '../itemCard/itemCard';
 import './categories.css';
 import pagination from '../pagination/pagination';
 import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
-import {getCategoryItemInfo} from '../pagination/pagination';
+import { getCategoryItemInfo } from '../pagination/pagination';
 
 const state = {
   curentIdCategoryForDrawAllItem: 0,
@@ -43,8 +43,8 @@ function drawDivPagination(id) {
 function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
-  categories.forEach((element, index) => {
-    if (index < 3) {
+  categories.forEach((element, index, arr) => {
+    if (index < arr.length) {
       string += `<li class="categories-item" data-liCategory="${element._id}">
                 <div class="categories-item-overlay-title">
                 <h2 class="categories-item-title" >${element.category}</h2>
@@ -76,8 +76,9 @@ function paint({ categories }) {
       .then(data => {
         visibleBtnCategoriesItem(data, index);
 
-        data.forEach((item, index) => {
-          if (index < 4) {
+        data.forEach((item, index, arr) => {
+          console.log(index);
+          if (index < arr.length) {
             card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
           }
         });
@@ -86,7 +87,6 @@ function paint({ categories }) {
       .finally(() => {
         functionFavoriteDrow();
         // getCategoryItemInfo();
-
       });
   });
 }

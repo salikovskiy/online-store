@@ -72,7 +72,13 @@
 .categories-item-listcards {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  transition: scroll 0.2s linear;
+}
+
+.categories-item-listcards::-webkit-scrollbar {
+  display: none;
 }
 
 .listcards-itemcard {
@@ -102,7 +108,7 @@
     margin-right: 0;
   }
 
-  .listcards-itemcard:nth-child(2n-1) {
+  .listcards-itemcard:not(:last-child) {
     margin-right: 20px;
   }
 
@@ -122,9 +128,5 @@
 
   .listcards-itemcard {
     margin-right: 20px;
-  }
-
-  .listcards-itemcard:nth-child(4n) {
-    margin-right: 0;
   }
 }

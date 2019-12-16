@@ -15,7 +15,8 @@ import './components/itemCard/itemCard';
 
 import './components/preloader/preloader';
 import './services/services';
-
+import './services/test';
+import './components/slider/slider';
 import './components/sideBar/sideBar.js';
 
 import './components/autentification/autentification';

@@ -4,7 +4,7 @@ import API from '../../services/services.js';
 
 const openNewAddform = document.querySelector('.create-ad');
 
-console.log('create add', openNewAddform);
+// console.log('create add', openNewAddform);
 
 let addNewModalForm = document.querySelector('.modalForm');
 const category = {

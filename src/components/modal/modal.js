@@ -10,11 +10,11 @@ const btnExit = document.querySelector('.exit');
 const modalWindow = document.querySelector('#product-modal');
 const categories = document.querySelector('.categories');
 
-console.log(categories);
+// console.log(categories);
 
 categories.addEventListener('click', e => {
   if (e.target.nodeName === 'DIV') {
-    console.log(e.target);
+    // console.log(e.target);
 
     const id = e.target.dataset.id;
     axios

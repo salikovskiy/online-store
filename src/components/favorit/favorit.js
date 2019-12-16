@@ -6,84 +6,48 @@ import 'pnotify/dist/PNotifyBrightTheme.css';
 document.body.addEventListener('click', createdFavoritCard);
 
 function createdFavoritCard(e) {
-  // console.log(e.target.dataset.fav);
+  let pushArrFavorites = ourEventId => {
+    if (localStorage.getItem('token')) {
+      services.getAllProductFavorite().then(cards => {
+        let flag = false;
+        console.log(e.target);
+        cards.map(elem => {
+          if (ourEventId === elem._id) {
+            flag = true;
+          }
+          return flag;
+        });
+        if (flag) {
+          e.target.classList.remove('addedToFavorite');
+          services.deletedFavoritCardById(ourEventId);
+          PNotify.error({
+            title: 'О ні !',
+            text: 'Як я міг Вам не сподобатися ?',
+          });
+        } else {
+          e.target.classList.add('addedToFavorite');
+          services.adsFavoritCardById(ourEventId);
+          PNotify.success({
+            title: 'Мені це подобається!',
+            text: 'Добавляю цю карту в моЇ обрані .',
+          });
+        }
+      });
+    } else {
+      PNotify.error({
+        title: 'О ні !',
+        text:
+          'Будь-ласка, для добавлення в обрані, зареєструйтесь або увійдіть в свій аккаунт !',
+      });
+    }
+  };
+
   if (e.target.dataset.fav === 'key') {
     // e.target.classList.toggle('addedToFavorite');
-
     const eventId = e.target.closest('.overlay').dataset.id;
-
-    if (localStorage.getItem('token')) {
-      services.getAllProductFavorite().then(cards => {
-        let flag = false;
-        cards.map(elem => {
-          if (eventId === elem._id) {
-            flag = true;
-          }
-          return flag;
-        });
-        if (flag) {
-          e.target.classList.remove('addedToFavorite');
-          services.deletedFavoritCardById(eventId);
-          PNotify.error({
-            title: 'О ні !',
-            text: 'Як я міг Вам не сподобатися ?',
-          });
-          // console.log(cards);
-        } else {
-          e.target.classList.add('addedToFavorite');
-          services.adsFavoritCardById(eventId);
-          PNotify.success({
-            title: 'Нарешті воно працює!',
-            text: 'Ми зробили вигляд що нам цікавий цей товар.',
-          });
-          // console.log(cards);
-        }
-      });
-    } else {
-      PNotify.error({
-        title: 'О ні !',
-        text:
-          'Будь-ласка, для добавлення в обрані, зареєструйтесь або увійдіть в свій аккаунт !',
-      });
-    }
+    pushArrFavorites(eventId);
   } else if (e.target.dataset.fav === 'keyModal') {
     const eventId = e.target.closest('.modal').dataset.id;
-    // console.log(eventId);
-
-    if (localStorage.getItem('token')) {
-      services.getAllProductFavorite().then(cards => {
-        let flag = false;
-        cards.map(elem => {
-          if (eventId === elem._id) {
-            flag = true;
-          }
-          return flag;
-        });
-        if (flag) {
-          e.target.classList.remove('addedToFavorite');
-          services.deletedFavoritCardById(eventId);
-          PNotify.error({
-            title: 'О ні !',
-            text: 'Як я міг Вам не сподобатися ?',
-          });
-          // console.log(cards);
-        } else {
-          // console.log(e.target);
-          e.target.classList.add('addedToFavorite');
-          services.adsFavoritCardById(eventId);
-          PNotify.success({
-            title: 'Нарешті воно працює!',
-            text: 'Ми зробили вигляд що нам цікавий цей товар.',
-          });
-          // console.log(cards);
-        }
-      });
-    } else {
-      PNotify.error({
-        title: 'О ні !',
-        text:
-          'Будь-ласка, для добавлення в обрані, зареєструйтесь або увійдіть в свій аккаунт !',
-      });
-    }
+    pushArrFavorites(eventId);
   }
 }

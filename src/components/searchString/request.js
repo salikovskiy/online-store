@@ -28,6 +28,7 @@ function handleInput(e) {
       return data;
     })
     .finally(() => {
+      console.log(searchItem);
       pagination(searchItem);
     });
 }

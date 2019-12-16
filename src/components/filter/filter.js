@@ -3,6 +3,7 @@ import templateOption from '../templates/templateOptionFilter.hbs';
 import './filter.css';
 import itemCard from '../itemCard/itemCard.js';
 import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
+import pagination from '../pagination/pagination.js'
 
 const refs = {
   filter: document.querySelector('.filter'),
@@ -45,9 +46,16 @@ function handleSubmit(e) {
           item,
         )}</li>`;
       });
-      document.querySelector('.categories').innerHTML = card;
+      document.querySelector('.categories').innerHTML = `<li class="overlayCategoryContainer"
+      data-idCategory="${e.target.dataset.category}">
+      <ul class="categoryContainer" data-categorycontainer="${e.target.dataset.category}">${card}</ul></li>
+      ${drawDivPagination(e.target.dataset.category)}`;
+      refs.overlayCategoryContainer = document.querySelector(
+        '.overlayCategoryContainer',
+      );
     })
     .finally(() => {
+      pagination(Number(e.target.id))
       functionFavoriteDrow();
       setTimeout(function() {
         preload.className += 'fade';
@@ -58,4 +66,9 @@ function handleSubmit(e) {
 
 function handleSubmitClear() {
   location.reload();
+}
+
+function drawDivPagination(id) {
+  let divPagginator = `<div class = "overlayPagination" data-categoryPagination="${id}"></div>`;
+  return divPagginator;
 }

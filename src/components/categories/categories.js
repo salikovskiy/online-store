@@ -128,6 +128,7 @@ const drawAllItemCardByCategory = e => {
       })
       .finally(() => {
         functionFavoriteDrow();
+        console.log(e.target.dataset.category);
         pagination(Number(e.target.dataset.category));
       });
   }

@@ -17,12 +17,11 @@
 //   //   .then(data => data.data.ads.docs);
 // }
 
-
 import API from '../../services/services';
 import axios from 'axios';
 import './stylePagination.css';
 import itemCard from '../itemCard/itemCard';
-
+import functionFavoriteDrow from '../favorit/functionFavoriteDrow.js';
 export default async function pagination(value) {
   const state = {
     categoryNumber: null,
@@ -95,13 +94,14 @@ export default async function pagination(value) {
       })
       .finally(() => {
         state.refs.searchRes.insertAdjacentHTML('beforeend', card);
+        functionFavoriteDrow();
       });
   }
 
   async function search2() {
     let card = '';
     let searchItem = state.searchValue.toLowerCase();
-    console.log("cur", state.currentPage)
+    console.log('cur', state.currentPage);
     await axios
       .get(
         `/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`,
@@ -114,6 +114,7 @@ export default async function pagination(value) {
       })
       .finally(() => {
         state.refs.searchRes.insertAdjacentHTML('beforeend', card);
+        functionFavoriteDrow();
       });
   }
 
@@ -164,6 +165,7 @@ export default async function pagination(value) {
             })
             .finally(() => {
               state.refs.placeForCards.innerHTML = `${card}`;
+              functionFavoriteDrow();
             });
         state.searchValue !== null && search();
       }
@@ -193,6 +195,7 @@ export default async function pagination(value) {
             })
             .finally(() => {
               state.refs.placeForCards.insertAdjacentHTML('beforeend', card);
+              functionFavoriteDrow();
             });
         state.searchValue !== null && search2();
       }
@@ -225,6 +228,7 @@ export default async function pagination(value) {
           await addListener();
         }
         create();
+        functionFavoriteDrow();
       });
   }
   if (state.totalPages === 1 && state.categoryNumber !== null) {
@@ -242,6 +246,7 @@ export default async function pagination(value) {
       .finally(() => {
         state.refs.placeForCards.innerHTML = `${card}`;
         state.refs.placeForPaginationButtons.classList.add('unvisible');
+        functionFavoriteDrow();
       });
   }
 
@@ -252,9 +257,11 @@ export default async function pagination(value) {
 
     let searchItem = state.searchValue.toLowerCase();
     axios
-    .get(`/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`)
-    .then(data => data.data.ads)
-    .then(data => {
+      .get(
+        `/ads/all?search=${searchItem}&limit=${state.limit}&page=${state.currentPage}`,
+      )
+      .then(data => data.data.ads)
+      .then(data => {
         state.refs.placeForCards.innerHTML = `<li><p class="itemSearchCount">Знайдено об'яв ${data.totalDocs} шт</p></li><li><ul class="searchResult"></ul></li>`;
         return data;
       })
@@ -267,6 +274,7 @@ export default async function pagination(value) {
       .finally(() => {
         state.refs.placeForPaginationButtons.classList.add('unvisible');
         state.refs.searchRes.insertAdjacentHTML('beforeend', card);
+        functionFavoriteDrow();
       });
   }
   if (state.totalPages > 1 && state.searchValue !== null) {
@@ -290,6 +298,7 @@ export default async function pagination(value) {
       .finally(() => {
         state.refs.searchRes.insertAdjacentHTML('beforeend', card);
         state.refs.placeForPaginationButtons.classList.remove('unvisible');
+        functionFavoriteDrow();
       });
   }
 }

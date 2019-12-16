@@ -3,6 +3,7 @@ import '../sideBar/sideBar.css';
 import category from '../templates/menuList.hbs';
 import services from '../../services/services';
 import itemCard from '../../components/itemCard/itemCard';
+import pagination from '../pagination/pagination';
 
 const refs = {
   btnMenu: document.querySelector('.modal-menu'),
@@ -59,6 +60,7 @@ const onHandleClick = async evt => {
       .map(elem => `<li class="sideCard">${itemCard(elem)}</li>`)
       .join(''),
   );
+  // pagination(+evt.target.id);
 };
 
 refs.ul.addEventListener('click', onHandleClick);

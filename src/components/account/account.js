@@ -56,6 +56,7 @@ refs.menu.addEventListener('click', () => {
     }
 
     state.isOpen = !state.isOpen;
+
     //--------------добавляем объявления юзера
     if (
       event.target === refs.ads ||
@@ -64,6 +65,8 @@ refs.menu.addEventListener('click', () => {
       event.target === refs.lightboxTitleAds
     ) {
       services.getUser(token).then(data => {
+        // state.isOpen && (refs.ads.innerHTML = userAds(data.data.ads))
+        // !state.isOpen && (refs.ads.innerHTML = '')
         if (state.isOpen) {
           refs.ads.innerHTML = userAds(data.data.ads);
         } else if (!state.isOpen) {
@@ -71,15 +74,6 @@ refs.menu.addEventListener('click', () => {
         }
       });
     }
-
-    // if (
-    //   event.target === refs.ads ||
-    //   event.target === refs.wrapperAds ||
-    //   event.target === refs.wrapperTitleAds ||
-    //   event.target === refs.lightboxTitleAds
-    // ) {
-    //   !state.isOpen && (refs.ads.innerHTML = '');
-    // }
 
     //----------------добавляем избранное
     if (
@@ -98,6 +92,7 @@ refs.menu.addEventListener('click', () => {
     }
 
     //----------------удаляем и отрисовываем
+    
 
     let deleteButton = document.querySelector('.lightbox__content');
 
@@ -106,22 +101,35 @@ refs.menu.addEventListener('click', () => {
         return;
       }
 
-      if (event.target.dataset.del) {
+      if(event.target.dataset.delad) {
+        
         const id = event.target.closest('li').dataset.id;
         services.deletedProduct(id);
+
+        services.getUser(token).then(data => {
+          refs.ads.innerHTML = userAds(data.data.ads);
+         });
       }
 
-      services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
-      });
+      if(event.target.dataset.delfav) {
+        const id = event.target.closest('li').dataset.id;
+        services.deletedFavoritCardById(id);
 
-      services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
-      });
+        services.getUserFavorites(token).then(data => {
+          refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        });
+      }
 
-      // // if(evt.target.dataset.edit) {
-      // //   //редактируем
-      // // }
+      //-----------------редактируем
+
+      //if(event.target.dataset.edit) {
+
+        // //const id = 
+        // services.getCardById(id).then(data => {
+        //   console.log(data.data.ads._id)
+          
+        // }) 
+      //}
     });
   });
 });
@@ -153,7 +161,7 @@ if (!localStorage.getItem('token') && window.innerWidth > 767) {
 if (localStorage.getItem('token')) {
   const userName = localStorage.getItem('userName');
   refs.userName.textContent = userName;
-  // refs.accountBtn.textContent = userName[0];
+  refs.accountBtn.textContent = userName[0];
 }
 
 //---------------открываем модалку
@@ -178,8 +186,6 @@ refs.popupEnter.addEventListener('click', event => {
     }
 
     state.isOpen = !state.isOpen;
-
-    //state.isOpen = !state.isOpen;
 
     //--------------добавляем объявления юзера
     if (
@@ -213,30 +219,34 @@ refs.popupEnter.addEventListener('click', event => {
       });
     }
 
-    //--------------удаляем объявления и снова отрисовываем!
+    //--------------удаляем объявления и снова отрисовываем
     let deleteEditButton = document.querySelector('.lightbox__content');
-    // let deleteAds = document.querySelector('[data-del="delete-ads"]');
-    // let deleteFav = document.querySelector('[data-del="delete-fav"]');
 
     deleteEditButton.addEventListener('click', event => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
 
-      if (event.target.dataset.del) {
+      if(event.target.dataset.delad) {
+        
         const id = event.target.closest('li').dataset.id;
-        services.deletedProduct(id);
+          services.deletedProduct(id);
+
+        services.getUser(token).then(data => {
+          refs.ads.innerHTML = userAds(data.data.ads);
+        });
       }
 
-      services.getUser(token).then(data => {
-        refs.ads.innerHTML = userAds(data.data.ads);
-      });
-    
-      services.getUserFavorites(token).then(data => {
-        refs.favorites.innerHTML = userFav(data.data.user.favorites);
-      });
+      if(event.target.dataset.delfav) {
+        const id = event.target.closest('li').dataset.id;
+        services.deletedFavoritCardById(id);
 
-        //////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        services.getUserFavorites(token).then(data => {
+          refs.favorites.innerHTML = userFav(data.data.user.favorites);
+        });
+      }
+
+      //------------редактируем
 
       // if(event.target.dataset.edit) {
       //   console.log(event.target)

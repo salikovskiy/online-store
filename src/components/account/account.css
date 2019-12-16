@@ -278,7 +278,7 @@ margin-right: 30px;
     background-color: #fff;
     position: absolute;
     top: 86px;
-    right: 232px;
+    right: 208px;
   }
 
   .popup::before {
@@ -430,7 +430,7 @@ margin-right: 30px;
   }
 
   .popup {
-    right: 422px;
+    right: 314px;
   }
 
   .popup-enter,

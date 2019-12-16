@@ -100,7 +100,7 @@ refs.menu.addEventListener('click', () => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
-
+      
       if(event.target.dataset.delad) {
         
         const id = event.target.closest('li').dataset.id;
@@ -226,7 +226,6 @@ refs.popupEnter.addEventListener('click', event => {
       if (event.target.nodeName !== 'BUTTON') {
         return;
       }
-
       if(event.target.dataset.delad) {
         
         const id = event.target.closest('li').dataset.id;

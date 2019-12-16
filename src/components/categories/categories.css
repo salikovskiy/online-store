@@ -46,7 +46,7 @@
 }
 
 .categories-item-btn-slider {
-  padding: 0 10px;
+  padding: 0 5px;
   width: 100%;
   position: absolute;
   z-index: 1;
@@ -71,7 +71,7 @@
 
 .categories-item-listcards {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
@@ -107,7 +107,7 @@
   }
 
   .categories-item-overlay-title {
-    left: 5px;
+    left: 50px;
   }
 
   .overlayPagination {

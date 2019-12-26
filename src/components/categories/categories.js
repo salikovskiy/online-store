@@ -43,9 +43,9 @@ function drawDivPagination(id) {
 function paint({ categories }) {
   state.arrCategoriesByIdName = categories;
   let string = '';
-  categories.forEach((element, index, arr) => {
-    if (index < arr.length) {
-      string += `<li class="categories-item" data-liCategory="${element._id}">
+  categories.forEach((element, index) => {
+    if (index < 12) {
+      string += `<li class="categories-item data-category="${element._id}">
                 <div class="categories-item-overlay-title">
                 <h2 class="categories-item-title" >${element.category}</h2>
                 <button class="categories-item-btn-showall visually-hidden" data-category="${element._id}">Дивiться всi</button>
@@ -76,18 +76,14 @@ function paint({ categories }) {
       .then(data => {
         visibleBtnCategoriesItem(data, index);
 
-        data.forEach((item, index, arr) => {
-          console.log(index);
-          if (index < arr.length) {
+        data.forEach((item, index) => {
+          if (index < 4) {
             card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
           }
         });
         element.insertAdjacentHTML('beforeend', card);
       })
-      .finally(() => {
-        functionFavoriteDrow();
-        // getCategoryItemInfo();
-      });
+      .finally(() => functionFavoriteDrow());
   });
 }
 
@@ -98,40 +94,83 @@ function paint({ categories }) {
 
 const drawAllItemCardByCategory = e => {
   if (e.target.className === 'categories-item-btn-showall') {
-    services
-      .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
-      .then(data => {
-        let card = '';
-        data.forEach(item => {
-          card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
-        });
-        const nameCategory = state.arrCategoriesByIdName.reduce(
-          (name, elem) => {
-            if (elem._id == e.target.dataset.category) {
-              name = elem.category;
-            }
-            return name;
-          },
-          '',
-        );
-        refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"
-        data-idCategory="${e.target.dataset.category}">
-        <h2 class="category-item-title">${nameCategory}</h2>
-        <ul class="categoryContainer" data-categorycontainer="${e.target.dataset.category}">${card}</ul></li>`;
-        refs.overlayCategoryContainer = document.querySelector(
-          '.overlayCategoryContainer',
-        );
-        refs.overlayCategoryContainer.insertAdjacentHTML(
-          'beforeend',
-          drawDivPagination(e.target.dataset.category),
-        );
-      })
-      .finally(() => {
-        functionFavoriteDrow();
-        console.log(e.target.dataset.category);
-        pagination(Number(e.target.dataset.category));
-      });
+    const idCategoryForDraw = e.target.dataset.category;
+    drawAllItemCardByCategoryUniversal(idCategoryForDraw);
+    // services
+    //   .getAllItemsWithNumberCategories(e.target.dataset.category, 12, 1)
+    //   .then(data => {
+    //     let card = '';
+    //     data.forEach(item => {
+    //       card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+    //     });
+    //     const nameCategory = state.arrCategoriesByIdName.reduce(
+    //       (name, elem) => {
+    //         if (elem._id == e.target.dataset.category) {
+    //           name = elem.category;
+    //         }
+    //         return name;
+    //       },
+    //       '',
+    //     );
+    //     refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"
+    //     data-idCategory="${e.target.dataset.category}">
+    //     <h2 class="category-item-title">${nameCategory}</h2>
+    //     <ul class="categoryContainer" data-categorycontainer="${e.target.dataset.category}">${card}</ul></li>`;
+
+    //     refs.overlayCategoryContainer = document.querySelector(
+    //       '.overlayCategoryContainer',
+    //     );
+    //     refs.overlayCategoryContainer.insertAdjacentHTML(
+    //       'beforeend',
+    //       drawDivPagination(e.target.dataset.category),
+    //     );
+    //   })
+    //   .finally(() => {
+    //     functionFavoriteDrow();
+    //     pagination(Number(e.target.dataset.category));
+    //   });
   }
+};
+
+export const drawAllItemCardByCategoryUniversal = (
+  idCategoryForDraw,
+  limitItemPerPage = 3,
+  curentPage = 1,
+) => {
+  services
+    .getAllItemsWithNumberCategories(
+      idCategoryForDraw,
+      limitItemPerPage,
+      curentPage,
+    )
+    .then(data => {
+      let card = '';
+      data.forEach(item => {
+        card += `<li class="listcards-itemcard">${itemCard(item)}</li>`;
+      });
+      const nameCategory = state.arrCategoriesByIdName.reduce((name, elem) => {
+        if (elem._id == idCategoryForDraw) {
+          name = elem.category;
+        }
+        return name;
+      }, '');
+      refs.contanierCategories.innerHTML = `<li class="overlayCategoryContainer"
+    data-idCategory="${idCategoryForDraw}">
+    <h2 class="category-item-title">${nameCategory}</h2>
+    <ul class="categoryContainer" data-categorycontainer="${idCategoryForDraw}">${card}</ul></li>`;
+
+      refs.overlayCategoryContainer = document.querySelector(
+        '.overlayCategoryContainer',
+      );
+      refs.overlayCategoryContainer.insertAdjacentHTML(
+        'beforeend',
+        drawDivPagination(idCategoryForDraw),
+      );
+    })
+    .finally(() => {
+      functionFavoriteDrow();
+      pagination(Number(idCategoryForDraw));
+    });
 };
 
 window.addEventListener('click', drawAllItemCardByCategory);

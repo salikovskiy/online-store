@@ -30,7 +30,7 @@ export default async function pagination(value) {
     totalPages: null,
     categoryArr: [],
     searchArr: [],
-    limit: 3,
+    limit: 12,
     refs: {
       container: null,
       placeForCards: null,

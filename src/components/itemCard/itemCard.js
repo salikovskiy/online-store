@@ -9,7 +9,7 @@ export default item => {
           : item.images
       }'alt=${item.title} class='itemImage'/>
     <div class="overlay" data-id="${item._id}" key="${item._id}">
-      <div class="favorite"></div>
+      <div class="favorite"><button data-fav="key" class="btn-fav"></button></div>
       <div class="open"></div>
     </div>
     <div class="itemInfo" data-id="${item._id}" key="${item._id}">
@@ -19,6 +19,7 @@ export default item => {
     </div>`;
   return itemsCard;
 };
+
 // const favoriteAdd = document.querySelector('.favorite');
 // favoriteAdd.addEventListener('click', e => {
 //   e.target.classList.toggle('addedToFavorite');

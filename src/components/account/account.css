@@ -81,6 +81,10 @@ ul {
   outline: none;
 }
 
+.lightbox__button i {
+  font-size: 24px;
+}
+
 .lightbox__button:hover,
 .lightbox__button:focus {
   background-color: rgba(0, 0, 0, 0.5);
@@ -89,6 +93,7 @@ ul {
 .lightbox__wrapper {
   padding: 20px 0 20px;
   box-shadow: 0 0 3px #363738;
+  cursor: pointer;
 }
 
 .lightbox__title {
@@ -127,8 +132,8 @@ ul {
   background-position: center;
 }
 
-.ads,
-.favorites {
+.ads_acc,
+.favorites_acc {
   padding: 0 20px 0;
 }
 
@@ -230,12 +235,10 @@ margin-right: 30px;
 .popup {
   z-index: 1000;
   display: none;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
-  .account_btn-wrapper {
-    display: flex;
-  }
 
   .account_btn-name {
     line-height: 40px;
@@ -265,13 +268,17 @@ margin-right: 30px;
     outline: none;
   }
 
+  .account_btn-wrapper {
+  display: flex;
+  }
+
   .popup {
     width: 250px;
     height: 140px;
     background-color: #fff;
     position: absolute;
     top: 86px;
-    right: 232px;
+    right: 208px;
   }
 
   .popup::before {
@@ -332,10 +339,12 @@ margin-right: 30px;
 
   .popup-exit-text:hover {
     width: 50px;
-    border-bottom: solid 3px grey;
+    border-bottom: solid 3px #ff6b08;
   }
 
   .lightbox__button {
+    width: 36px;
+    height: 36px;;
     right: 30px;
     
   }
@@ -417,8 +426,7 @@ margin-right: 30px;
   }
 
   .account_btn:hover {
-    border: solid 3px grey;
-
+    border: solid 3px #ff6b08;
   }
 
   .popup {
@@ -434,8 +442,13 @@ margin-right: 30px;
     max-width: 1000px;
   }
 
+  .lightbox__button {
+    width: 40px;
+    height: 40px;
+  }
+
   .lightbox__button i {
-    font-size: 46px;
+    font-size: 40px;
   }
 
   .ads_item-photo {

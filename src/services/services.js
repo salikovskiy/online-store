@@ -1,10 +1,20 @@
 import axios from 'axios';
 import PNotify_1 from 'pnotify/dist/es/PNotify';
 
-axios.defaults.baseURL = 'https://dash-ads.goit.co.ua/api/v1';
+axios.defaults.baseURL = 'https://dashads.goit.co.ua/api/v1';
 
 export default {
   page: 1,
+  searchAllItems(searchItem, homePage) {
+    return axios
+      .get(`/ads/all?search=${searchItem}&limit=12&page=${homePage}`)
+      .then(data => data.data.ads);
+  },
+  searchInCategory(numberCategories, homePage, searchItem) {
+    return axios.get(
+      `/ads/all?category=${numberCategories}&limit=12&page=${homePage}&search=${searchItem}`,
+    );
+  },
   async getAllProduct() {
     try {
       const data = await axios.get(`/ads/all`);
